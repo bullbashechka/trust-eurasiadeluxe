@@ -8,7 +8,7 @@ from mathutils import Vector
 
 ROOT = Path(__file__).resolve().parent
 ROOT.mkdir(exist_ok=True)
-(ROOT / 'renders').mkdir(exist_ok=True)
+(ROOT.parent / 'renders').mkdir(exist_ok=True)
 random.seed(39)
 bpy.ops.object.select_all(action='SELECT')
 bpy.ops.object.delete(use_global=False)
@@ -407,7 +407,7 @@ for layer in walk.animation_data.action.layers:
                     keyframe.interpolation='LINEAR'
 scene.frame_end=21+(len(route)-1)*75
 scene.render.fps=30
-refpath=ROOT.parent/'source-plan.png'
+refpath=ROOT.parent/'plans'/'source-plan.png'
 im=bpy.data.images.load(str(refpath))
 im.pack()
 o=bpy.data.objects.new('Original 39.87 plan — packed reference',None)
@@ -460,15 +460,15 @@ for screen in bpy.data.screens:
             a.spaces.active.overlay.show_extras=False
             a.spaces.active.clip_end=200
 CEIL.hide_viewport=True
-scene.render.filepath=str(ROOT/'renders'/'01-hallway-entry.png')
+scene.render.filepath=str(ROOT.parent/'renders'/'01-hallway-entry.png')
 bpy.ops.wm.save_as_mainfile(filepath=str(ROOT/'apartment-39-87.blend'),compress=True)
-manifest={'apartment_label_m2':39.87,'source_plan':'../source-plan.png','scale_m_per_pixel':S,'pixel_origin':[220,956],'ceiling_m':H,'rooms':areas,'shots':[{'file':key+'.png','label':label,'camera':key+' | '+label,'position_m':loc,'look_at_m':target,'lens_mm':lens} for key,label,loc,target,lens in shots],'overview_cameras':[{'file':c.name.split(' | ')[0]+'.png','camera':c.name,'position_m':list(c.location),'ortho_scale':c.data.ortho_scale} for c in [top,overview]],'route':[{'frame':1+i*75,'label':label,'position_m':loc,'look_at_m':target} for i,(label,loc,target) in enumerate(route)],'animation':{'fps':30,'frame_end':scene.frame_end,'position_interpolation':'LINEAR'}}
+manifest={'apartment_label_m2':39.87,'source_plan':'../plans/source-plan.png','scale_m_per_pixel':S,'pixel_origin':[220,956],'ceiling_m':H,'rooms':areas,'shots':[{'file':key+'.png','label':label,'camera':key+' | '+label,'position_m':loc,'look_at_m':target,'lens_mm':lens} for key,label,loc,target,lens in shots],'overview_cameras':[{'file':c.name.split(' | ')[0]+'.png','camera':c.name,'position_m':list(c.location),'ortho_scale':c.data.ortho_scale} for c in [top,overview]],'route':[{'frame':1+i*75,'label':label,'position_m':loc,'look_at_m':target} for i,(label,loc,target) in enumerate(route)],'animation':{'fps':30,'frame_end':scene.frame_end,'position_interpolation':'LINEAR'}}
 (ROOT/'scene_manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2))
 print('SCENE_SAVED',len(bpy.data.objects),'objects',flush=True)
 args=sys.argv[sys.argv.index('--')+1:] if '--' in sys.argv else []
 if '--no-render' not in args:
     preview='--preview' in args
-    render_dir=ROOT/('previews' if preview else 'renders')
+    render_dir=ROOT.parent/('renders/previews' if preview else 'renders')
     render_dir.mkdir(exist_ok=True)
     scene.render.resolution_percentage=50 if preview else 100
     scene.cycles.samples=16 if preview else 48

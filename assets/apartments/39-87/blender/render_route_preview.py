@@ -21,8 +21,8 @@ try:
     scene.cycles.device = 'GPU'
 except Exception:
     scene.cycles.device = 'CPU'
-folder = ROOT / 'route-preview'
-folder.mkdir(exist_ok=True)
+folder = ROOT.parent / 'walkthrough' / 'preview'
+folder.mkdir(parents=True, exist_ok=True)
 manifest = json.loads((ROOT / 'scene_manifest.json').read_text())
 for i, waypoint in enumerate(manifest['route']):
     scene.frame_set(waypoint['frame'])

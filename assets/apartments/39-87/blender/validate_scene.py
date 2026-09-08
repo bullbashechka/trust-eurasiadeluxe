@@ -64,5 +64,6 @@ for name, a, b, expected_open in [
     connections.append({'connection':name,'passed':is_open == expected_open,'blocking_object':None if is_open else owners[hit[2]]})
 report = {'blender_version':bpy.app.version_string,'objects':len(scene.objects),'ceiling_m':scene['Ceiling_height_m'],'route_frames_checked':scene.frame_end,'camera_radius_checked_m':.10,'minimum_camera_surface_clearance':{'distance_m':round(minimum[0],4),'frame':minimum[1],'object':minimum[2]},'route_issues':collisions,'interior_cameras':shot_checks,'connections':connections,'packed_source_plan':any(i.packed_file for i in bpy.data.images),'external_images':[i.filepath for i in bpy.data.images if i.source == 'FILE' and not i.packed_file]}
 report['passed'] = not collisions and all(x['clear_of_near_clip'] for x in shot_checks) and all(x['passed'] for x in connections)
-(ROOT / 'validation.json').write_text(json.dumps(report,ensure_ascii=False,indent=2))
+(ROOT.parent / 'docs').mkdir(exist_ok=True)
+(ROOT.parent / 'docs' / 'validation.json').write_text(json.dumps(report,ensure_ascii=False,indent=2))
 print(json.dumps(report,ensure_ascii=False,indent=2),flush=True)

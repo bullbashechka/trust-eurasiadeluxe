@@ -6,7 +6,8 @@ This repository holds Eurasia De Luxe apartment visualizations and plans for a f
 - `PLAN.md` records scope, source information, assumptions, and production steps.
 - `DESIGN_SYSTEM.md` defines the selected warm modern interior direction.
 - `assets/apartments/{36-67,39-87,79-79}/` groups assets by apartment area.
-- `assets/apartments/36-67/blender/` contains Python scene scripts, the editable `.blend`, `scene_manifest.json`, rendered images, and supporting documentation.
+- `assets/apartments/{36-67,39-87}/` separates `plans/`, `photos/`, `renders/`, `blender/`, `docs/`, and `archives/`; each apartment README links to its contents.
+- `blender/` contains Python scene scripts, the editable `.blend`, and `scene_manifest.json`. The 39-87 apartment also has `gallery/` and `walkthrough/`.
 - `assets/brand/`, `assets/media/`, and `refs/` hold branding, media, and reference material.
 
 There is currently no website source tree, package manifest, or automated test directory.

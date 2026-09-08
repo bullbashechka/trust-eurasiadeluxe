@@ -8,7 +8,7 @@ from mathutils import Vector
 
 ROOT = Path(__file__).resolve().parent
 ROOT.mkdir(exist_ok=True)
-(ROOT / 'renders').mkdir(exist_ok=True)
+(ROOT.parent / 'renders').mkdir(exist_ok=True)
 random.seed(36)
 bpy.ops.object.select_all(action='SELECT')
 bpy.ops.object.delete(use_global=False)
@@ -359,7 +359,7 @@ for i,(loc,target) in enumerate(route):
 scene.frame_end=31+(len(route)-1)*90
 scene.render.fps=30
 # Source reference plane is an image empty, visible only when explicitly enabled.
-refpath=ROOT.parent/'source-plan (фон удален).png'
+refpath=ROOT.parent/'plans'/'source-plan (фон удален).png'
 im=bpy.data.images.load(str(refpath));im.pack()
 o=bpy.data.objects.new('Original apartment plan — packed image',None);REF.objects.link(o);o.empty_display_type='IMAGE';o.data=im;o.empty_display_size=im.size[0]*S
 o.location=((im.size[0]/2-198)*S,(934-im.size[1]/2)*S,-.17)
@@ -397,7 +397,7 @@ for screen in bpy.data.screens:
             a.spaces.active.overlay.show_extras=False
             a.spaces.active.clip_end=200
 CEIL.hide_viewport=True
-scene.render.filepath=str(ROOT/'renders'/'01-hallway-entry.png')
+scene.render.filepath=str(ROOT.parent/'renders'/'01-hallway-entry.png')
 bpy.ops.wm.save_as_mainfile(filepath=str(ROOT/'apartment-36-67.blend'),compress=True)
 (ROOT/'scene_manifest.json').write_text(json.dumps({'scale_m_per_pixel':S,'ceiling_m':H,'rooms':areas,'shots':[{'file':key+'.png','label':label,'camera':key+' | '+label,'position_m':loc,'look_at_m':target,'lens_mm':lens} for key,label,loc,target,lens in shots]},ensure_ascii=False,indent=2))
 print('SCENE_SAVED',len(bpy.data.objects),'objects',flush=True)
@@ -407,7 +407,7 @@ if '--no-render' not in args:
         if '--preview' in args:
             scene.render.resolution_percentage=50;scene.cycles.samples=16
         scene.camera=bpy.data.objects[key+' | '+label]
-        scene.render.filepath=str(ROOT/'renders'/(key+'.png'))
+        scene.render.filepath=str(ROOT.parent/'renders'/(key+'.png'))
         print('RENDER_START',key,flush=True);bpy.ops.render.render(write_still=True)
     CEIL.hide_render=True
     for o in FURN.objects:
@@ -416,6 +416,6 @@ if '--no-render' not in args:
     for c,key in [(top,'00-plan-top'),(overview,'00-apartment-overview')]:
         scene.camera=c;scene.render.resolution_x=1600;scene.render.resolution_y=1500
         area('Overview studio fill',(3.5,1.5,9),(3.5,1.5,0),950,7,(1,.96,.90))
-        scene.render.filepath=str(ROOT/'renders'/(key+'.png'))
+        scene.render.filepath=str(ROOT.parent/'renders'/(key+'.png'))
         bpy.ops.render.render(write_still=True)
     print('ALL_RENDERS_COMPLETE',flush=True)

@@ -1,0 +1,180 @@
+{
+  "date": "2026-09-08",
+  "apartment": "79-79",
+  "tool": "built-in image_gen",
+  "design_system": "../../../../DESIGN_SYSTEM.md",
+  "label": "Демонстрационная визуализация",
+  "validation": "Visual review against input renders and paired views; targeted corrections to corridor rug, overview decor and kitchen sink. No metric geometry verification; generated images are not dimensioned drawings.",
+  "images": [
+    {
+      "file": "01-hallway-entry.png",
+      "source": "../blender/renders/01-hallway-entry.png",
+      "width": 1512,
+      "height": 1040,
+      "bytes": 1699306,
+      "sha256": "1a0d18f66b012c3bdb3450fe36f4940c51362b0a053efd24c11747cd7b773d69",
+      "source_sha256": "5b825bc0ff89cba00022a186df48f7fd79181ff75194f3f94660cf32e6799ce9",
+      "label": "Демонстрационная визуализация"
+    },
+    {
+      "file": "02-hallway-reverse.png",
+      "source": "../blender/renders/02-hallway-reverse.png",
+      "width": 1512,
+      "height": 1040,
+      "bytes": 2111612,
+      "sha256": "9659ce578c575e68d2480fe972d22b7dfdde595f7abd44b5882be6d37664faa0",
+      "source_sha256": "484e6d9507638068755295c62809227ba722151efacc4476a2e9e0e44f49ae45",
+      "label": "Демонстрационная визуализация"
+    },
+    {
+      "file": "03-corridor-entry.png",
+      "source": "../blender/renders/03-corridor-entry.png",
+      "width": 1513,
+      "height": 1040,
+      "bytes": 1538320,
+      "sha256": "773425163c60f22e664bd8fb41fdf077d341527cdcd30e186d0925e074816147",
+      "source_sha256": "2f39b197a6d27e4f0e31bb9ecee953ed0be8bd1ce22aa560d10a5f0bf083ca94",
+      "label": "Демонстрационная визуализация"
+    },
+    {
+      "file": "04-corridor-reverse.png",
+      "source": "../blender/renders/04-corridor-reverse.png",
+      "width": 1513,
+      "height": 1040,
+      "bytes": 1919541,
+      "sha256": "ce56e0f0b5f9a29e9ba0450ac66c4a4fb439fcb3d20231774892bc820873bd17",
+      "source_sha256": "8af4d7b401ca2a53e0133c937cd491fda8902b28f5dbf220b8da91a44ab9d02f",
+      "label": "Демонстрационная визуализация"
+    },
+    {
+      "file": "05-living-entry.png",
+      "source": "../blender/renders/05-living-entry.png",
+      "width": 1512,
+      "height": 1040,
+      "bytes": 2144686,
+      "sha256": "9c14ccb97212673ff793c1d5f63b1ec05e42f1c2165318d4cb6fa43252ef1504",
+      "source_sha256": "dfea3009d5b0238a888460750967634b0485aea2b3a862ae6af61dfa76bea8e3",
+      "label": "Демонстрационная визуализация"
+    },
+    {
+      "file": "06-living-reverse.png",
+      "source": "../blender/renders/06-living-reverse.png",
+      "width": 1512,
+      "height": 1040,
+      "bytes": 1874771,
+      "sha256": "c09940cf92cb142d0bef97a6a4ef13dc362728418e61776f0c6ccbe82b100a18",
+      "source_sha256": "16c272d0e635fdd7289965a318973f6ea2587d089d4fbce2e0d2127f0f57fcb4",
+      "label": "Демонстрационная визуализация"
+    },
+    {
+      "file": "07-kitchen-entry.png",
+      "source": "../blender/renders/07-kitchen-entry.png",
+      "width": 1512,
+      "height": 1040,
+      "bytes": 1974265,
+      "sha256": "d9f27bc7aaaf4141ed3bbdbd3069d897e4a1ca345d777c7dd9e1486b40732fa0",
+      "source_sha256": "42de5c35d2371b7e034a9a9a675ce3cd64b43370d53fd8b63683d7160d5bb4b7",
+      "label": "Демонстрационная визуализация"
+    },
+    {
+      "file": "08-kitchen-reverse.png",
+      "source": "../blender/renders/08-kitchen-reverse.png",
+      "width": 1512,
+      "height": 1040,
+      "bytes": 1932919,
+      "sha256": "b99cc20af7aeb40745bd5a35820acca386d5af5fce5c8e1b5475b0b3d975de0a",
+      "source_sha256": "b5fbc9e0ee1ea5cf13bb6eacd21d3e1f195aa50965601bbf0ef6847f6964123a",
+      "label": "Демонстрационная визуализация"
+    },
+    {
+      "file": "09-bedroom-entry.png",
+      "source": "../blender/renders/09-bedroom-entry.png",
+      "width": 1512,
+      "height": 1040,
+      "bytes": 2224018,
+      "sha256": "29eba9d280889c1ff25d95f7e98dc81aea4558cfb0530b516b5cdb4fdf20de79",
+      "source_sha256": "97b56aafb1cfd0f435688ecd7b9050a1bef10ad6679e1035c300f06188c14ef1",
+      "label": "Демонстрационная визуализация"
+    },
+    {
+      "file": "10-bedroom-reverse.png",
+      "source": "../blender/renders/10-bedroom-reverse.png",
+      "width": 1512,
+      "height": 1040,
+      "bytes": 1885582,
+      "sha256": "b4361c909429e6e00587960b67c6932a3cf5872a93f75daaa3b62c81ecf0e6e1",
+      "source_sha256": "fc16769519a50ff89fcbc30c44c2dce5f2b9403dbba5105b292b2db7c0f6d06c",
+      "label": "Демонстрационная визуализация"
+    },
+    {
+      "file": "11-small-bathroom-entry.png",
+      "source": "../blender/renders/11-small-bathroom-entry.png",
+      "width": 1512,
+      "height": 1040,
+      "bytes": 2009612,
+      "sha256": "44f40b728275f3b79f73da179549d4a6c5718f25c94ec5d11734967e64a25d0c",
+      "source_sha256": "f997e9a0a06e153719cbf5245abb26ef80cba437ad7e33d876d77178494529aa",
+      "label": "Демонстрационная визуализация"
+    },
+    {
+      "file": "12-small-bathroom-reverse.png",
+      "source": "../blender/renders/12-small-bathroom-reverse.png",
+      "width": 1512,
+      "height": 1040,
+      "bytes": 2177881,
+      "sha256": "ca8c6e7486d2fd17a6fc0ebdeebed212eb9cc16c7797928fc57693f6c2d15cdf",
+      "source_sha256": "a6145d78a4a98a90b96649665c53cd354b5549ac246956b0e597cb6ad3e40c26",
+      "label": "Демонстрационная визуализация"
+    },
+    {
+      "file": "13-large-bathroom-entry.png",
+      "source": "../blender/renders/13-large-bathroom-entry.png",
+      "width": 1512,
+      "height": 1040,
+      "bytes": 2071559,
+      "sha256": "36370fb50351d2878152b3ea92862f3d8d354d6eeb0119f252783e39d71101da",
+      "source_sha256": "bd2350aa4453950c575b77e79356409fbf3c58ba9262bf7f5c3b001a64d17185",
+      "label": "Демонстрационная визуализация"
+    },
+    {
+      "file": "14-large-bathroom-reverse.png",
+      "source": "../blender/renders/14-large-bathroom-reverse.png",
+      "width": 1512,
+      "height": 1040,
+      "bytes": 2132380,
+      "sha256": "814efa9b69570665d5f5481de5b23f0b22b9be9cec36b05640604b750f09175a",
+      "source_sha256": "2cf20a25308f107d0f4190933edc1f89cfb5936eaec4ba4ad6f8926f9a0a26ea",
+      "label": "Демонстрационная визуализация"
+    },
+    {
+      "file": "15-loggia.png",
+      "source": "../blender/renders/15-loggia.png",
+      "width": 1512,
+      "height": 1040,
+      "bytes": 1989332,
+      "sha256": "41e8a0879a2067c989ffa40a6f08367e9fcf6fc3d3d40de492330d8b3769aa24",
+      "source_sha256": "30a474960240f6c3c4ee4431a58a3c59ba2b1d7cbfaaa167a92b28d690502ec9",
+      "label": "Демонстрационная визуализация"
+    },
+    {
+      "file": "16-plan-top.png",
+      "source": "../blender/renders/16-plan-top.png",
+      "width": 1512,
+      "height": 1040,
+      "bytes": 1532382,
+      "sha256": "a4dd56e32e9d4fd97e6c95ac230a6accae65a9d54cbdc638b1f609e6a1677e22",
+      "source_sha256": "9234de8580445a6827a7909381a11d754c8decd84859867e7e192ddac0dec03b",
+      "label": "Демонстрационная визуализация"
+    },
+    {
+      "file": "17-apartment-overview.png",
+      "source": "../blender/renders/17-apartment-overview.png",
+      "width": 1512,
+      "height": 1040,
+      "bytes": 1541620,
+      "sha256": "9589a85e95c379701df2ee31783ae0c6d00ddd88899a4bc32535228f7e8be1cf",
+      "source_sha256": "882705c1c51d6195ec4140aea86f102ee733ed1d99621d59fe9ef374989f2161",
+      "label": "Демонстрационная визуализация"
+    }
+  ]
+}

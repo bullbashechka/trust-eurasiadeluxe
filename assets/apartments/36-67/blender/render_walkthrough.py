@@ -2,6 +2,7 @@
 import bpy, time, sys
 from pathlib import Path
 ROOT=Path(__file__).resolve().parent
+(ROOT.parent/'walkthrough'/'video').mkdir(parents=True, exist_ok=True)
 s=bpy.context.scene
 benchmark='--benchmark' in sys.argv
 s.render.image_settings.media_type='VIDEO'
@@ -14,9 +15,9 @@ s.render.ffmpeg.audio_codec='NONE'
 s.render.ffmpeg.gopsize=48
 s.render.ffmpeg.use_max_b_frames=True
 s.render.ffmpeg.max_b_frames=2
-s.render.filepath=str(ROOT/'video'/('benchmark.mp4' if benchmark else 'apartment-36-67-walkthrough.mp4'))
+s.render.filepath=str(ROOT.parent/'walkthrough'/'video'/('benchmark.mp4' if benchmark else 'apartment-36-67-walkthrough.mp4'))
 if benchmark:s.frame_end=24
-else:bpy.ops.wm.save_as_mainfile(filepath=str(ROOT/'video'/'apartment-walkthrough.blend'),compress=True)
+else:bpy.ops.wm.save_as_mainfile(filepath=str(ROOT.parent/'walkthrough'/'video'/'apartment-walkthrough.blend'),compress=True)
 started=time.time()
 def progress(scene):
     if scene.frame_current%24==0:

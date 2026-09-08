@@ -6,7 +6,7 @@ from pathlib import Path
 from mathutils import Vector
 
 ROOT=Path(__file__).resolve().parent
-OUT=ROOT/'video';OUT.mkdir(exist_ok=True)
+OUT=ROOT.parent/'walkthrough'/'video';OUT.mkdir(parents=True, exist_ok=True)
 scene=bpy.context.scene
 FPS=24
 cam=bpy.data.objects['10-walkthrough | Маршрут по квартире']

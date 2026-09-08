@@ -1,6 +1,6 @@
 {
   "apartment_label_m2": 39.87,
-  "source_plan": "../source-plan.png",
+  "source_plan": "../plans/source-plan.png",
   "scale_m_per_pixel": 0.018060898432563324,
   "pixel_origin": [
     220,
