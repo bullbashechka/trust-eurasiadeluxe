@@ -1,0 +1,172 @@
+{
+  "scale_m_per_pixel": 0.017341721198244626,
+  "ceiling_m": 3.0,
+  "rooms": {
+    "Hallway": {
+      "source_area_m2": 5.2,
+      "traced_clear_floor_m2": 5.0
+    },
+    "Bathroom": {
+      "source_area_m2": 4.09,
+      "traced_clear_floor_m2": 4.09
+    },
+    "Kitchen": {
+      "source_area_m2": 9.19,
+      "traced_clear_floor_m2": 8.87
+    },
+    "Living room": {
+      "source_area_m2": 16.36,
+      "traced_clear_floor_m2": 15.52
+    },
+    "Loggia": {
+      "source_area_m2": 3.67,
+      "traced_clear_floor_m2": 3.67
+    }
+  },
+  "shots": [
+    {
+      "file": "01-hallway-entry.png",
+      "label": "Прихожая — от входа",
+      "camera": "01-hallway-entry | Прихожая — от входа",
+      "position_m": [
+        2.63,
+        4.94,
+        1.62
+      ],
+      "look_at_m": [
+        2.92,
+        3.1,
+        1.35
+      ],
+      "lens_mm": 18
+    },
+    {
+      "file": "02-bathroom.png",
+      "label": "Санузел — от двери",
+      "camera": "02-bathroom | Санузел — от двери",
+      "position_m": [
+        1.57,
+        3.56,
+        1.68
+      ],
+      "look_at_m": [
+        0.6,
+        4.05,
+        1.13
+      ],
+      "lens_mm": 16
+    },
+    {
+      "file": "03-living-room.png",
+      "label": "Гостиная — общий вид",
+      "camera": "03-living-room | Гостиная — общий вид",
+      "position_m": [
+        3.93,
+        3.25,
+        1.62
+      ],
+      "look_at_m": [
+        5.58,
+        1.1,
+        1.26
+      ],
+      "lens_mm": 21
+    },
+    {
+      "file": "04-kitchen.png",
+      "label": "Кухня — к лоджии",
+      "camera": "04-kitchen | Кухня — к лоджии",
+      "position_m": [
+        2.67,
+        2.91,
+        1.61
+      ],
+      "look_at_m": [
+        1.32,
+        0.75,
+        1.27
+      ],
+      "lens_mm": 19
+    },
+    {
+      "file": "05-loggia.png",
+      "label": "Лоджия — общий вид",
+      "camera": "05-loggia | Лоджия — общий вид",
+      "position_m": [
+        0.48,
+        -0.73,
+        1.56
+      ],
+      "look_at_m": [
+        2.76,
+        -1.13,
+        1.2
+      ],
+      "lens_mm": 19
+    },
+    {
+      "file": "06-living-reverse.png",
+      "label": "Гостиная — обратный вид",
+      "camera": "06-living-reverse | Гостиная — обратный вид",
+      "position_m": [
+        6.76,
+        0.2,
+        1.6
+      ],
+      "look_at_m": [
+        4.24,
+        2.85,
+        1.29
+      ],
+      "lens_mm": 21
+    },
+    {
+      "file": "07-kitchen-reverse.png",
+      "label": "Кухня — к прихожей",
+      "camera": "07-kitchen-reverse | Кухня — к прихожей",
+      "position_m": [
+        2.79,
+        0.12,
+        1.6
+      ],
+      "look_at_m": [
+        1.14,
+        2.32,
+        1.28
+      ],
+      "lens_mm": 19
+    },
+    {
+      "file": "08-hallway-reverse.png",
+      "label": "Прихожая — к входной двери",
+      "camera": "08-hallway-reverse | Прихожая — к входной двери",
+      "position_m": [
+        2.6,
+        3.24,
+        1.62
+      ],
+      "look_at_m": [
+        3.2,
+        4.85,
+        1.35
+      ],
+      "lens_mm": 18
+    },
+    {
+      "file": "09-bathroom-reverse.png",
+      "label": "Санузел — техника и унитаз",
+      "camera": "09-bathroom-reverse | Санузел — техника и унитаз",
+      "position_m": [
+        1.53,
+        4.33,
+        1.65
+      ],
+      "look_at_m": [
+        0.76,
+        2.94,
+        0.98
+      ],
+      "lens_mm": 16
+    }
+  ]
+}
