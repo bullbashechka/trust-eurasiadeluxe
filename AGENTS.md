@@ -10,7 +10,7 @@ This repository holds Eurasia De Luxe apartment visualizations and plans for a f
 - `blender/` contains Python scene scripts, the editable `.blend`, and `scene_manifest.json`. The 39-87 apartment also has `gallery/` and `walkthrough/`.
 - `assets/brand/`, `assets/media/`, and `refs/` hold branding, media, and reference material.
 
-There is currently no website source tree, package manifest, or automated test directory.
+The website lives in `website/` (Astro, TypeScript, React and GSAP). Use root `bun run dev`, `bun run check`, `bun run test`, and `bun run build`. See `website/README.md` for reproducible media preparation and environment variables. Website source data lives in `website/src/data/`; generated `website/public/media/` and `website/dist/` are not tracked.
 
 ## Build, Test, and Development Commands
 
@@ -34,7 +34,7 @@ Keep apartment directory names consistent, such as `36-67`. Use numbered, descri
 
 ## Testing Guidelines
 
-There is no automated framework or coverage threshold. For scene changes, rebuild and inspect preview renders against the source plan. Check openings, room connections, ceiling visibility, camera clipping, and consistent materials. For animation changes, inspect transitions and confirm the camera passes through doorways. Record validation performed in the pull request.
+Website tests run with `bun run test`; build contracts run with `bun run --cwd website test:build` after building. There is no automated framework or coverage threshold for Blender scenes. For scene changes, rebuild and inspect preview renders against the source plan. Check openings, room connections, ceiling visibility, camera clipping, and consistent materials. For animation changes, inspect transitions and confirm the camera passes through doorways. Record validation performed in the pull request.
 
 ## Commit & Pull Request Guidelines
 

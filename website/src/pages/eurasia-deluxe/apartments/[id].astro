@@ -1,0 +1,21 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Contact from '../../../components/Contact.astro';
+import ApartmentCards from '../../../components/ApartmentCards.astro';
+import ApartmentTour from '../../../components/ApartmentTour';
+import { apartments } from '../../../data/apartments';
+export function getStaticPaths() { return apartments.map(apartment => ({params:{id:apartment.id},props:{apartment}})); }
+const {apartment:a} = Astro.props;
+---
+<Layout title={`${a.rooms}-комнатная квартира ${a.area} м² — Eurasia De Luxe`} description={a.description} image={a.cover}>
+  <section class="apartment-hero section"><div class="breadcrumb"><a href="/">Траст Строй</a><span>/</span><a href="/eurasia-deluxe/#apartments">Eurasia De Luxe</a><span>/</span><span>{a.area} м²</span></div>
+    <div class="apartment-hero-content"><div><p class="eyebrow">{a.rooms}-КОМНАТНАЯ КВАРТИРА · EURASIA DE LUXE</p><h1>{a.area}<span> м²</span></h1><p class="apartment-description">{a.description}</p><div class="apartment-features">{a.features.map(feature=><span>{feature}</span>)}</div><div class="hero-actions"><a href="#tour" class="button dark">Прогуляться по квартире <span>↓</span></a><a href="#contact" class="text-link">Уточнить стоимость ↗</a></div></div>
+    <figure class="hero-plan"><img src={a.plan} alt={`Меблированный вид сверху квартиры ${a.area} м²`} width="800" height="750" fetchpriority="high"/><figcaption>Вариант интерьера · вид сверху</figcaption></figure></div>
+  </section>
+  <section class="tour-heading section"><p class="eyebrow">ИССЛЕДУЙТЕ. ПРЕДСТАВЛЯЙТЕ. ПОЧУВСТВУЙТЕ.</p><h2>{a.title}</h2></section>
+  <ApartmentTour scenes={a.scenes} area={a.area} client:load />
+  <noscript><style>.tour-section{display:none!important}</style><div class="tour-no-js"><p>Для экскурсии с прокруткой включите JavaScript. Фотографии доступны ниже.</p>{a.scenes.map(scene=><figure><img src={scene.poster} alt={scene.room} loading="lazy" width="1736" height="1192"/><figcaption>{scene.room} — {scene.caption}</figcaption></figure>)}</div></noscript>
+  <p class="tour-bottom-note">Вариант интерьера. Расстановка мебели и отделка показаны для знакомства с пространством.</p>
+  <Contact area={a.area} />
+  <section class="section"><div class="section-heading"><div><p class="eyebrow">ПРОДОЛЖИТЬ ЗНАКОМСТВО</p><h2>Другой взгляд<br/>на <em>ваш дом.</em></h2></div><a class="text-link" href="/eurasia-deluxe/#apartments">Все планировки ↗</a></div><ApartmentCards exclude={a.id}/></section>
+</Layout>

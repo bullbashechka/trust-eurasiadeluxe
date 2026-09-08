@@ -1,0 +1,52 @@
+---
+import '../styles/global.css';
+import '@fontsource-variable/manrope';
+import '@fontsource/cormorant-garamond/cyrillic-400.css';
+import '@fontsource/cormorant-garamond/latin-400.css';
+import '@fontsource/cormorant-garamond/cyrillic-400-italic.css';
+import '@fontsource/cormorant-garamond/latin-400-italic.css';
+interface Props { title: string; description?: string; image?: string; }
+const {title, description = 'Eurasia De Luxe. Выберите планировку и познакомьтесь с вариантами интерьера на виртуальной прогулке по квартире.', image = '/media/social.webp'} = Astro.props;
+const origin = Astro.site;
+const canonical = origin ? new URL(Astro.url.pathname, origin).href : undefined;
+const socialImage = origin ? new URL(image, origin).href : undefined;
+---
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f5f3ed" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    {canonical && <link rel="canonical" href={canonical} />}
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ru_RU" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {canonical && <meta property="og:url" content={canonical} />}
+    {socialImage && <meta property="og:image" content={socialImage} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {socialImage && <meta name="twitter:image" content={socialImage} />}
+  </head>
+  <body>
+    <a href="#main" class="skip-link">Перейти к содержимому</a>
+    <header class="header">
+      <a href="/" class="wordmark" aria-label="Траст Строй — главная"><span class="brand-mark" aria-hidden="true">Т</span><span>ТРАСТ СТРОЙ<small>ПРОСТРАНСТВО ДЛЯ ЖИЗНИ</small></span></a>
+      <nav aria-label="Основная навигация">
+        <a href="/eurasia-deluxe/">Eurasia De Luxe</a>
+        <a href="/eurasia-deluxe/#apartments">Планировки</a>
+      </nav>
+      <a class="header-contact" href="#contact">Связаться <span aria-hidden="true">↗</span></a>
+    </header>
+    <main id="main"><slot /></main>
+    <footer class="footer"><a class="wordmark" href="/">ТРАСТ СТРОЙ</a><p>Демонстрационные визуализации интерьеров.<br/>Наличие и стоимость квартир уточняйте у застройщика.</p><a href="/eurasia-deluxe/#apartments">Выбрать планировку ↗</a></footer>
+    <div class="cloud-transition" aria-hidden="true"><div class="mist mist-one"></div><div class="mist mist-two"></div><div class="mist mist-three"></div><span>EURASIA <i>DE LUXE</i></span></div>
+    <script>
+      import '../scripts/navigation';
+    </script>
+  </body>
+</html>

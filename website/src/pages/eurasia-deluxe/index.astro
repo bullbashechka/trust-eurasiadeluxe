@@ -1,0 +1,17 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ApartmentCards from '../../components/ApartmentCards.astro';
+import Contact from '../../components/Contact.astro';
+---
+<Layout title="Eurasia De Luxe — найдите своё пространство" image="/media/building.webp">
+  <section class="project-intro section">
+    <div><div class="breadcrumb"><a href="/">Траст Строй</a><span>/</span><span>Eurasia De Luxe</span></div><p class="eyebrow">ЖИЛОЙ КОМПЛЕКС</p><h1>Eurasia<br/><em>De Luxe</em></h1></div>
+    <div class="intro-copy"><p>Дом начинается с ощущения. Со света в гостиной, любимого места у окна и пространства, которое становится вашим.</p><a href="#apartments" class="button dark">Найти свою планировку <span>↓</span></a></div>
+  </section>
+  <section class="project-banner" aria-label="О комплексе">
+    <img src="/media/building.webp" alt="Визуализация архитектуры Eurasia De Luxe" width="1196" height="700" fetchpriority="high" />
+    <div class="project-facts"><div><strong>3</strong><small>Планировки для знакомства с пространством</small></div><div><strong>36–80 м²</strong><small>Площади представленных квартир</small></div><div><strong>Ваш интерьер</strong><small>Варианты в едином тёплом стиле</small></div></div>
+  </section>
+  <section class="section" id="apartments"><div class="section-heading"><div><p class="eyebrow">ВЫБЕРИТЕ СВОЁ ПРОСТРАНСТВО</p><h2>Как выглядит<br/><em>ваш будущий дом?</em></h2></div><p>Три планировки, три истории. Нажмите на квартиру, чтобы заглянуть внутрь и пройти по её комнатам.</p></div><ApartmentCards /></section>
+  <Contact />
+</Layout>

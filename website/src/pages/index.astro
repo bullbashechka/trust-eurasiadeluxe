@@ -1,0 +1,20 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Contact from '../components/Contact.astro';
+---
+<Layout title="Траст Строй — пространство для вашей жизни">
+  <section class="home-intro section">
+    <div><p class="eyebrow"><span class="tiny-line"></span> ДОМА, НАПОЛНЕННЫЕ ЖИЗНЬЮ</p><h1>Место, где<br/>начинается <em>ваше.</em></h1></div>
+    <div class="intro-aside"><p>У каждого дома — своя история.<br/>Найдите пространство,<br/>в котором начнётся ваша.</p><a class="text-link" href="#projects">Знакомьтесь с нашим проектом <span>↓</span></a></div>
+  </section>
+  <section class="project-showcase" id="projects">
+    <a href="/eurasia-deluxe/" class="project-image-link" aria-label="Открыть Eurasia De Luxe">
+      <img src="/media/building.webp" width="1196" height="700" alt="Архитектурная визуализация фасада Eurasia De Luxe" fetchpriority="high" />
+      <div class="project-overlay"><div><span class="eyebrow">ЖИЛОЙ КОМПЛЕКС</span><h2>Eurasia <em>De Luxe</em></h2></div><span class="large-arrow" aria-hidden="true">↗</span></div>
+      <span class="image-note">Визуализация комплекса</span>
+    </a>
+    <div class="project-caption"><span>Архитектура. Пространство. Ваш дом.</span><a href="/eurasia-deluxe/">Познакомиться с проектом ↗</a></div>
+  </section>
+  <section class="home-story section"><p class="eyebrow">ОТ ПЛАНИРОВКИ К ОЩУЩЕНИЮ ДОМА</p><h2>Представьте свою жизнь<br/>в <em>каждой детали.</em></h2><div class="story-lower"><p>Выберите одну из трёх планировок и загляните внутрь. Пройдите по комнатам, рассмотрите интерьер и почувствуйте масштаб пространства.</p><a class="button outline" href="/eurasia-deluxe/#apartments">Выбрать квартиру <span>↗</span></a></div></section>
+  <Contact />
+</Layout>
