@@ -21,3 +21,9 @@ Thumbs.db
 
 # Dependency directories
 node_modules/
+
+# Website build/cache and reproducible web media
+website/dist/
+website/.astro/
+website/public/media/
+website/.cache/
