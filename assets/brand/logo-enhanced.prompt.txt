@@ -1,0 +1,5 @@
+Tool: built-in image_gen (edit).
+Source: refs/logo.jpg
+Output: assets/brand/logo-enhanced.png
+
+Edit target: attached original Eurasia De Luxe logo. Restore and upscale this exact low-resolution logo into a crisp high-resolution square image, ideally 2048x2048. Preserve its exact composition, proportions, stylized gold architectural towers, gold metallic gradient, fine horizontal divider, and elegant calligraphic lettering. Text verbatim: "Eurasia" on the main line and "De Luxe" below. Preserve letter shapes and flourishes as closely as possible. Keep the original warm off-white background, clean and smooth. Remove JPEG artifacts, blur and jagged edges. This is faithful logo restoration, not a redesign. No extra elements, no new text, no mockup, no perspective, no added shadows.

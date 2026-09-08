@@ -1,0 +1,23 @@
+# macOS and Windows metadata
+.DS_Store
+Thumbs.db
+
+# Local environment and logs
+.env
+.env.*
+!.env.example
+*.log
+
+# Blender recovery and backup files
+*.blend1
+*.blend2
+*.blend@
+
+# Generated local previews and exports
+/tmp/
+/output/
+/renders/
+/videos/
+
+# Dependency directories
+node_modules/
