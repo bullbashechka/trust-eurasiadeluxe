@@ -85,17 +85,6 @@
       ],
       "width": 1512,
       "height": 1040
-    },
-    {
-      "file": "09-bathroom-reverse.png",
-      "prompt": "Use case: style-transfer. Convert the supplied simplified Blender interior render into a highly convincing professional architectural interior photograph for Eurasia De Luxe, a demonstration interior concept. Image 1 is the edit target and authoritative geometry/camera/layout reference. Preserve exact room proportions, all walls, openings, window divisions, furniture positions and silhouettes, camera viewpoint and crop. Do not widen rooms or add/remove furniture. Warm contemporary business-class apartment, 3m ceilings: creamy off-white mineral-painted walls, natural LIGHT OAK with subtle realistic grain, quiet pale limestone/travertine, cream/beige textured upholstery and floor-to-ceiling linen curtains, tiny brushed matte bronze accents. Soft neutral daylight, warm but NOT yellow, balanced exposure, real contact shadows, realistic glass and reflections, fine material textures, straight architectural lines, sharp professional photography detail throughout, no plastic CGI look or blur. Refine primitive objects into believable manufactured furniture while keeping forms and footprints. Keep decor sparse and existing surfaces uncluttered. No people, logos, text, watermark, collage. One single landscape photograph at highest available quality. Match original aspect ratio approximately 16:11. Reverse view of same bathroom. Image 2 is exact material and fixture reference; match its limestone tile, floating oak vanity, white integrated sink, bronze faucet and flush plate and backlit rectangular mirror. Image 1 controls layout. Keep washing machine on left with TWO folded cream towels, wall hung toilet center and sink right. Realistic washing machine round dark glass door and discreet unbranded controls. No new windows.",
-      "source": "/Users/kirillsaidashev/.codex/generated_images/01a07fb2-fd32-76e3-8d91-c0f796a7c015/exec-999fdfbb-3ffa-4a22-abf1-bf6cc40e4268.png",
-      "refs": [
-        "/Users/kirillsaidashev/Desktop/eurasiadeluxe/assets/apartments/36-67/renders/09-bathroom-reverse.png",
-        "/Users/kirillsaidashev/.codex/generated_images/01a07fb2-fd32-76e3-8d91-c0f796a7c015/exec-72a3b685-0390-4127-8f28-c53fe2fdd0eb.png"
-      ],
-      "width": 1512,
-      "height": 1040
     }
   ]
 }

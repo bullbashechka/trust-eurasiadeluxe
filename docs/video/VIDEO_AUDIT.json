@@ -1,0 +1,242 @@
+[
+  {
+    "file": "vids/36-67/01.mp4",
+    "duration": 3.04,
+    "bytes": 4255838,
+    "stream": "Stream #0:0[0x1](und): Video: h264 (Main) (avc1 / 0x31637661), yuv420p(progressive), 1736x1192, 11189 kb/s, 24 fps, 24 tbr, 12288 tbn (default)",
+    "decode_ok": true,
+    "audio": false,
+    "width": 1736,
+    "height": 1192
+  },
+  {
+    "file": "vids/36-67/02.mp4",
+    "duration": 3.04,
+    "bytes": 5209095,
+    "stream": "Stream #0:0[0x1](und): Video: h264 (Main) (avc1 / 0x31637661), yuv420p(progressive), 1736x1192, 13696 kb/s, 24 fps, 24 tbr, 12288 tbn (default)",
+    "decode_ok": true,
+    "audio": false,
+    "width": 1736,
+    "height": 1192
+  },
+  {
+    "file": "vids/36-67/03.mp4",
+    "duration": 3.04,
+    "bytes": 6511505,
+    "stream": "Stream #0:0[0x1](und): Video: h264 (Main) (avc1 / 0x31637661), yuv420p(progressive), 1736x1192, 17122 kb/s, 24 fps, 24 tbr, 12288 tbn (default)",
+    "decode_ok": true,
+    "audio": false,
+    "width": 1736,
+    "height": 1192
+  },
+  {
+    "file": "vids/36-67/04.mp4",
+    "duration": 3.04,
+    "bytes": 4300220,
+    "stream": "Stream #0:0[0x1](und): Video: h264 (Main) (avc1 / 0x31637661), yuv420p(progressive), 1736x1192, 11306 kb/s, 24 fps, 24 tbr, 12288 tbn (default)",
+    "decode_ok": true,
+    "audio": false,
+    "width": 1736,
+    "height": 1192
+  },
+  {
+    "file": "vids/36-67/06.mp4",
+    "duration": 3.04,
+    "bytes": 4763038,
+    "stream": "Stream #0:0[0x1](und): Video: h264 (Main) (avc1 / 0x31637661), yuv420p(progressive), 1736x1192, 12523 kb/s, 24 fps, 24 tbr, 12288 tbn (default)",
+    "decode_ok": true,
+    "audio": false,
+    "width": 1736,
+    "height": 1192
+  },
+  {
+    "file": "vids/36-67/07.mp4",
+    "duration": 3.04,
+    "bytes": 4125369,
+    "stream": "Stream #0:0[0x1](und): Video: h264 (Main) (avc1 / 0x31637661), yuv420p(progressive), 1736x1192, 10846 kb/s, 24 fps, 24 tbr, 12288 tbn (default)",
+    "decode_ok": true,
+    "audio": false,
+    "width": 1736,
+    "height": 1192
+  },
+  {
+    "file": "vids/39-87/01.mp4",
+    "duration": 3.04,
+    "bytes": 5143984,
+    "stream": "Stream #0:0[0x1](und): Video: h264 (Main) (avc1 / 0x31637661), yuv420p(progressive), 1736x1192, 13525 kb/s, 24 fps, 24 tbr, 12288 tbn (default)",
+    "decode_ok": true,
+    "audio": false,
+    "width": 1736,
+    "height": 1192
+  },
+  {
+    "file": "vids/39-87/02.mp4",
+    "duration": 3.04,
+    "bytes": 4804483,
+    "stream": "Stream #0:0[0x1](und): Video: h264 (Main) (avc1 / 0x31637661), yuv420p(progressive), 1736x1192, 12632 kb/s, 24 fps, 24 tbr, 12288 tbn (default)",
+    "decode_ok": true,
+    "audio": false,
+    "width": 1736,
+    "height": 1192
+  },
+  {
+    "file": "vids/39-87/03.mp4",
+    "duration": 3.04,
+    "bytes": 6136429,
+    "stream": "Stream #0:0[0x1](und): Video: h264 (Main) (avc1 / 0x31637661), yuv420p(progressive), 1736x1192, 16135 kb/s, 24 fps, 24 tbr, 12288 tbn (default)",
+    "decode_ok": true,
+    "audio": false,
+    "width": 1736,
+    "height": 1192
+  },
+  {
+    "file": "vids/39-87/04.mp4",
+    "duration": 3.04,
+    "bytes": 5667066,
+    "stream": "Stream #0:0[0x1](und): Video: h264 (Main) (avc1 / 0x31637661), yuv420p(progressive), 1736x1192, 14901 kb/s, 24 fps, 24 tbr, 12288 tbn (default)",
+    "decode_ok": true,
+    "audio": false,
+    "width": 1736,
+    "height": 1192
+  },
+  {
+    "file": "vids/39-87/06.mp4",
+    "duration": 3.04,
+    "bytes": 4798096,
+    "stream": "Stream #0:0[0x1](und): Video: h264 (Main) (avc1 / 0x31637661), yuv420p(progressive), 1736x1192, 12615 kb/s, 24 fps, 24 tbr, 12288 tbn (default)",
+    "decode_ok": true,
+    "audio": false,
+    "width": 1736,
+    "height": 1192
+  },
+  {
+    "file": "vids/39-87/07.mp4",
+    "duration": 3.04,
+    "bytes": 5433790,
+    "stream": "Stream #0:0[0x1](und): Video: h264 (Main) (avc1 / 0x31637661), yuv420p(progressive), 1736x1192, 14287 kb/s, 24 fps, 24 tbr, 12288 tbn (default)",
+    "decode_ok": true,
+    "audio": false,
+    "width": 1736,
+    "height": 1192
+  },
+  {
+    "file": "vids/79-79/01.mp4",
+    "duration": 3.04,
+    "bytes": 3922171,
+    "stream": "Stream #0:0[0x1](und): Video: h264 (Main) (avc1 / 0x31637661), yuv420p(progressive), 1736x1192, 10312 kb/s, 24 fps, 24 tbr, 12288 tbn (default)",
+    "decode_ok": true,
+    "audio": false,
+    "width": 1736,
+    "height": 1192
+  },
+  {
+    "file": "vids/79-79/02.mp4",
+    "duration": 3.04,
+    "bytes": 4880642,
+    "stream": "Stream #0:0[0x1](und): Video: h264 (Main) (avc1 / 0x31637661), yuv420p(progressive), 1736x1192, 12833 kb/s, 24 fps, 24 tbr, 12288 tbn (default)",
+    "decode_ok": true,
+    "audio": false,
+    "width": 1736,
+    "height": 1192
+  },
+  {
+    "file": "vids/79-79/03.mp4",
+    "duration": 3.04,
+    "bytes": 3207277,
+    "stream": "Stream #0:0[0x1](und): Video: h264 (Main) (avc1 / 0x31637661), yuv420p(progressive), 1736x1192, 8431 kb/s, 24 fps, 24 tbr, 12288 tbn (default)",
+    "decode_ok": true,
+    "audio": false,
+    "width": 1736,
+    "height": 1192
+  },
+  {
+    "file": "vids/79-79/04.mp4",
+    "duration": 3.04,
+    "bytes": 3563094,
+    "stream": "Stream #0:0[0x1](und): Video: h264 (Main) (avc1 / 0x31637661), yuv420p(progressive), 1736x1192, 9367 kb/s, 24 fps, 24 tbr, 12288 tbn (default)",
+    "decode_ok": true,
+    "audio": false,
+    "width": 1736,
+    "height": 1192
+  },
+  {
+    "file": "vids/79-79/05.mp4",
+    "duration": 3.04,
+    "bytes": 6172042,
+    "stream": "Stream #0:0[0x1](und): Video: h264 (Main) (avc1 / 0x31637661), yuv420p(progressive), 1736x1192, 16229 kb/s, 24 fps, 24 tbr, 12288 tbn (default)",
+    "decode_ok": true,
+    "audio": false,
+    "width": 1736,
+    "height": 1192
+  },
+  {
+    "file": "vids/79-79/06.mp4",
+    "duration": 3.04,
+    "bytes": 3568522,
+    "stream": "Stream #0:0[0x1](und): Video: h264 (Main) (avc1 / 0x31637661), yuv420p(progressive), 1736x1192, 9382 kb/s, 24 fps, 24 tbr, 12288 tbn (default)",
+    "decode_ok": true,
+    "audio": false,
+    "width": 1736,
+    "height": 1192
+  },
+  {
+    "file": "vids/79-79/07.mp4",
+    "duration": 3.04,
+    "bytes": 4642372,
+    "stream": "Stream #0:0[0x1](und): Video: h264 (Main) (avc1 / 0x31637661), yuv420p(progressive), 1736x1192, 12206 kb/s, 24 fps, 24 tbr, 12288 tbn (default)",
+    "decode_ok": true,
+    "audio": false,
+    "width": 1736,
+    "height": 1192
+  },
+  {
+    "file": "vids/79-79/09.mp4",
+    "duration": 3.04,
+    "bytes": 5760860,
+    "stream": "Stream #0:0[0x1](und): Video: h264 (Main) (avc1 / 0x31637661), yuv420p(progressive), 1736x1192, 15148 kb/s, 24 fps, 24 tbr, 12288 tbn (default)",
+    "decode_ok": true,
+    "audio": false,
+    "width": 1736,
+    "height": 1192
+  },
+  {
+    "file": "vids/79-79/10.mp4",
+    "duration": 3.04,
+    "bytes": 3723080,
+    "stream": "Stream #0:0[0x1](und): Video: h264 (Main) (avc1 / 0x31637661), yuv420p(progressive), 1736x1192, 9788 kb/s, 24 fps, 24 tbr, 12288 tbn (default)",
+    "decode_ok": true,
+    "audio": false,
+    "width": 1736,
+    "height": 1192
+  },
+  {
+    "file": "vids/79-79/11.mp4",
+    "duration": 3.04,
+    "bytes": 5413643,
+    "stream": "Stream #0:0[0x1](und): Video: h264 (Main) (avc1 / 0x31637661), yuv420p(progressive), 1736x1192, 14234 kb/s, 24 fps, 24 tbr, 12288 tbn (default)",
+    "decode_ok": true,
+    "audio": false,
+    "width": 1736,
+    "height": 1192
+  },
+  {
+    "file": "vids/79-79/13.mp4",
+    "duration": 3.04,
+    "bytes": 4803078,
+    "stream": "Stream #0:0[0x1](und): Video: h264 (Main) (avc1 / 0x31637661), yuv420p(progressive), 1736x1192, 12629 kb/s, 24 fps, 24 tbr, 12288 tbn (default)",
+    "decode_ok": true,
+    "audio": false,
+    "width": 1736,
+    "height": 1192
+  },
+  {
+    "file": "vids/79-79/14.mp4",
+    "duration": 3.04,
+    "bytes": 5712352,
+    "stream": "Stream #0:0[0x1](und): Video: h264 (Main) (avc1 / 0x31637661), yuv420p(progressive), 1736x1192, 15020 kb/s, 24 fps, 24 tbr, 12288 tbn (default)",
+    "decode_ok": true,
+    "audio": false,
+    "width": 1736,
+    "height": 1192
+  }
+]

@@ -77,16 +77,6 @@
       "label": "Демонстрационная визуализация"
     },
     {
-      "file": "08-kitchen-reverse.png",
-      "source": "../blender/renders/08-kitchen-reverse.png",
-      "width": 1512,
-      "height": 1040,
-      "bytes": 1932919,
-      "sha256": "b99cc20af7aeb40745bd5a35820acca386d5af5fce5c8e1b5475b0b3d975de0a",
-      "source_sha256": "b5fbc9e0ee1ea5cf13bb6eacd21d3e1f195aa50965601bbf0ef6847f6964123a",
-      "label": "Демонстрационная визуализация"
-    },
-    {
       "file": "09-bedroom-entry.png",
       "source": "../blender/renders/09-bedroom-entry.png",
       "width": 1512,
@@ -117,16 +107,6 @@
       "label": "Демонстрационная визуализация"
     },
     {
-      "file": "12-small-bathroom-reverse.png",
-      "source": "../blender/renders/12-small-bathroom-reverse.png",
-      "width": 1512,
-      "height": 1040,
-      "bytes": 2177881,
-      "sha256": "ca8c6e7486d2fd17a6fc0ebdeebed212eb9cc16c7797928fc57693f6c2d15cdf",
-      "source_sha256": "a6145d78a4a98a90b96649665c53cd354b5549ac246956b0e597cb6ad3e40c26",
-      "label": "Демонстрационная визуализация"
-    },
-    {
       "file": "13-large-bathroom-entry.png",
       "source": "../blender/renders/13-large-bathroom-entry.png",
       "width": 1512,
@@ -144,36 +124,6 @@
       "bytes": 2132380,
       "sha256": "814efa9b69570665d5f5481de5b23f0b22b9be9cec36b05640604b750f09175a",
       "source_sha256": "2cf20a25308f107d0f4190933edc1f89cfb5936eaec4ba4ad6f8926f9a0a26ea",
-      "label": "Демонстрационная визуализация"
-    },
-    {
-      "file": "15-loggia.png",
-      "source": "../blender/renders/15-loggia.png",
-      "width": 1512,
-      "height": 1040,
-      "bytes": 1989332,
-      "sha256": "41e8a0879a2067c989ffa40a6f08367e9fcf6fc3d3d40de492330d8b3769aa24",
-      "source_sha256": "30a474960240f6c3c4ee4431a58a3c59ba2b1d7cbfaaa167a92b28d690502ec9",
-      "label": "Демонстрационная визуализация"
-    },
-    {
-      "file": "16-plan-top.png",
-      "source": "../blender/renders/16-plan-top.png",
-      "width": 1512,
-      "height": 1040,
-      "bytes": 1532382,
-      "sha256": "a4dd56e32e9d4fd97e6c95ac230a6accae65a9d54cbdc638b1f609e6a1677e22",
-      "source_sha256": "9234de8580445a6827a7909381a11d754c8decd84859867e7e192ddac0dec03b",
-      "label": "Демонстрационная визуализация"
-    },
-    {
-      "file": "17-apartment-overview.png",
-      "source": "../blender/renders/17-apartment-overview.png",
-      "width": 1512,
-      "height": 1040,
-      "bytes": 1541620,
-      "sha256": "9589a85e95c379701df2ee31783ae0c6d00ddd88899a4bc32535228f7e8be1cf",
-      "source_sha256": "882705c1c51d6195ec4140aea86f102ee733ed1d99621d59fe9ef374989f2161",
       "label": "Демонстрационная визуализация"
     }
   ]
