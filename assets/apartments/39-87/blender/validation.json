@@ -1,0 +1,104 @@
+{
+  "blender_version": "5.2.1 LTS",
+  "objects": 460,
+  "ceiling_m": 3.0,
+  "route_frames_checked": 1596,
+  "camera_radius_checked_m": 0.1,
+  "minimum_camera_surface_clearance": {
+    "distance_m": 0.1382,
+    "frame": 1018,
+    "object": "Living jamb.001"
+  },
+  "route_issues": [],
+  "interior_cameras": [
+    {
+      "camera": "01-hallway-entry | Прихожая — от входа",
+      "nearest_surface_m": 0.2607,
+      "nearest_object": "Entry door closed",
+      "clear_of_near_clip": true
+    },
+    {
+      "camera": "02-bathroom | Санузел — ванна и раковина",
+      "nearest_surface_m": 0.189,
+      "nearest_object": "Bathroom jamb",
+      "clear_of_near_clip": true
+    },
+    {
+      "camera": "03-living-room | Гостиная — к окну",
+      "nearest_surface_m": 0.3194,
+      "nearest_object": "Living jamb.001",
+      "clear_of_near_clip": true
+    },
+    {
+      "camera": "04-kitchen | Кухня — к лоджии",
+      "nearest_surface_m": 0.3256,
+      "nearest_object": "Kitchen open door",
+      "clear_of_near_clip": true
+    },
+    {
+      "camera": "05-loggia | Лоджия — общий вид",
+      "nearest_surface_m": 0.2828,
+      "nearest_object": "Loggia west",
+      "clear_of_near_clip": true
+    },
+    {
+      "camera": "06-living-reverse | Гостиная — к прихожей",
+      "nearest_surface_m": 0.4238,
+      "nearest_object": "Curtain fold.008",
+      "clear_of_near_clip": true
+    },
+    {
+      "camera": "07-kitchen-reverse | Кухня — к прихожей",
+      "nearest_surface_m": 0.2344,
+      "nearest_object": "Kitchen loggia wall",
+      "clear_of_near_clip": true
+    },
+    {
+      "camera": "08-hallway-reverse | Прихожая — к входу",
+      "nearest_surface_m": 0.1953,
+      "nearest_object": "Living kitchen solid partition",
+      "clear_of_near_clip": true
+    },
+    {
+      "camera": "09-bathroom-reverse | Санузел — унитаз и стиральная машина",
+      "nearest_surface_m": 0.2727,
+      "nearest_object": "Bathroom jamb.001",
+      "clear_of_near_clip": true
+    }
+  ],
+  "connections": [
+    {
+      "connection": "Hall to bathroom",
+      "passed": true,
+      "blocking_object": null
+    },
+    {
+      "connection": "Hall to living",
+      "passed": true,
+      "blocking_object": null
+    },
+    {
+      "connection": "Hall to kitchen",
+      "passed": true,
+      "blocking_object": null
+    },
+    {
+      "connection": "Kitchen to loggia",
+      "passed": true,
+      "blocking_object": null
+    },
+    {
+      "connection": "Solid kitchen living wall",
+      "passed": true,
+      "blocking_object": "Living kitchen solid partition"
+    },
+    {
+      "connection": "No living loggia door",
+      "passed": true,
+      "blocking_object": "Loggia west"
+    }
+  ],
+  "packed_source_plan": true,
+  "external_images": [],
+  "passed": true
+}
