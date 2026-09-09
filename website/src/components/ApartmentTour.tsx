@@ -190,7 +190,6 @@ export default function ApartmentTour({
   const slowCount = useRef(0);
   const reduced = useRef(false);
   const frameRef = useRef(frame);
-  const readyBeforeEntry = useRef(false);
   const skippingTour = useRef(false);
   frameRef.current = frame;
   const current = scenes[frame.index];
@@ -237,7 +236,7 @@ export default function ApartmentTour({
     if (section.current) observer.observe(section.current);
     const activateWhenEntered = () => {
       const element = section.current;
-      if (!element || !tourReady || !readyBeforeEntry.current) return;
+      if (!element || !tourReady || skippingTour.current) return;
       const rect = element.getBoundingClientRect();
       if (rect.top <= 1 && rect.bottom > 0) setTourActive(true);
     };
@@ -287,12 +286,10 @@ export default function ApartmentTour({
       if (!(event.target instanceof window.Element)) return;
       if (event.target.closest('a[href="#details"]')) {
         skippingTour.current = true;
-        readyBeforeEntry.current = false;
         setPlaying(false);
       }
       if (event.target.closest('a[href="#tour"]')) {
         skippingTour.current = false;
-        readyBeforeEntry.current = true;
       }
       const button = event.target.closest<HTMLButtonElement>('[data-apartment-plan-open]');
       if (button && plan) openPlan(button);
@@ -359,7 +356,7 @@ export default function ApartmentTour({
       style={
         {
           height:
-            mode === "scroll" && !shortViewport && tourReady && tourActive ? `calc(${(scenes.length + 1) * 100}svh / var(--display-scale, 1))` : "auto",
+            mode === "scroll" && !shortViewport && tourReady && tourActive ? `calc(${Math.min(5, 1 + scenes.length * 0.4) * 100}svh / var(--display-scale, 1))` : "auto",
         } as CSSProperties
       }
     >
@@ -409,9 +406,6 @@ export default function ApartmentTour({
                   }}
                   onReady={() => {
                     if (!tourReady && index === frameRef.current.index) {
-                      const element = section.current;
-                      const rect = element?.getBoundingClientRect();
-                      readyBeforeEntry.current = !skippingTour.current && (!rect || rect.top > 1);
                       setTourReady(true);
                     }
                   }}
@@ -429,7 +423,6 @@ export default function ApartmentTour({
             <div className="tour-top-actions">{plan && <button type="button" onClick={event => openPlan(event.currentTarget)}>Планировка</button>}<a href="#details" onClick={() => setPlaying(false)}>Пропустить тур</a><span className="tour-counter">{String(frame.index + 1).padStart(2, "0")} / {scenes.length}</span></div>
           </div>
           {!tourReady && !hasFailed && near && mode === "scroll" && <div className="tour-wait" role="status">Подготавливаем прогулку…</div>}
-          {tourReady && !tourActive && mode === "scroll" && <button type="button" className="tour-start" onClick={() => setTourActive(true)}>Начать прогулку <span aria-hidden="true"><Icon name="arrow-right"/></span></button>}
           {(hasFailed || notice) && (
             <div className="tour-message" role="status">
               <span>

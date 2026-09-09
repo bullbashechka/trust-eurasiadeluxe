@@ -84,7 +84,11 @@ async function click(text: string) {
   });
 }
 async function startTour() {
-  await click("Начать прогулку");
+  const section = container.querySelector("section")!;
+  section.getBoundingClientRect = () => ({ top: 0, bottom: 600, height: 600, left: 0, right: 1000, width: 1000, x: 0, y: 0, toJSON() {} });
+  await act(async () => currentWindow.dispatchEvent(new currentWindow.Event("scroll")));
+  expect(section.dataset.ready).toBe("true");
+  expect(container.querySelector(".tour-start")).toBeNull();
 }
 
 test("a neighboring video cannot unlock an unready current scene", async () => {
@@ -93,7 +97,18 @@ test("a neighboring video cannot unlock an unready current scene", async () => {
   await act(async () => container.querySelectorAll("video")[1].dispatchEvent(new currentWindow.Event("loadeddata") as unknown as Event));
   expect(container.querySelector(".tour-start")).toBeNull();
   await act(async () => container.querySelector("video")!.dispatchEvent(new currentWindow.Event("loadeddata") as unknown as Event));
-  expect(container.querySelector(".tour-start")).not.toBeNull();
+  await startTour();
+});
+
+test("late loading starts the tour automatically after reaching its viewport", async () => {
+  await mount();
+  await enter();
+  const section = container.querySelector("section")!;
+  section.getBoundingClientRect = () => ({ top: -20, bottom: 580, height: 600, left: 0, right: 1000, width: 1000, x: 0, y: -20, toJSON() {} });
+  await act(async () => container.querySelector("video")!.dispatchEvent(new currentWindow.Event("loadeddata") as unknown as Event));
+  expect(section.dataset.ready).toBe("true");
+  expect(section.style.height).toContain("420svh");
+  expect(container.querySelector(".tour-start")).toBeNull();
 });
 
 test("short screens use playback without an extended scroll section", async () => {

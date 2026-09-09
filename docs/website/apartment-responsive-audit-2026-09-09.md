@@ -1,5 +1,13 @@
 # Apartment responsive audit — 2026-09-09
 
+## Follow-up: automatic scroll tour and design review
+
+- Removed the manual start gate. A current video loading after the visitor reaches the tour now activates scroll playback automatically.
+- Preview height is capped at 620px; active scroll playback occupies the viewport.
+- Reduced the scroll section from one viewport per scene to 0.4 per scene, with a five-viewport total cap. The 36-67 page now uses 4.2 total viewports instead of nine.
+- Astra medium reviewed and corrected apartment hero, details, contact band and related-card typography, line heights and spacing. Area typography is relative to its column; generic numbered features are replaced by a semantic list.
+- Verified automatic activation and scene advancement in the production preview on port 4325 using page scrolling without clicking Start. Added a late-loading regression test; the suite now has 32 tests.
+
 ## Implemented
 
 - Apartment hero spacing clears the shared fixed header; narrower titles have readable line height and smaller mobile type.
