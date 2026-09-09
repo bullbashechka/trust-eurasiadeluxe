@@ -20,17 +20,30 @@
   box-sizing: border-box;
 }
 .company-header {
-  height: 60px;
-  position: sticky;
-  top: 0;
+  height: 80px;
+  position: fixed;
+  inset: 16px 24px auto;
+  max-width: 1392px;
+  margin-inline: auto;
   z-index: 30;
-  background: rgba(242, 240, 235, 0.96);
-  transition: transform 0.3s ease;
+  color: #fff;
+  background: rgb(31 33 38 / 58%);
+  border: 1px solid #ffffff30;
+  border-radius: 999px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 8px 32px #00000020;
 }
-.company-header.is-hidden {
-  transform: translateY(-102%);
+.company-page main { padding-top: 112px; }
+.company-header .company-wordmark {
+  font-size: 32px;
+  font-weight: 400;
+  letter-spacing: 2px;
+  transform: none;
+  margin-right: 0;
 }
 .header-inner {
+  padding-inline: 28px;
   height: 100%;
   display: flex;
   align-items: center;
@@ -53,7 +66,7 @@
   display: flex;
   align-items: center;
   gap: 28px;
-  font-size: 12px;
+  font-size: 16px;
 }
 .company-desktop-nav button,
 .company-footer nav button,
@@ -113,9 +126,13 @@
   background: #873924;
 }
 .header-cta {
-  min-height: 34px;
-  padding: 7px 24px;
-  gap: 6px;
+  min-height: 44px;
+  padding: 9px 20px;
+  gap: 12px;
+  font-size: 16px;
+  border-radius: 999px;
+  border-color: #c7785e;
+  color: #fff !important;
 }
 .header-cta span {
   font-size: 19px;
@@ -136,7 +153,7 @@
 }
 .company-title {
   font-family: var(--company-display);
-  font-size: clamp(100px, 19.7vw, 284px);
+  font-size: clamp(100px, calc(19.7vw / var(--display-scale, 1)), 284px);
   font-weight: 650;
   letter-spacing: 0.01em;
   line-height: 1.03;
@@ -160,7 +177,7 @@
   background: var(--company-rust);
 }
 .hero-tagline {
-  font-size: clamp(13px, 1.78vw, 25px);
+  font-size: clamp(13px, calc(1.78vw / var(--display-scale, 1)), 25px);
   letter-spacing: 0.2em;
   text-transform: uppercase;
   margin-top: 12px;
@@ -226,14 +243,14 @@
 .company-heading {
   font-family: var(--company-display);
   font-weight: 300;
-  font-size: clamp(48px, 8.2vw, 118px);
+  font-size: clamp(48px, calc(8.2vw / var(--display-scale, 1)), 118px);
   letter-spacing: -0.025em;
   line-height: 1.13;
   text-transform: uppercase;
   color: inherit;
 }
 .about-heading {
-  font-size: clamp(44px, 7.55vw, 109px);
+  font-size: clamp(44px, calc(7.55vw / var(--display-scale, 1)), 109px);
   margin-top: 10px;
   margin-bottom: 16px;
   line-height: 1.13;
@@ -246,7 +263,7 @@
   width: 144.93%;
 }
 .about-copy {
-  font-size: clamp(14px, 1.65vw, 22px);
+  font-size: clamp(14px, calc(1.65vw / var(--display-scale, 1)), 22px);
   line-height: 1.37;
   color: #525155;
 }
@@ -354,7 +371,7 @@
   padding-right: 17px;
 }
 .company-project-copy h3 {
-  font-size: clamp(48px, 7.5vw, 108px);
+  font-size: clamp(48px, calc(7.5vw / var(--display-scale, 1)), 108px);
   line-height: 1.05;
   margin-bottom: 12px;
 }
@@ -393,7 +410,7 @@
   padding-left: 5.2%;
 }
 .company-contact-band h2 {
-  font-size: clamp(40px, 6.7vw, 96px);
+  font-size: clamp(40px, calc(6.7vw / var(--display-scale, 1)), 96px);
   transform: scaleX(0.76);
   transform-origin: left center;
   white-space: nowrap;
@@ -449,7 +466,7 @@
     padding-block: 50px 65px;
   }
   .company-header {
-    height: 90px;
+    height: 80px;
   }
   .company-advantages {
     padding-block: 36px 42px;
@@ -488,10 +505,14 @@
     padding-inline: 22px;
   }
   .company-header {
-    height: 68px;
+    inset: 10px 10px auto;
+    height: 66px;
   }
+  .company-page main { padding-top: 90px; }
+  .company-header .company-wordmark { font-size: 23px; letter-spacing: 1px; }
   .header-inner {
-    gap: 12px;
+    gap: 8px;
+    padding-inline: 14px;
   }
   .company-wordmark {
     font-size: 25px;
@@ -502,7 +523,7 @@
     display: none;
   }
   .header-cta {
-    font-size: 11px;
+    font-size: 13px;
     padding: 9px 12px;
     min-height: 40px;
     gap: 4px;
@@ -542,6 +563,8 @@
     gap: 0;
     padding: 15px 22px 28px;
     background: var(--company-paper);
+    color: var(--company-ink);
+    border-radius: 24px;
     border-bottom: 1px solid #d8d3ca;
     box-shadow: 0 20px 30px #2524290a;
   }
@@ -560,7 +583,7 @@
     padding-left: 0;
   }
   .company-title {
-    font-size: clamp(100px, 34vw, 220px);
+    font-size: clamp(100px, calc(34vw / var(--display-scale, 1)), 220px);
     line-height: 1;
     display: flex;
     gap: 14px;
@@ -601,7 +624,7 @@
     font-size: 11px;
   }
   .about-heading {
-    font-size: clamp(35px, 9.5vw, 65px);
+    font-size: clamp(35px, calc(9.5vw / var(--display-scale, 1)), 65px);
     margin-block: 12px 18px;
   }
   .about-heading > span {
@@ -629,7 +652,7 @@
     gap: 12px;
   }
   .company-heading {
-    font-size: clamp(38px, 10.8vw, 70px);
+    font-size: clamp(38px, calc(10.8vw / var(--display-scale, 1)), 70px);
   }
   .company-section-heading .company-heading {
     transform: scaleX(0.82);
@@ -748,6 +771,17 @@
     font-size: 30px;
   }
 }
+@media (min-width: 768px) and (max-width: 1050px) {
+  .company-header .company-wordmark { font-size: 25px; }
+  .company-desktop-nav { gap: 14px; font-size: 14px; }
+  .company-header .header-inner { gap: 14px; padding-inline: 20px; }
+  .company-header .header-cta { font-size: 14px; padding-inline: 14px; }
+}
+@media (max-width: 360px) {
+  .company-header .company-wordmark { font-size: 20px; }
+  .company-header .header-cta { padding-inline: 9px; }
+  .company-header .header-cta span { display: none; }
+}
 .company-title {
   line-height: 0.97;
   margin-top: -.03em;
@@ -763,7 +797,7 @@
   grid-template-columns: minmax(0, 1.07fr) minmax(0, 1fr);
 }
 .about-heading {
-  font-size: clamp(44px, 8.6vw, 124px);
+  font-size: clamp(44px, calc(8.6vw / var(--display-scale, 1)), 124px);
   line-height: 1.02;
 }
 .about-heading > span {
@@ -789,7 +823,7 @@
   color: var(--company-ink);
   padding: 0;
   width: min(540px, calc(100% - 32px));
-  max-height: calc(100dvh - 40px);
+  max-height: calc(calc(100dvh / var(--display-scale, 1)) - 40px);
   overflow: auto;
   overscroll-behavior: contain;
 }
@@ -935,7 +969,7 @@
     width: 181.82%;
   }
   .about-heading {
-    font-size: clamp(35px, 9.5vw, 65px);
+    font-size: clamp(35px, calc(9.5vw / var(--display-scale, 1)), 65px);
     line-height: 1.15;
   }
   .about-heading > span {
@@ -996,10 +1030,10 @@
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 .advantage-card {
-  padding-inline: clamp(16px, 2.35vw, 32px);
+  padding-inline: clamp(16px, calc(2.35vw / var(--display-scale, 1)), 32px);
 }
 .company-section-heading .company-heading {
-  font-size: clamp(48px, 8.9vw, 128px);
+  font-size: clamp(48px, calc(8.9vw / var(--display-scale, 1)), 128px);
   transform: scaleX(0.64);
   width: 156.25%;
 }
@@ -1029,7 +1063,7 @@
     font-size: 16px;
   }
   .company-section-heading .company-heading {
-    font-size: clamp(38px, 10.8vw, 70px);
+    font-size: clamp(38px, calc(10.8vw / var(--display-scale, 1)), 70px);
     transform: scaleX(0.82);
     width: 121.95%;
   }

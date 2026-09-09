@@ -15,7 +15,6 @@ function mountProject() {
   const contact = document.querySelector<HTMLDialogElement>("#project-contact-dialog");
   const selector = document.querySelector<HTMLDialogElement>("#apartment-selector");
   let opener: HTMLElement | null = null;
-  let lastScroll = scrollY;
 
   function close(dialog?: HTMLDialogElement | null) {
     if (dialog?.open) dialog.close();
@@ -143,9 +142,6 @@ function mountProject() {
     if (!header || menu?.open || contact?.open || selector?.open) return;
     const current = scrollY;
     header.classList.toggle("is-scrolled", current > 24);
-    if (current < 72) header.classList.remove("is-hidden");
-    else if (Math.abs(current - lastScroll) > 10) header.classList.toggle("is-hidden", current > lastScroll);
-    lastScroll = current;
   };
   onScroll();
   window.addEventListener("scroll", onScroll, { signal, passive: true });

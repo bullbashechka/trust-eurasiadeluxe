@@ -1,0 +1,45 @@
+/* Shared surface for the developer, project and every apartment route. */
+:root { --site-header-background: rgb(31 33 38 / 58%); }
+.company-header,
+.project-header,
+.project-header.is-scrolled,
+.project-header-solid {
+  position: fixed;
+  inset: 16px 24px auto;
+  height: 80px;
+  max-width: 1392px;
+  margin-inline: auto;
+  color: #fff;
+  background: var(--site-header-background);
+  border: 1px solid #ffffff30;
+  border-radius: 999px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 8px 32px #00000020;
+}
+.company-header .header-cta,
+.project-header-cta {
+  min-height: 44px;
+  border: 1px solid #c7785e;
+  border-radius: 999px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #fff !important;
+}
+.company-header a:focus-visible,
+.company-header button:focus-visible,
+.project-header a:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 4px;
+}
+@media (max-width: 767px) {
+  .company-header, .project-header {
+    inset: 10px 10px auto;
+    height: 66px;
+  }
+  .company-header .header-cta, .project-header-cta {
+    min-height: 40px;
+    font-size: 12px;
+    padding: 9px 10px;
+  }
+}

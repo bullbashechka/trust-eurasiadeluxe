@@ -24,7 +24,7 @@ export function createSectionMotion(element: HTMLElement) {
     if (element.classList.contains("advantage-card")) {
       const index = Array.from(element.parentElement!.children).indexOf(element);
       // Individual triggers keep the vertical mobile cards independent.
-      const delay = matchMedia("(min-width: 768px)").matches ? index * 0.12 : 0;
+      const delay = innerWidth / (Number(document.documentElement.style.zoom) || 1) >= 768 ? index * 0.12 : 0;
       timeline.fromTo(element, { clipPath: "inset(100% 0% 0% 0% round 10px)" },
         { clipPath: "inset(0% 0% 0% 0% round 10px)", duration: 0.85 }, delay);
       timeline.fromTo(element.querySelectorAll("h3, p"), { y: 30, opacity: 0 },

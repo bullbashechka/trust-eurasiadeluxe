@@ -43,9 +43,6 @@ function mountCompany() {
   const success = dialog.querySelector<HTMLElement>("[data-form-success]")!;
   let opener: HTMLElement | null = null;
   let menuOpen = false;
-  let lastY = scrollY;
-  let accumulated = 0;
-  let lastDirection = 0;
   let frame = 0;
   let dead = false;
   let closing = false;
@@ -119,7 +116,7 @@ function mountCompany() {
   window.addEventListener(
     "resize",
     () => {
-      if (innerWidth >= 768 && menuOpen) closeMenu();
+      if (innerWidth / (Number(document.documentElement.style.zoom) || 1) >= 768 && menuOpen) closeMenu();
     },
     { signal },
   );
@@ -274,7 +271,6 @@ function mountCompany() {
     const position = pendingReloadY ?? companyVisit.scrollY;
     window.scrollTo({ top: position, behavior: "instant" });
     lenis?.scrollTo(position, { immediate: true });
-    lastY = scrollY;
     if (pendingReloadY !== undefined) {
       // A hard reload can initialize the router before fonts and layout settle.
       const loaded = document.readyState === "complete" ? Promise.resolve() : new Promise<void>(resolve => window.addEventListener("load", () => resolve(), { once: true, signal }));
@@ -284,7 +280,6 @@ function mountCompany() {
         window.scrollTo({ top: position, behavior: "instant" });
         lenis?.resize();
         lenis?.scrollTo(position, { immediate: true });
-        lastY = scrollY;
       });
     }
   }
@@ -380,19 +375,6 @@ function mountCompany() {
     lenis?.raf(time);
     const delta = Math.min(64, time - previousTime || 16);
     previousTime = time;
-    const locked =
-      document.documentElement.classList.contains("company-locked");
-    if (!locked) {
-      const movement = scrollY - lastY;
-      const direction = Math.sign(movement);
-      if (direction && direction !== lastDirection) accumulated = 0;
-      accumulated += movement;
-      if (direction) lastDirection = direction;
-      if (scrollY < 60) header.classList.remove("is-hidden");
-      else if (Math.abs(accumulated) > 14)
-        header.classList.toggle("is-hidden", accumulated > 0);
-      lastY = scrollY;
-    }
     for (const item of reveals) {
       const target = reduced.matches || item.element.contains(document.activeElement)
         ? 1

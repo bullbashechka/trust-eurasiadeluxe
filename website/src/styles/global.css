@@ -7,7 +7,7 @@
   --sand: #eae7de;
   --serif: "Cormorant Garamond", Georgia, serif;
   --sans: "Manrope Variable", Arial, sans-serif;
-  --gutter: clamp(22px, 5vw, 88px);
+  --gutter: clamp(22px, calc(5vw / var(--display-scale, 1)), 88px);
 }
 * {
   box-sizing: border-box;
@@ -67,10 +67,10 @@ h2 {
   letter-spacing: -0.045em;
 }
 h1 {
-  font-size: clamp(60px, 7.1vw, 116px);
+  font-size: clamp(60px, calc(7.1vw / var(--display-scale, 1)), 116px);
 }
 h2 {
-  font-size: clamp(46px, 5vw, 80px);
+  font-size: clamp(46px, calc(5vw / var(--display-scale, 1)), 80px);
 }
 em {
   font-weight: 400;
@@ -187,7 +187,7 @@ em {
 }
 .project-image-link > img {
   width: 100%;
-  height: clamp(330px, 42vw, 680px);
+  height: clamp(330px, calc(42vw / var(--display-scale, 1)), 680px);
   object-fit: cover;
   transition: transform 1.2s ease;
 }
@@ -217,7 +217,7 @@ em {
   margin-bottom: 18px;
 }
 .project-overlay h2 {
-  font-size: clamp(44px, 5.8vw, 96px);
+  font-size: clamp(44px, calc(5.8vw / var(--display-scale, 1)), 96px);
 }
 .project-overlay em {
   color: inherit;
@@ -371,10 +371,10 @@ em {
 }
 .mist {
   position: absolute;
-  width: 160vw;
-  height: 160vh;
-  left: -30vw;
-  top: -30vh;
+  width: calc(160vw / var(--display-scale, 1));
+  height: calc(160vh / var(--display-scale, 1));
+  left: calc(-30vw / var(--display-scale, 1));
+  top: calc(-30vh / var(--display-scale, 1));
   filter: blur(32px);
   background:
     radial-gradient(ellipse at 27% 48%, #fff 0%, #f5f3ed 28%, transparent 56%),
@@ -408,7 +408,7 @@ em {
   padding-bottom: 60px;
 }
 .project-intro h1 {
-  font-size: clamp(66px, 8vw, 124px);
+  font-size: clamp(66px, calc(8vw / var(--display-scale, 1)), 124px);
 }
 .project-intro .intro-copy p {
   color: var(--muted);
@@ -423,7 +423,7 @@ em {
 }
 .project-banner > img {
   width: 100%;
-  height: clamp(280px, 42vw, 610px);
+  height: clamp(280px, calc(42vw / var(--display-scale, 1)), 610px);
   object-fit: cover;
 }
 .project-facts {
@@ -556,7 +556,7 @@ em {
   align-items: center;
 }
 .apartment-hero h1 {
-  font-size: clamp(80px, 10vw, 150px);
+  font-size: clamp(80px, calc(10vw / var(--display-scale, 1)), 150px);
   margin-bottom: 20px;
 }
 .apartment-hero h1 span {
@@ -606,7 +606,7 @@ em {
   padding-bottom: 38px;
 }
 .tour-heading h2 {
-  font-size: clamp(44px, 4.3vw, 65px);
+  font-size: clamp(44px, calc(4.3vw / var(--display-scale, 1)), 65px);
 }
 .tour-section {
   position: relative;
@@ -615,7 +615,7 @@ em {
 .tour-sticky {
   position: sticky;
   top: 0;
-  height: 100svh;
+  height: calc(100svh / var(--display-scale, 1));
   min-height: 560px;
   display: grid;
   grid-template-columns: 1fr 260px;
@@ -795,7 +795,7 @@ em {
   padding: 30px;
 }
 .tour-no-js img {
-  max-height: 60vh;
+  max-height: calc(60vh / var(--display-scale, 1));
   margin: 20px auto;
 }
 .tour-no-js p {
@@ -1084,7 +1084,7 @@ em {
     gap: 14px;
   }
   .tour-sticky {
-    height: 100svh;
+    height: calc(100svh / var(--display-scale, 1));
     min-height: 620px;
     display: flex;
     flex-direction: column;

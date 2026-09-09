@@ -11,7 +11,7 @@
     "build": "astro build",
     "preview": "ASTRO_PREVIEW_BACKGROUND=0 astro preview --host 127.0.0.1",
     "check": "astro check",
-    "test": "node --experimental-strip-types --test tests/tour.test.ts && bun test tests/tour-ui.test.tsx tests/company.test.ts",
+    "test": "node --experimental-strip-types --test tests/tour.test.ts && bun test tests/tour-ui.test.tsx tests/company.test.ts tests/display-scale.test.ts",
     "test:build": "node scripts/check_build.mjs",
     "format": "prettier --write src scripts/*.mjs tests astro.config.mjs"
   },

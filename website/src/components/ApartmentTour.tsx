@@ -201,7 +201,6 @@ export default function ApartmentTour({
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
     const motion = matchMedia("(prefers-reduced-motion: reduce)");
-    const viewport = matchMedia("(max-width: 640px)");
     const syncMotion = () => {
       reduced.current = motion.matches;
       if (motion.matches) {
@@ -209,11 +208,11 @@ export default function ApartmentTour({
         setPlaying(false);
       }
     };
-    const syncSize = () => setMobile(viewport.matches);
+    const syncSize = () => setMobile(window.innerWidth / (Number(document.documentElement.style.zoom) || 1) <= 640);
     syncMotion();
     syncSize();
     motion.addEventListener("change", syncMotion);
-    viewport.addEventListener("change", syncSize);
+    window.addEventListener("resize", syncSize);
     const observer = new IntersectionObserver(
       ([entry]) => {
         setNear(entry.isIntersecting);
@@ -237,7 +236,7 @@ export default function ApartmentTour({
     return () => {
       observer.disconnect();
       motion.removeEventListener("change", syncMotion);
-      viewport.removeEventListener("change", syncSize);
+      window.removeEventListener("resize", syncSize);
       document.removeEventListener("visibilitychange", pause);
       window.removeEventListener("scroll", activateWhenEntered);
     };
@@ -321,7 +320,7 @@ export default function ApartmentTour({
       style={
         {
           height:
-            mode === "scroll" && tourReady && tourActive ? `${(scenes.length + 1) * 100}svh` : "auto",
+            mode === "scroll" && tourReady && tourActive ? `calc(${(scenes.length + 1) * 100}svh / var(--display-scale, 1))` : "auto",
         } as CSSProperties
       }
     >
