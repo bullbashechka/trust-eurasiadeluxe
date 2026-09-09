@@ -331,24 +331,47 @@ function mountCompany() {
     },
     0,
   );
-  const lineTargets = blueprint.querySelectorAll(
-    "#construction path:not([stroke-dasharray]), #arc path, #facade path:not([fill])",
-  );
-  if (lineTargets.length)
-    heroMotion.add(
-      svg.createDrawable(lineTargets),
-      { draw: ["0 0", "0 1"], duration: 1500, delay: stagger(12) },
-      100,
-    );
-  const layers = blueprint.querySelectorAll("[data-blueprint-layer]");
-  layers.forEach((layer, index) => heroMotion.add(
-    layer,
-    { opacity: [0, Number(layer.getAttribute('opacity') ?? 1)], duration: 800 },
-    180 + index * 60,
-  ));
+  // Animate the actual vector geometry, including recessed window frames.
+  // Filled faces arrive only after their outlines, never as a static underlay.
+  const phases = [
+    ["construction", 100], ["arc", 180], ["rear-volume", 450],
+    ["facade", 550], ["windows", 850], ["rear-accent", 650],
+    ["front-accent", 1100], ["registration", 1600], ["annotations", 1800],
+  ] as const;
+  for (const [id, start] of phases) {
+    const layer = blueprint.querySelector<SVGGElement>(`#${id}`);
+    if (!layer) continue;
+    const paths = [...layer.querySelectorAll<SVGPathElement>("path")];
+    const outlines = paths.filter(path =>
+      !path.hasAttribute("stroke-dasharray") && getComputedStyle(path).stroke !== "none");
+    if (outlines.length) heroMotion.add(svg.createDrawable(outlines), {
+      draw: ["0 0", "0 1"], duration: 900,
+      delay: stagger(Math.min(16, 450 / outlines.length)), ease: "inOutSine",
+    }, start);
+    paths.filter(path => path.hasAttribute("fill") && path.getAttribute("fill") !== "none")
+      .forEach((path, index) => heroMotion.add(path, {
+        fillOpacity: [0, Number(path.getAttribute("fill-opacity") ?? 1)],
+        duration: 650, ease: "inOutSine",
+      }, start + 950 + Math.min(index * 6, 300)));
+    const details = layer.querySelectorAll("text, circle, path[stroke-dasharray]");
+    details.forEach(detail => heroMotion.add(detail, {
+      opacity: [0, Number(detail.getAttribute("opacity") ?? 1)], duration: 550,
+    }, start));
+  }
   motions.push(heroMotion);
   if (restore || reduced.matches) heroMotion.seek(heroMotion.duration);
-  else heroMotion.play();
+  else {
+    // Explicitly initialize delayed fills before revealing the SVG. Timeline
+    // children scheduled later must not retain their static SVG fill on frame 1.
+    blueprint.querySelectorAll<SVGPathElement>('path[fill]:not([fill="none"])').forEach(path => {
+      if (!path.closest('defs')) path.style.fillOpacity = '0';
+    });
+    heroMotion.seek(0);
+    heroMotion.play();
+  }
+  const blueprintContainer = blueprint.parentElement!;
+  blueprintContainer.style.visibility = 'visible';
+  blueprintContainer.removeAttribute('data-blueprint-pending');
   companyVisit.visited = true;
 
   let previousTime = 0;

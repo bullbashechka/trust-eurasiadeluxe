@@ -19,7 +19,17 @@ const advantages = [
       <p class="hero-tagline">Создаём современную<br/>среду для жизни</p>
       <div class="hero-footnote"><p>Архитектура<br/>Люди<br/>Гармония</p><span aria-hidden="true"></span></div>
     </div>
-    <div class="company-blueprint" set:html={blueprint} />
+    <div class="company-blueprint" data-blueprint-pending style="visibility:hidden" set:html={blueprint} />
+    <noscript><style>.company-blueprint { visibility: visible !important; }</style></noscript>
+    <script is:inline data-astro-rerun>
+      // Show the static drawing if the animation bundle cannot load.
+      setTimeout(() => {
+        document.querySelectorAll('[data-blueprint-pending]').forEach(element => {
+          element.style.visibility = 'visible';
+          element.removeAttribute('data-blueprint-pending');
+        });
+      }, 5000);
+    </script>
   </section>
   <section class="company-about" id="about" aria-labelledby="about-title"><div class="company-container about-grid">
     <div data-reveal><p class="company-eyebrow">О компании <span></span></p>
