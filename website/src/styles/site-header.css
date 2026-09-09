@@ -33,7 +33,7 @@
   outline-offset: 4px;
 }
 @media (max-width: 767px) {
-  .company-header, .project-header {
+  .company-header, .project-header, .project-header.is-scrolled, .project-header-solid {
     inset: 10px 10px auto;
     height: 66px;
   }
@@ -42,4 +42,14 @@
     font-size: 12px;
     padding: 9px 10px;
   }
+  .project-header {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    column-gap: 12px;
+  }
+  .project-header .project-wordmark { justify-self: center; }
+}
+@media (max-width: 360px) {
+  .project-header .project-menu-button span:last-child { display: none; }
+  .project-header .project-menu-button { min-width: 24px; min-height: 44px; }
+  .project-header .project-wordmark { font-size: 18px; }
 }

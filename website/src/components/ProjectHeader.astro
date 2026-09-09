@@ -2,7 +2,7 @@
 const isApartment = Astro.url.pathname.includes('/apartments/');
 ---
 <header class:list={['project-header', {'project-header-solid': isApartment}]} data-project-header>
-  <a class="project-menu-button" href="#project-menu" data-project-menu-open aria-haspopup="dialog"><span aria-hidden="true">☰</span><span>Меню</span></a>
+  <a class="project-menu-button" href="#project-menu" data-project-menu-open aria-label="Меню" aria-haspopup="dialog"><span aria-hidden="true">☰</span><span>Меню</span></a>
   <a class="project-wordmark" href="/eurasia-deluxe/" aria-label="Eurasia De Luxe — главная проекта">EURASIA <small>DE LUXE</small></a>
   <a class="project-header-cta" href="/eurasia-deluxe/#apartments">Выбрать квартиру <span aria-hidden="true">→</span></a>
 </header>

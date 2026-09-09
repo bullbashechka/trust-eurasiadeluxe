@@ -5,7 +5,8 @@
   --project-line: #cfcac2;
   --project-display: "Oswald Variable", Arial, sans-serif;
   --project-sans: "Manrope Variable", Arial, sans-serif;
-  --project-gutter: clamp(20px, calc(4.8vw / var(--display-scale, 1)), 76px);
+  --project-gutter: clamp(24px, calc(5vw / var(--display-scale, 1)), 72px);
+  --project-section-space: clamp(64px, calc(6.67vw / var(--display-scale, 1)), 96px);
 }
 .eurasia-page {
   background: var(--project-paper);
@@ -33,63 +34,63 @@
 .project-hero-v2 > img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
 .project-hero-shade { position: absolute; inset: 0; background: linear-gradient(180deg, #1116224d 0%, transparent 46%, #0d1016a8 100%); pointer-events: none; }
 .project-title-wrap { position: absolute; z-index: 1; inset: auto var(--project-gutter) 17px; }
-.project-title-wrap h1 { display: grid; grid-template-columns: minmax(0, 1fr) max-content; grid-template-rows: auto auto; align-items: end; margin: 0; color: #fff; text-transform: uppercase; line-height: .75; }
+.project-title-wrap h1 { display: grid; grid-template-columns: auto minmax(100px, 1fr) auto; align-items: end; margin: 0; color: #fff; text-transform: uppercase; line-height: .75; }
 .project-title-wrap h1 > span:not(.hero-statement) { font-size: clamp(78px, calc(11.8vw / var(--display-scale, 1)), 210px); font-stretch: condensed; white-space: nowrap; }
-.project-title-wrap h1 > span:first-child { grid-row: 1 / span 2; align-self: end; }
-.project-title-wrap h1 > span:last-child { grid-column: 2; grid-row: 1 / span 2; align-self: end; font-weight: 300; }
-.hero-statement { justify-self: center; align-self: end; margin: 0 clamp(20px, calc(3vw / var(--display-scale, 1)), 70px) 4px; font: 600 clamp(11px, calc(1vw / var(--display-scale, 1)), 16px)/1.45 var(--project-sans); letter-spacing: .05em; }
-.architecture-v2 { display: grid; grid-template-columns: 1.27fr .83fr; grid-template-rows: auto auto; gap: clamp(36px, calc(5vw / var(--display-scale, 1)), 82px) clamp(32px, calc(6vw / var(--display-scale, 1)), 110px); padding: clamp(62px, calc(8vw / var(--display-scale, 1)), 145px) var(--project-gutter) clamp(54px, calc(7vw / var(--display-scale, 1)), 118px); }
+.project-title-wrap h1 > span:first-child { grid-column: 1; grid-row: 1; align-self: end; }
+.project-title-wrap h1 > span:last-child { grid-column: 3; grid-row: 1; align-self: end; font-weight: 300; }
+.hero-statement { grid-column: 2; grid-row: 1; justify-self: center; align-self: end; margin: 0 24px 4px; font: 600 clamp(11px, calc(1vw / var(--display-scale, 1)), 16px)/1.45 var(--project-sans); letter-spacing: .05em; }
+.architecture-v2 { display: grid; grid-template-columns: 1.27fr .83fr; grid-template-rows: auto auto; gap: 48px clamp(32px, calc(5vw / var(--display-scale, 1)), 72px); padding: var(--project-section-space) var(--project-gutter); }
 .architecture-title { align-self: start; }
-.project-rule { display: block; width: 54px; height: 2px; background: var(--project-rust); margin-bottom: 12px; }
+.project-rule { display: block; width: 54px; height: 2px; background: var(--project-rust); margin-bottom: 16px; }
 .architecture-title h2 { margin: 0; font-size: clamp(62px, calc(10.2vw / var(--display-scale, 1)), 175px); line-height: .84; transform: scaleX(.73); transform-origin: left center; width: 137%; }
 .architecture-title p, .architecture-copy { margin: clamp(26px, calc(4vw / var(--display-scale, 1)), 62px) 0 0; font-size: clamp(10px, calc(.87vw / var(--display-scale, 1)), 14px); line-height: 1.7; letter-spacing: .28em; }
 .architecture-detail, .architecture-facade { margin: 0; }
 .architecture-detail { align-self: start; }
 .architecture-detail img { width: 100%; height: clamp(290px, calc(37vw / var(--display-scale, 1)), 592px); object-fit: cover; border-radius: 11px; object-position: 72% center; }
-.architecture-detail figcaption, .architecture-facade figcaption { display: flex; justify-content: end; gap: 14px; align-items: center; font-size: 11px; margin-top: 10px; }
+.architecture-detail figcaption, .architecture-facade figcaption { display: flex; justify-content: end; gap: 14px; align-items: center; font-size: 12px; margin-top: 12px; }
 .architecture-detail figcaption span, .architecture-facade figcaption span { width: 34px; height: 1px; background: currentColor; opacity: .7; }
 .architecture-facade { margin-top: calc(clamp(290px, calc(37vw / var(--display-scale, 1)), 592px) * -.22); }
 .architecture-facade img { width: min(100%, 690px); height: clamp(260px, calc(28vw / var(--display-scale, 1)), 470px); object-fit: cover; object-position: center; border-radius: 10px; }
 .architecture-facade figcaption { justify-content: start; margin-left: 4px; }
 .architecture-copy { align-self: end; justify-self: end; margin: 0 clamp(0px, calc(4vw / var(--display-scale, 1)), 65px) clamp(0px, calc(1vw / var(--display-scale, 1)), 16px) 0; }
-.project-interior-v2 { position: relative; min-height: clamp(430px, calc(58vw / var(--display-scale, 1)), 820px); overflow: hidden; color: #fff; background: #bba98e; }
+.project-interior-v2 { position: relative; height: clamp(360px, calc(33.34vw / var(--display-scale, 1)), 480px); min-height: 0; overflow: hidden; color: #fff; background: #bba98e; }
 .project-interior-v2 > img { width: 100%; height: 100%; position: absolute; inset: 0; object-fit: cover; object-position: center; }
-.project-interior-v2::after { content: ""; position: absolute; inset: 40% 0 0; background: linear-gradient(transparent, #1d17101f); }
-.interior-overlay { position: absolute; inset: 17px var(--project-gutter) 27px; z-index: 1; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-start; }
+.project-interior-v2::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 35%, #1d171080); }
+.interior-overlay { position: absolute; inset: 24px var(--project-gutter) 32px; z-index: 1; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-start; }
 .interior-overlay > span { padding: 6px 10px; color: var(--project-ink); background: #f5f3eddf; border-radius: 6px; font-size: 10px; }
-.interior-overlay h2 { margin: 0; font: 500 clamp(43px, calc(5.7vw / var(--display-scale, 1)), 92px)/.96 var(--project-sans); letter-spacing: -.04em; }
-.project-apartments { padding: clamp(58px, calc(7vw / var(--display-scale, 1)), 108px) var(--project-gutter) clamp(54px, calc(7vw / var(--display-scale, 1)), 96px); }
-.project-section-heading h2 { margin: 0 0 22px; font: 500 clamp(33px, calc(4vw / var(--display-scale, 1)), 64px)/1.05 var(--project-sans); letter-spacing: -.045em; }
-.apartment-filters { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 29px; }
-.apartment-filters button { min-width: 88px; height: 36px; padding-inline: 16px; border: 1px solid #dad4cc; border-radius: 99px; background: transparent; color: var(--project-ink); font-size: 10px; transition: background .2s, color .2s, border-color .2s; }
+.interior-overlay h2 { margin: 0; font: 500 clamp(36px, calc(4vw / var(--display-scale, 1)), 56px)/1.06 var(--project-sans); letter-spacing: -.04em; }
+.project-apartments { padding: var(--project-section-space) var(--project-gutter); }
+.project-section-heading h2 { margin: 0 0 24px; font: 500 clamp(33px, calc(4vw / var(--display-scale, 1)), 64px)/1.05 var(--project-sans); letter-spacing: -.045em; }
+.apartment-filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 32px; }
+.apartment-filters button { min-width: 88px; min-height: 44px; padding: 8px 16px; border: 1px solid #dad4cc; border-radius: 99px; background: transparent; color: var(--project-ink); font-size: 10px; transition: background .2s, color .2s, border-color .2s; }
 .apartment-filters button[aria-pressed="true"] { color: #fff; background: var(--project-rust); border-color: var(--project-rust); }
 .project-apartments .apartment-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; perspective: 1000px; }
-.project-apartments .apartment-card { display: flex; flex-direction: column; min-height: 408px; border: 0; border-radius: 10px; padding: 22px 18px 16px; background: #fbfaf8; box-shadow: 0 5px 20px #4b403006; transform-style: preserve-3d; transform-origin: center; transition: box-shadow .3s ease; }
+.project-apartments .apartment-card { display: flex; flex-direction: column; min-height: 408px; border: 0; border-radius: 10px; padding: 24px; background: #fbfaf8; box-shadow: 0 5px 20px #4b403006; transform-style: preserve-3d; transform-origin: center; transition: box-shadow .3s ease; }
 .project-apartments .apartment-card.is-tilting { box-shadow: 0 18px 36px #30261a21; }
 .project-apartments .card-top { order: 0; font-size: 10px; color: #54505a; }
 .project-apartments .card-top .index { display: none; }
-.project-apartments .card-bottom { order: 1; align-items: baseline; margin-top: 3px; }
+.project-apartments .card-bottom { order: 1; align-items: baseline; margin-top: 8px; }
 .project-apartments .card-bottom h3 { font: 600 clamp(28px, calc(3vw / var(--display-scale, 1)), 46px)/1 var(--project-sans); letter-spacing: -.06em; }
 .project-apartments .card-bottom h3 span { color: inherit; font-size: .63em; }
 .project-apartments .circle-arrow { display: none; }
-.project-apartments .plan-image { order: 2; flex: 1; min-height: 200px; margin: 12px 0 6px; background: transparent; aspect-ratio: auto; }
+.project-apartments .plan-image { order: 2; flex: 1; min-height: 200px; margin: 16px 0; background: transparent; aspect-ratio: auto; }
 .project-apartments .plan-image img { object-fit: contain; mix-blend-mode: normal; transition: transform .4s ease; }
 .project-apartments .apartment-card:hover .plan-image img { transform: scale(1.03); }
 .project-apartments .apartment-card > p { display: none; }
-.project-apartments .card-action { order: 3; margin: 7px 0 0; padding: 0; border: 0; font-size: 10px; color: #45404a; }
+.project-apartments .card-action { order: 3; margin: 0; padding: 0; border: 0; font-size: 10px; color: #45404a; }
 .project-apartments .card-action b { margin-left: 7px; font-size: 15px; font-weight: 400; vertical-align: -1px; }
-.project-tour-band { min-height: clamp(172px, calc(18vw / var(--display-scale, 1)), 270px); display: flex; align-items: center; justify-content: space-between; gap: 30px; padding: clamp(30px, calc(4vw / var(--display-scale, 1)), 62px) var(--project-gutter); color: #fff; background: linear-gradient(104deg, #b34e34, #a84730 70%, #c36147); }
+.project-tour-band { min-height: 0; display: flex; align-items: center; justify-content: space-between; gap: 32px; padding: 48px var(--project-gutter); color: #fff; background: linear-gradient(104deg, #b34e34, #a84730 70%, #c36147); }
 .project-tour-band h2 { margin: 0; font: 500 clamp(36px, calc(4.5vw / var(--display-scale, 1)), 72px)/1.02 var(--project-sans); letter-spacing: -.04em; }
 .project-button { display: inline-flex; align-items: center; justify-content: center; gap: 28px; min-height: 48px; padding: 12px 24px; border: 1px solid transparent; border-radius: 8px; font: 500 12px var(--project-sans); }
 .project-button span { font-size: 18px; line-height: 1; }
 .project-button-light { min-width: 190px; color: var(--project-ink); background: var(--project-paper); }
 .project-button-filled { color: #fff; background: var(--project-rust); }
-.project-contact-v2 { display: grid; grid-template-columns: 1fr 1fr; align-items: end; gap: 80px; padding: clamp(64px, calc(8vw / var(--display-scale, 1)), 130px) var(--project-gutter); }
+.project-contact-v2 { display: grid; grid-template-columns: 1fr 1fr; align-items: end; gap: 48px; padding: var(--project-section-space) var(--project-gutter); }
 .project-kicker { margin: 0 0 14px; font-size: 10px; letter-spacing: .26em; }
 .project-contact-v2 h2 { margin: 0; font-size: clamp(72px, calc(10vw / var(--display-scale, 1)), 160px); line-height: .83; transform: scaleX(.72); transform-origin: left center; width: 139%; text-transform: uppercase; }
 .project-contact-copy { max-width: 410px; justify-self: end; }
-.project-contact-copy p { margin: 0 0 26px; font-size: 16px; line-height: 1.55; color: #5a565b; }
-.project-footer { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 24px; padding: 27px var(--project-gutter); color: #f6f3ed; background: #29272e; }
+.project-contact-copy p { margin: 0 0 24px; font-size: 16px; line-height: 1.55; color: #5a565b; }
+.project-footer { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 24px; padding: 32px var(--project-gutter); color: #f6f3ed; background: #29272e; }
 .project-footer-brand { font: 400 30px/1 var(--project-display); letter-spacing: -.02em; }
 .project-footer nav { display: flex; gap: clamp(12px, calc(3vw / var(--display-scale, 1)), 34px); font-size: 10px; text-transform: uppercase; }
 .project-footer small { justify-self: end; font-size: 10px; }
@@ -128,32 +129,32 @@
   .project-title-wrap h1 { grid-template-columns: 1fr; gap: 5px; line-height: .83; }
   .project-title-wrap h1 > span:not(.hero-statement) { font-size: clamp(58px, calc(18.5vw / var(--display-scale, 1)), 110px); }
   .project-title-wrap h1 > span:first-child, .project-title-wrap h1 > span:last-child { grid-column: 1; grid-row: auto; align-self: auto; }
-  .hero-statement { justify-self: start; order: 3; margin: 8px 0 0; font-size: 10px; }
-  .architecture-v2 { grid-template-columns: 1fr; grid-template-rows: auto; gap: 32px; padding: 60px 20px; }
+  .hero-statement { grid-column: 1; grid-row: 3; justify-self: start; order: 3; margin: 8px 0 0; font-size: 10px; }
+  .architecture-v2 { grid-template-columns: 1fr; grid-template-rows: auto; gap: 32px; padding: 56px var(--project-gutter); }
   .architecture-title h2 { font-size: clamp(62px, calc(20vw / var(--display-scale, 1)), 100px); }
-  .architecture-title p { margin-top: 23px; font-size: 9px; }
+  .architecture-title p { margin-top: 24px; font-size: 9px; }
   .architecture-detail { width: min(86%, 460px); justify-self: end; }
   .architecture-detail img { height: 330px; }
   .architecture-facade { margin-top: 0; }
   .architecture-facade img { width: 100%; height: 250px; }
   .architecture-copy { justify-self: start; margin: 4px 0 0; font-size: 10px; }
-  .project-interior-v2 { min-height: 510px; }
+  .project-interior-v2 { height: 320px; min-height: 0; }
   .project-interior-v2 > img { object-position: 57% center; }
-  .interior-overlay { inset: 15px 20px 23px; }
-  .interior-overlay h2 { font-size: 46px; }
-  .project-apartments { padding: 58px 20px; }
+  .interior-overlay { inset: 24px var(--project-gutter); }
+  .interior-overlay h2 { font-size: 36px; }
+  .project-apartments { padding: 56px var(--project-gutter); }
   .project-section-heading h2 { font-size: 34px; }
-  .apartment-filters { gap: 6px; margin-bottom: 21px; }
-  .apartment-filters button { min-width: auto; flex: 1; height: 34px; padding-inline: 8px; font-size: 9px; }
-  .project-apartments .apartment-grid { grid-template-columns: 1fr; gap: 12px; }
+  .apartment-filters { gap: 8px; margin-bottom: 24px; }
+  .apartment-filters button { min-width: auto; flex: 1; min-height: 44px; padding-inline: 8px; font-size: 11px; }
+  .project-apartments .apartment-grid { grid-template-columns: 1fr; gap: 16px; }
   .project-apartments .apartment-card { min-height: 390px; }
-  .project-tour-band { flex-direction: column; align-items: flex-start; padding: 34px 20px; }
+  .project-tour-band { flex-direction: column; align-items: flex-start; padding: 32px var(--project-gutter); }
   .project-tour-band h2 { font-size: 38px; }
   .project-button-light { width: 100%; }
-  .project-contact-v2 { grid-template-columns: 1fr; gap: 34px; padding: 65px 20px; }
+  .project-contact-v2 { grid-template-columns: 1fr; gap: 32px; padding: 56px var(--project-gutter); }
   .project-contact-v2 h2 { font-size: 92px; }
   .project-contact-copy { justify-self: start; }
-  .project-footer { grid-template-columns: 1fr; padding: 30px 20px; gap: 22px; }
+  .project-footer { grid-template-columns: 1fr; padding: 32px var(--project-gutter); gap: 24px; }
   .project-footer nav { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
   .project-footer small { justify-self: start; }
   .project-menu-inner, .project-contact-inner, .apartment-selector-inner { padding: 44px 24px 28px; }
