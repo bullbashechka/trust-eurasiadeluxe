@@ -8,9 +8,9 @@ import {
 } from "../src/data/company-navigation";
 
 describe("company contact form", () => {
-  test("requires a name and a valid Kazakhstan number", () => {
+  test("requires a valid Kazakhstan number and allows an empty name", () => {
     expect(validateCompanyForm("", "").valid).toBe(false);
-    expect(validateCompanyForm("  ", "+77010000000").errors.name).toBeTruthy();
+    expect(validateCompanyForm("  ", "+77010000000").valid).toBe(true);
     expect(validateCompanyForm("Тест", "+7 (701) 000-00-00").valid).toBe(true);
     expect(validateCompanyForm("Тест", "87010000000").valid).toBe(true);
   });

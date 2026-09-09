@@ -55,9 +55,15 @@ def prepare_images(shots):
         web_image(ROOT / path, OUT / apartment / 'plan.webp')
     web_image(ROOT / 'assets/brand/logo-enhanced.png', OUT / 'logo.webp', 500)
     web_image(ROOT / 'assets/brand/site-social-preview.png', OUT / 'social.webp', 1600)
-    # Crop only existing screenshot artwork, excluding old prices and social UI.
-    building = next((ROOT / 'refs').glob('*5.47.59*'))
-    web_image(building, OUT / 'building.webp', 1600, (20, 570, 1216, 1270))
+    # Project imagery comes from the source visualisation, not a social-media screenshot.
+    facade = ROOT / 'assets/brand/eurasia-project-dusk.png'
+    web_image(facade, OUT / 'project-building.webp', 1774)
+    web_image(facade, OUT / 'architecture-detail.webp', 1000, (1000, 140, 1580, 760))
+    web_image(
+        ROOT / 'assets/apartments/39-87/photos/photorealistic/03-living-room.png',
+        OUT / 'project-interior.webp',
+        1600,
+    )
 
 
 def prepare_clip(job):

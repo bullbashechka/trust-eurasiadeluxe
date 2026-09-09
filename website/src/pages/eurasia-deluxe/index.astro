@@ -1,17 +1,68 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import ApartmentCards from '../../components/ApartmentCards.astro';
-import Contact from '../../components/Contact.astro';
+import ApartmentSelector from '../../components/ApartmentSelector.astro';
 ---
-<Layout title="Eurasia De Luxe — найдите своё пространство" image="/media/building.webp">
-  <section class="project-intro section">
-    <div><div class="breadcrumb"><a href="/">Траст Строй</a><span>/</span><span>Eurasia De Luxe</span></div><p class="eyebrow">ЖИЛОЙ КОМПЛЕКС</p><h1>Eurasia<br/><em>De Luxe</em></h1></div>
-    <div class="intro-copy"><p>Дом начинается с ощущения. Со света в гостиной, любимого места у окна и пространства, которое становится вашим.</p><a href="#apartments" class="button dark">Найти свою планировку <span>↓</span></a></div>
+<Layout title="Eurasia De Luxe — жилой комплекс" image="/media/project-building.webp">
+  <section class="project-hero-v2" id="project" aria-labelledby="project-title">
+    <img src="/media/project-building.webp" alt="Визуализация жилого комплекса Eurasia De Luxe в вечернем свете" width="1774" height="887" fetchpriority="high" />
+    <div class="project-hero-shade" aria-hidden="true"></div>
+    <div class="project-title-wrap" data-project-reveal>
+      <h1 id="project-title"><span>EURASIA</span><span class="hero-statement">БОЛЬШЕ<br/>ЧЕМ ПРОСТО<br/>ДОМ</span><span>DE LUXE</span></h1>
+    </div>
   </section>
-  <section class="project-banner" aria-label="О комплексе">
-    <img src="/media/building.webp" alt="Визуализация архитектуры Eurasia De Luxe" width="1196" height="700" fetchpriority="high" />
-    <div class="project-facts"><div><strong>3</strong><small>Планировки для знакомства с пространством</small></div><div><strong>36–80 м²</strong><small>Площади представленных квартир</small></div><div><strong>Ваш интерьер</strong><small>Варианты в едином тёплом стиле</small></div></div>
+
+  <section class="architecture-v2" id="architecture" aria-labelledby="architecture-title">
+    <div class="architecture-title" data-project-reveal>
+      <span class="project-rule" aria-hidden="true"></span>
+      <h2 id="architecture-title">АРХИТЕКТУРА</h2>
+      <p>СОВРЕМЕННАЯ<br/>ГАРМОНИЯ<br/>В ДЕТАЛЯХ</p>
+    </div>
+    <figure class="architecture-detail" data-project-reveal>
+      <img src="/media/architecture-detail.webp" alt="Деталь фасада с архитектурной подсветкой" width="1000" height="1070" loading="lazy" />
+      <figcaption>Детали <span aria-hidden="true"></span></figcaption>
+    </figure>
+    <figure class="architecture-facade" data-project-reveal>
+      <img src="/media/project-building.webp" alt="Фасад Eurasia De Luxe" width="1774" height="887" loading="lazy" />
+      <figcaption>Фасад <span aria-hidden="true"></span></figcaption>
+    </figure>
+    <p class="architecture-copy" data-project-reveal>ПРОДУМАННАЯ<br/>АРХИТЕКТУРА<br/>ДЛЯ КОМФОРТНОЙ<br/>ЖИЗНИ</p>
   </section>
-  <section class="section" id="apartments"><div class="section-heading"><div><p class="eyebrow">ВЫБЕРИТЕ СВОЁ ПРОСТРАНСТВО</p><h2>Как выглядит<br/><em>ваш будущий дом?</em></h2></div><p>Три планировки, три истории. Нажмите на квартиру, чтобы заглянуть внутрь и пройти по её комнатам.</p></div><ApartmentCards /></section>
-  <Contact />
+
+  <section class="project-interior-v2" aria-labelledby="interior-title">
+    <img src="/media/project-interior.webp" alt="Визуализация светлой гостиной" width="1600" height="1067" loading="lazy" />
+    <div class="interior-overlay">
+      <span>Вариант интерьера</span>
+      <h2 id="interior-title">Внутри<br/>вашей квартиры</h2>
+    </div>
+  </section>
+
+  <section class="project-apartments" id="apartments" aria-labelledby="apartments-title">
+    <div class="project-section-heading" data-project-reveal>
+      <h2 id="apartments-title">Найдите свою планировку</h2>
+      <div class="apartment-filters" role="group" aria-label="Фильтр планировок">
+        <button type="button" data-apartment-filter="all" aria-pressed="true">Все</button>
+        <button type="button" data-apartment-filter="1" aria-pressed="false">1-комнатные</button>
+        <button type="button" data-apartment-filter="2" aria-pressed="false">2-комнатные</button>
+      </div>
+    </div>
+    <div data-project-reveal><ApartmentCards openInNewTab /></div>
+  </section>
+
+  <section class="project-tour-band" aria-label="Начать экскурсию">
+    <h2>Сначала —<br/>прогулка по квартире.</h2>
+    <button type="button" class="project-button project-button-light" data-tour-selector-open>Начать тур <span aria-hidden="true">↗</span></button>
+  </section>
+
+  <section class="project-contact-v2" id="contact" aria-labelledby="contact-title">
+    <div data-project-reveal>
+      <p class="project-kicker">EURASIA DE LUXE</p>
+      <h2 id="contact-title">Узнать<br/>о квартире</h2>
+    </div>
+    <div class="project-contact-copy" data-project-reveal>
+      <p>Оставьте заявку, чтобы получить подробности о планировках и вариантах интерьера.</p>
+      <button type="button" class="project-button project-button-filled" data-project-contact-open>Связаться <span aria-hidden="true">→</span></button>
+    </div>
+  </section>
+  <ApartmentSelector />
 </Layout>

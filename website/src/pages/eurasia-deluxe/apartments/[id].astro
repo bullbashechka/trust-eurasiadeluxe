@@ -1,6 +1,5 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
-import Contact from '../../../components/Contact.astro';
 import ApartmentCards from '../../../components/ApartmentCards.astro';
 import ApartmentTour from '../../../components/ApartmentTour';
 import { apartments } from '../../../data/apartments';
@@ -8,14 +7,15 @@ export function getStaticPaths() { return apartments.map(apartment => ({params:{
 const {apartment:a} = Astro.props;
 ---
 <Layout title={`${a.rooms}-комнатная квартира ${a.area} м² — Eurasia De Luxe`} description={a.description} image={a.cover}>
-  <section class="apartment-hero section"><div class="breadcrumb"><a href="/">Траст Строй</a><span>/</span><a href="/eurasia-deluxe/#apartments">Eurasia De Luxe</a><span>/</span><span>{a.area} м²</span></div>
-    <div class="apartment-hero-content"><div><p class="eyebrow">{a.rooms}-КОМНАТНАЯ КВАРТИРА · EURASIA DE LUXE</p><h1>{a.area}<span> м²</span></h1><p class="apartment-description">{a.description}</p><div class="apartment-features">{a.features.map(feature=><span>{feature}</span>)}</div><div class="hero-actions"><a href="#tour" class="button dark">Прогуляться по квартире <span>↓</span></a><a href="#contact" class="text-link">Уточнить стоимость ↗</a></div></div>
-    <figure class="hero-plan"><img src={a.plan} alt={`Меблированный вид сверху квартиры ${a.area} м²`} width="800" height="750" fetchpriority="high"/><figcaption>Вариант интерьера · вид сверху</figcaption></figure></div>
+  <section class="apartment-v2-hero"><a class="back-to-project" href="/eurasia-deluxe/#apartments">← Назад к планировкам</a>
+    <div class="apartment-v2-intro"><div><p class="project-kicker">{a.rooms}-КОМНАТНАЯ КВАРТИРА</p><h1>{a.area}<span> м²</span></h1></div>
+    <div class="apartment-v2-copy"><h2>{a.title}</h2><p>{a.description}</p><div class="apartment-v2-actions"><a href="#tour" class="project-button project-button-filled">Начать тур <span>→</span></a><a href="#details" class="project-button project-button-outline">Планировка <span>⌘</span></a></div></div></div>
   </section>
-  <section class="tour-heading section"><p class="eyebrow">ИССЛЕДУЙТЕ. ПРЕДСТАВЛЯЙТЕ. ПОЧУВСТВУЙТЕ.</p><h2>{a.title}</h2></section>
-  <ApartmentTour scenes={a.scenes} area={a.area} client:load />
+  <section class="apartment-tour-intro"><span class="project-rule" aria-hidden="true"></span><h2>ПРОГУЛКА ПО КВАРТИРЕ</h2><a href="#details">Планировка ↗</a></section>
+  <ApartmentTour scenes={a.scenes} area={a.area} plan={a.plan} client:load />
   <noscript><style>.tour-section{display:none!important}</style><div class="tour-no-js"><p>Для экскурсии с прокруткой включите JavaScript. Фотографии доступны ниже.</p>{a.scenes.map(scene=><figure><img src={scene.poster} alt={scene.room} loading="lazy" width="1736" height="1192"/><figcaption>{scene.room} — {scene.caption}</figcaption></figure>)}</div></noscript>
-  <p class="tour-bottom-note">Вариант интерьера. Расстановка мебели и отделка показаны для знакомства с пространством.</p>
-  <Contact area={a.area} />
-  <section class="section"><div class="section-heading"><div><p class="eyebrow">ПРОДОЛЖИТЬ ЗНАКОМСТВО</p><h2>Другой взгляд<br/>на <em>ваш дом.</em></h2></div><a class="text-link" href="/eurasia-deluxe/#apartments">Все планировки ↗</a></div><ApartmentCards exclude={a.id}/></section>
+  <section class="apartment-details-v2" id="details"><div class="details-plan"><span class="project-rule" aria-hidden="true"></span><h2>ПЛАНИРОВКА И ДЕТАЛИ</h2><img src={a.plan} alt={`Планировка квартиры ${a.area} м²`} width="800" height="750" loading="lazy"/></div>
+  <div class="details-copy"><p class="project-kicker">ХАРАКТЕРИСТИКИ</p><dl><div><dt>Общая площадь</dt><dd>{a.area} м²</dd></div><div><dt>Комнат</dt><dd>{a.rooms}</dd></div>{a.features.map((feature, index)=><div><dt>{index === 0 ? 'Особенность' : ''}</dt><dd>{feature}</dd></div>)}</dl><button type="button" class="project-button project-button-filled" data-project-contact-open>Узнать о квартире <span>→</span></button></div></section>
+  <section class="apartment-contact-band"><h2>УЗНАТЬ О КВАРТИРЕ</h2><button type="button" class="project-button project-button-light" data-project-contact-open>Связаться <span>→</span></button></section>
+  <section class="other-apartments-v2"><span class="project-rule" aria-hidden="true"></span><h2>ДРУГИЕ ПЛАНИРОВКИ</h2><ApartmentCards exclude={a.id}/></section>
 </Layout>

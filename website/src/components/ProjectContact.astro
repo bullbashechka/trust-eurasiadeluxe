@@ -1,0 +1,23 @@
+<dialog class="project-contact-dialog" id="project-contact-dialog" aria-labelledby="project-contact-title">
+  <div class="project-contact-inner">
+    <button type="button" class="project-dialog-close" data-project-contact-close aria-label="Закрыть форму">×</button>
+    <div data-project-contact-content>
+      <p class="project-kicker">EURASIA DE LUXE</p>
+      <h2 id="project-contact-title">Узнать больше</h2>
+      <p>Оставьте телефон, и мы свяжемся с вами.</p>
+      <form data-project-contact-form novalidate>
+        <label for="project-contact-name">Имя</label>
+        <input id="project-contact-name" name="name" autocomplete="given-name" maxlength="80" placeholder="Как к вам обращаться" />
+        <label for="project-contact-phone">Телефон</label>
+        <input id="project-contact-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="24" placeholder="+7 (___) ___-__-__" aria-describedby="project-phone-error" required />
+        <span id="project-phone-error" class="project-field-error" aria-live="polite"></span>
+        <button class="project-button project-button-filled" type="submit">Отправить <span aria-hidden="true">→</span></button>
+      </form>
+    </div>
+    <div data-project-contact-success hidden role="status" tabindex="-1">
+      <span class="project-success-mark" aria-hidden="true">✓</span>
+      <h2>Спасибо! Ваша заявка отправлена</h2>
+      <button class="project-button project-button-filled" type="button" data-project-contact-close>Закрыть</button>
+    </div>
+  </div>
+</dialog>

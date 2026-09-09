@@ -17,6 +17,7 @@ interface LayerProps {
   onSlow: () => void;
   onEnd: () => void;
   onBlocked: () => void;
+  onReady: () => void;
 }
 
 function MediaLayer({
@@ -31,11 +32,12 @@ function MediaLayer({
   onSlow,
   onEnd,
   onBlocked,
+  onReady,
 }: LayerProps) {
   const video = useRef<HTMLVideoElement>(null);
   const target = useRef(time);
-  const callbacks = useRef({ onError, onSlow, onEnd, onBlocked });
-  callbacks.current = { onError, onSlow, onEnd, onBlocked };
+  const callbacks = useRef({ onError, onSlow, onEnd, onBlocked, onReady });
+  callbacks.current = { onError, onSlow, onEnd, onBlocked, onReady };
   const [ready, setReady] = useState(false);
   const seek = useRef<() => void>(() => {});
   target.current = time;
@@ -84,11 +86,13 @@ function MediaLayer({
     const loaded = () => {
       clearTimeout(loadTimer);
       setReady(true);
+      callbacks.current.onReady();
       update();
     };
     const seeked = () => {
       clearSlow();
       setReady(true);
+      callbacks.current.onReady();
       update();
     };
     const error = () => {
@@ -160,9 +164,11 @@ function MediaLayer({
 export default function ApartmentTour({
   scenes,
   area,
+  plan = "",
 }: {
   scenes: Scene[];
   area: string;
+  plan?: string;
 }) {
   const section = useRef<HTMLElement>(null);
   const trigger = useRef<ScrollTrigger | null>(null);
@@ -174,9 +180,13 @@ export default function ApartmentTour({
   const [failures, setFailures] = useState<Record<string, boolean>>({});
   const [attempt, setAttempt] = useState(0);
   const [notice, setNotice] = useState("");
+  const [tourReady, setTourReady] = useState(false);
+  const [tourActive, setTourActive] = useState(false);
+  const planDialog = useRef<HTMLDialogElement>(null);
   const slowCount = useRef(0);
   const reduced = useRef(false);
   const frameRef = useRef(frame);
+  const readyBeforeEntry = useRef(false);
   frameRef.current = frame;
   const current = scenes[frame.index];
   const hasFailed = Boolean(failures[current.id]);
@@ -212,6 +222,14 @@ export default function ApartmentTour({
       { rootMargin: "400px 0px" },
     );
     if (section.current) observer.observe(section.current);
+    const activateWhenEntered = () => {
+      const element = section.current;
+      if (!element || !tourReady || !readyBeforeEntry.current) return;
+      const rect = element.getBoundingClientRect();
+      if (rect.top <= 1 && rect.bottom > 0) setTourActive(true);
+    };
+    window.addEventListener("scroll", activateWhenEntered, { passive: true });
+    activateWhenEntered();
     const pause = () => {
       if (document.hidden) setPlaying(false);
     };
@@ -221,11 +239,12 @@ export default function ApartmentTour({
       motion.removeEventListener("change", syncMotion);
       viewport.removeEventListener("change", syncSize);
       document.removeEventListener("visibilitychange", pause);
+      window.removeEventListener("scroll", activateWhenEntered);
     };
-  }, []);
+  }, [tourReady]);
 
   useEffect(() => {
-    if (mode !== "scroll" || !section.current) return;
+    if (mode !== "scroll" || !tourReady || !tourActive || !section.current) return;
     const controller = ScrollTrigger.create({
       trigger: section.current,
       start: "top top",
@@ -242,7 +261,7 @@ export default function ApartmentTour({
       trigger.current = null;
       window.removeEventListener("pageshow", refresh);
     };
-  }, [mode, scenes.length]);
+  }, [mode, scenes.length, tourReady, tourActive]);
 
   function changeMode(next: Mode) {
     const top = section.current
@@ -298,10 +317,11 @@ export default function ApartmentTour({
       id="tour"
       aria-label={`Экскурсия по квартире ${area} м²`}
       data-mode={mode}
+      data-ready={tourReady && tourActive}
       style={
         {
           height:
-            mode === "scroll" ? `${(scenes.length + 1) * 100}svh` : "auto",
+            mode === "scroll" && tourReady && tourActive ? `${(scenes.length + 1) * 100}svh` : "auto",
         } as CSSProperties
       }
     >
@@ -349,6 +369,14 @@ export default function ApartmentTour({
                     setPlaying(false);
                     setNotice("Нажмите «Смотреть», чтобы запустить видео.");
                   }}
+                  onReady={() => {
+                    if (!tourReady) {
+                      const element = section.current;
+                      const rect = element?.getBoundingClientRect();
+                      readyBeforeEntry.current = !rect || rect.top > window.innerHeight || rect.bottom <= 0;
+                      setTourReady(true);
+                    }
+                  }}
                   onEnd={() => {
                     if (mode !== "play" || index !== frame.index) return;
                     if (index < scenes.length - 1)
@@ -360,10 +388,10 @@ export default function ApartmentTour({
           )}
           <div className="tour-topline">
             <span className="tour-badge">EURASIA DE LUXE · {area} М²</span>
-            <span className="tour-counter">
-              {String(frame.index + 1).padStart(2, "0")} / {scenes.length}
-            </span>
+            <div className="tour-top-actions"><button type="button" onClick={() => planDialog.current?.showModal()}>Планировка</button><a href="#details">Пропустить тур</a><span className="tour-counter">{String(frame.index + 1).padStart(2, "0")} / {scenes.length}</span></div>
           </div>
+          {!tourReady && near && mode === "scroll" && <div className="tour-wait" role="status">Подготавливаем прогулку…</div>}
+          {tourReady && !tourActive && mode === "scroll" && <button type="button" className="tour-start" onClick={() => setTourActive(true)}>Начать прогулку <span aria-hidden="true">→</span></button>}
           {(hasFailed || notice) && (
             <div className="tour-message" role="status">
               <span>
@@ -474,12 +502,16 @@ export default function ApartmentTour({
                   ? "Фотографии интерьера. Выберите комнату или сцену."
                   : "Видео по главам. Вы управляете просмотром."}
             </p>
-            <a className="tour-finish-link" href="#contact">
-              Перейти к контактам ↗
+            <a className="tour-finish-link" href="#details">
+              К характеристикам ↗
             </a>
           </div>
         </aside>
       </div>
+      {plan && <dialog ref={planDialog} className="tour-plan-dialog" aria-label={`Планировка квартиры ${area} м²`} onClose={() => planDialog.current?.blur()}>
+        <button type="button" aria-label="Закрыть планировку" onClick={() => planDialog.current?.close()}>×</button>
+        <img src={plan} alt={`Планировка квартиры ${area} м²`} width="800" height="750" />
+      </dialog>}
     </section>
   );
 }

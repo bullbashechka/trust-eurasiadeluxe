@@ -1,8 +1,7 @@
 import { parsePhoneNumberFromString } from "libphonenumber-js/max";
 
-export function validateCompanyForm(name: string, phone: string) {
+export function validateCompanyForm(_name: string, phone: string) {
   const errors = { name: "", phone: "" };
-  if (!name.trim()) errors.name = "Укажите имя";
   const number = parsePhoneNumberFromString(phone, "KZ");
   if (!number || number.country !== "KZ" || !number.isValid()) {
     errors.phone = "Укажите корректный номер Казахстана";

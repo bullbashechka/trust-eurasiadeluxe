@@ -83,12 +83,17 @@ async function click(text: string) {
     await new Promise((r) => setTimeout(r, 5));
   });
 }
+async function startTour() {
+  await click("Начать прогулку");
+}
 
 test("videos load near the tour, bounded to current and neighboring scenes", async () => {
   await mount();
   expect(container.querySelectorAll("video").length).toBe(0);
   await enter();
   expect(container.querySelectorAll("video").length).toBe(2);
+  await act(async () => container.querySelector("video")?.dispatchEvent(new currentWindow.Event("loadeddata") as unknown as Event));
+  await startTour();
   await act(async () => scrollUpdate?.({ progress: 0.45 }));
   expect(container.querySelectorAll("video").length).toBe(3);
   await act(async () => near?.([{ isIntersecting: false }]));
@@ -129,6 +134,8 @@ test("failed media retains poster, provides retry, then photograph fallback", as
 test("normal playback mode preserves selected scene and can return to scroll", async () => {
   await mount();
   await enter();
+  await act(async () => container.querySelector("video")?.dispatchEvent(new currentWindow.Event("loadeddata") as unknown as Event));
+  await startTour();
   await act(async () => scrollUpdate?.({ progress: 0.3 }));
   expect(container.querySelector("h3")?.textContent).toBe("Гостиная");
   await click("Обычное воспроизведение");

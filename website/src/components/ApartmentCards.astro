@@ -1,13 +1,14 @@
 ---
 import { apartments, apartmentPath } from '../data/apartments';
-interface Props { exclude?: string }
-const list = apartments.filter(a => a.id !== Astro.props.exclude);
+interface Props { exclude?: string; openInNewTab?: boolean }
+const { exclude, openInNewTab = false } = Astro.props;
+const list = apartments.filter(a => a.id !== exclude);
 ---
 <div class:list={['apartment-grid', {'two-cards':list.length === 2}]}>
-  {list.map((a,i) => <a class="apartment-card" href={apartmentPath(a.id)} data-cloud data-astro-reload>
+  {list.map((a,i) => <a class="apartment-card" href={apartmentPath(a.id)} data-apartment-card data-rooms={a.rooms} target={openInNewTab ? '_blank' : undefined} rel={openInNewTab ? 'noopener noreferrer' : undefined}>
     <div class="card-top"><span>{a.rooms}-комнатная квартира</span><span class="index">0{i+1}</span></div>
     <div class="plan-image"><img src={a.plan} alt={`Вид сверху квартиры ${a.area} м²`} loading="lazy" width="800" height="750" /></div>
     <div class="card-bottom"><h3>{a.area}<span> м²</span></h3><span class="circle-arrow" aria-hidden="true">↗</span></div>
-    <p>{a.features.join(' · ')}</p><span class="card-action">Исследовать квартиру</span>
+    <p>{a.features.join(' · ')}</p><span class="card-action">Посмотреть планировку <b aria-hidden="true">→</b></span>
   </a>)}
 </div>
