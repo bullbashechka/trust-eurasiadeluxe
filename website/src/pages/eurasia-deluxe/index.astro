@@ -29,24 +29,15 @@ import ApartmentSelector from '../../components/ApartmentSelector.astro';
     <p class="architecture-copy" data-project-reveal>ПРОДУМАННАЯ<br/>АРХИТЕКТУРА<br/>ДЛЯ КОМФОРТНОЙ<br/>ЖИЗНИ</p>
   </section>
 
-  <section class="project-interior-v2" aria-labelledby="interior-title">
-    <img src="/media/project-interior.webp" alt="Визуализация светлой гостиной" width="1600" height="1067" loading="lazy" />
-    <div class="interior-overlay">
-      <span>Вариант интерьера</span>
-      <h2 id="interior-title">Внутри<br/>вашей квартиры</h2>
+  <section class="selection-section" id="apartments" aria-labelledby="apartments-title">
+    <div class="selection-heading">
+      <p class="project-kicker">EURASIA DE LUXE</p>
+      <span class="project-rule" aria-hidden="true"></span>
+      <h2 id="apartments-title">Какая квартира<br class="selection-title-break" /> подойдёт вам?</h2>
+      <p class="selection-intro">Три планировки. Выберите свою и загляните внутрь.</p>
     </div>
-  </section>
-
-  <section class="project-apartments" id="apartments" aria-labelledby="apartments-title">
-    <div class="project-section-heading" data-project-reveal>
-      <h2 id="apartments-title">Найдите свою планировку</h2>
-      <div class="apartment-filters" role="group" aria-label="Фильтр планировок">
-        <button type="button" data-apartment-filter="all" aria-pressed="true">Все</button>
-        <button type="button" data-apartment-filter="1" aria-pressed="false">1-комнатные</button>
-        <button type="button" data-apartment-filter="2" aria-pressed="false">2-комнатные</button>
-      </div>
-    </div>
-    <div data-project-reveal><ApartmentCards openInNewTab /></div>
+    <ApartmentCards variant="selection" openInNewTab />
+    <p class="selection-note">Планировка, детали и виртуальная прогулка — на странице квартиры.</p>
   </section>
 
   <section class="project-tour-band" aria-label="Начать экскурсию">

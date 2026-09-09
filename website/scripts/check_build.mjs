@@ -15,6 +15,18 @@ async function walk(dir) {
 }
 const pages = (await walk(root)).filter((p) => p.endsWith(".html"));
 assert.equal(pages.length, 5);
+const projectHtml = await readFile(join(root, 'eurasia-deluxe/index.html'), 'utf8');
+assert.equal((projectHtml.match(/id="apartments"/g) || []).length, 1);
+assert.ok(!projectHtml.includes('project-interior-v2'));
+assert.ok(!projectHtml.includes('data-apartment-filter'));
+const selectionLinks = [...projectHtml.matchAll(/<a\b[^>]*data-selection-card[^>]*>/g)].map(match => match[0]);
+assert.equal(selectionLinks.length, 3, 'Selection must contain exactly three real links');
+for (const [index, id] of ['36-67', '39-87', '79-79'].entries()) {
+  assert.ok(selectionLinks[index].includes(`/eurasia-deluxe/apartments/${id}/`));
+  assert.ok(selectionLinks[index].includes('target="_blank"'));
+  assert.ok(selectionLinks[index].includes('rel="noopener noreferrer"'));
+}
+assert.match(projectHtml, /data-selection-controls[^>]*hidden/);
 for (const file of pages) {
   const html = await readFile(file, "utf8");
   assert.equal((html.match(/<h1(?:\s|>)/g) || []).length, 1, file);

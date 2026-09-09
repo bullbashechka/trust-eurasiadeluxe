@@ -1,9 +1,27 @@
 ---
 import { apartments, apartmentPath } from '../data/apartments';
-interface Props { exclude?: string; openInNewTab?: boolean }
-const { exclude, openInNewTab = false } = Astro.props;
+interface Props { exclude?: string; openInNewTab?: boolean; variant?: 'default' | 'selection' }
+const { exclude, openInNewTab = false, variant = 'default' } = Astro.props;
 const list = apartments.filter(a => a.id !== exclude);
 ---
+{variant === 'selection' ? <div class="apartment-selection" data-apartment-selection role="region" aria-label="Выбор квартиры">
+  <div class="selection-viewport" data-selection-viewport>
+    <div class="selection-grid" id="selection-cards">
+      {list.map(a => <a class="selection-card" href={apartmentPath(a.id)} data-selection-card data-apartment-card target={openInNewTab ? '_blank' : undefined} rel={openInNewTab ? 'noopener noreferrer' : undefined} aria-label={`${a.rooms}-комнатная квартира ${a.area} м²${openInNewTab ? ' — открыть в новой вкладке' : ''}`}>
+        <span class="selection-room">{a.rooms}-комнатная</span>
+        <h3 class="selection-area">{a.area}<span> м²</span></h3>
+        <div class="selection-plan"><img src={a.plan} alt={`Планировка квартиры ${a.area} м²`} loading="lazy" width="800" height="750" draggable="false" /></div>
+        <span class="selection-action">Смотреть квартиру <span aria-hidden="true">→</span></span>
+      </a>)}
+    </div>
+  </div>
+  <div class="selection-controls" data-selection-controls hidden>
+    <button type="button" data-selection-prev aria-label="Предыдущая квартира" aria-controls="selection-cards">←</button>
+    <span data-selection-counter aria-hidden="true">1 / {list.length}</span>
+    <button type="button" data-selection-next aria-label="Следующая квартира" aria-controls="selection-cards">→</button>
+    <span class="selection-status" data-selection-status role="status" aria-live="polite" aria-atomic="true"></span>
+  </div>
+</div> : <>
 <div class:list={['apartment-grid', {'two-cards':list.length === 2}]}>
   {list.map((a,i) => <a class="apartment-card" href={apartmentPath(a.id)} data-apartment-card data-rooms={a.rooms} target={openInNewTab ? '_blank' : undefined} rel={openInNewTab ? 'noopener noreferrer' : undefined}>
     <div class="card-top"><span>{a.rooms}-комнатная квартира</span><span class="index">0{i+1}</span></div>
@@ -12,3 +30,4 @@ const list = apartments.filter(a => a.id !== exclude);
     <p>{a.features.join(' · ')}</p><span class="card-action">Посмотреть планировку <b aria-hidden="true">→</b></span>
   </a>)}
 </div>
+</>}

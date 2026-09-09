@@ -53,32 +53,6 @@
 .architecture-facade img { width: min(100%, 690px); height: clamp(260px, calc(28vw / var(--display-scale, 1)), 470px); object-fit: cover; object-position: center; border-radius: 10px; }
 .architecture-facade figcaption { justify-content: start; margin-left: 4px; }
 .architecture-copy { align-self: end; justify-self: end; margin: 0 clamp(0px, calc(4vw / var(--display-scale, 1)), 65px) clamp(0px, calc(1vw / var(--display-scale, 1)), 16px) 0; }
-.project-interior-v2 { position: relative; height: clamp(360px, calc(33.34vw / var(--display-scale, 1)), 480px); min-height: 0; overflow: hidden; color: #fff; background: #bba98e; }
-.project-interior-v2 > img { width: 100%; height: 100%; position: absolute; inset: 0; object-fit: cover; object-position: center; }
-.project-interior-v2::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 35%, #1d171080); }
-.interior-overlay { position: absolute; inset: 24px var(--project-gutter) 32px; z-index: 1; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-start; }
-.interior-overlay > span { padding: 6px 10px; color: var(--project-ink); background: #f5f3eddf; border-radius: 6px; font-size: 10px; }
-.interior-overlay h2 { margin: 0; font: 500 clamp(36px, calc(4vw / var(--display-scale, 1)), 56px)/1.06 var(--project-sans); letter-spacing: -.04em; }
-.project-apartments { padding: var(--project-section-space) var(--project-gutter); }
-.project-section-heading h2 { margin: 0 0 24px; font: 500 clamp(33px, calc(4vw / var(--display-scale, 1)), 64px)/1.05 var(--project-sans); letter-spacing: -.045em; }
-.apartment-filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 32px; }
-.apartment-filters button { min-width: 88px; min-height: 44px; padding: 8px 16px; border: 1px solid #dad4cc; border-radius: 99px; background: transparent; color: var(--project-ink); font-size: 10px; transition: background .2s, color .2s, border-color .2s; }
-.apartment-filters button[aria-pressed="true"] { color: #fff; background: var(--project-rust); border-color: var(--project-rust); }
-.project-apartments .apartment-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; perspective: 1000px; }
-.project-apartments .apartment-card { display: flex; flex-direction: column; min-height: 408px; border: 0; border-radius: 10px; padding: 24px; background: #fbfaf8; box-shadow: 0 5px 20px #4b403006; transform-style: preserve-3d; transform-origin: center; transition: box-shadow .3s ease; }
-.project-apartments .apartment-card.is-tilting { box-shadow: 0 18px 36px #30261a21; }
-.project-apartments .card-top { order: 0; font-size: 10px; color: #54505a; }
-.project-apartments .card-top .index { display: none; }
-.project-apartments .card-bottom { order: 1; align-items: baseline; margin-top: 8px; }
-.project-apartments .card-bottom h3 { font: 600 clamp(28px, calc(3vw / var(--display-scale, 1)), 46px)/1 var(--project-sans); letter-spacing: -.06em; }
-.project-apartments .card-bottom h3 span { color: inherit; font-size: .63em; }
-.project-apartments .circle-arrow { display: none; }
-.project-apartments .plan-image { order: 2; flex: 1; min-height: 200px; margin: 16px 0; background: transparent; aspect-ratio: auto; }
-.project-apartments .plan-image img { object-fit: contain; mix-blend-mode: normal; transition: transform .4s ease; }
-.project-apartments .apartment-card:hover .plan-image img { transform: scale(1.03); }
-.project-apartments .apartment-card > p { display: none; }
-.project-apartments .card-action { order: 3; margin: 0; padding: 0; border: 0; font-size: 10px; color: #45404a; }
-.project-apartments .card-action b { margin-left: 7px; font-size: 15px; font-weight: 400; vertical-align: -1px; }
 .project-tour-band { min-height: 0; display: flex; align-items: center; justify-content: space-between; gap: 32px; padding: 48px var(--project-gutter); color: #fff; background: linear-gradient(104deg, #b34e34, #a84730 70%, #c36147); }
 .project-tour-band h2 { margin: 0; font: 500 clamp(36px, calc(4.5vw / var(--display-scale, 1)), 72px)/1.02 var(--project-sans); letter-spacing: -.04em; }
 .project-button { display: inline-flex; align-items: center; justify-content: center; gap: 28px; min-height: 48px; padding: 12px 24px; border: 1px solid transparent; border-radius: 8px; font: 500 12px var(--project-sans); }
@@ -138,16 +112,6 @@
   .architecture-facade { margin-top: 0; }
   .architecture-facade img { width: 100%; height: 250px; }
   .architecture-copy { justify-self: start; margin: 4px 0 0; font-size: 10px; }
-  .project-interior-v2 { height: 320px; min-height: 0; }
-  .project-interior-v2 > img { object-position: 57% center; }
-  .interior-overlay { inset: 24px var(--project-gutter); }
-  .interior-overlay h2 { font-size: 36px; }
-  .project-apartments { padding: 56px var(--project-gutter); }
-  .project-section-heading h2 { font-size: 34px; }
-  .apartment-filters { gap: 8px; margin-bottom: 24px; }
-  .apartment-filters button { min-width: auto; flex: 1; min-height: 44px; padding-inline: 8px; font-size: 11px; }
-  .project-apartments .apartment-grid { grid-template-columns: 1fr; gap: 16px; }
-  .project-apartments .apartment-card { min-height: 390px; }
   .project-tour-band { flex-direction: column; align-items: flex-start; padding: 32px var(--project-gutter); }
   .project-tour-band h2 { font-size: 38px; }
   .project-button-light { width: 100%; }

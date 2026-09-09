@@ -1,4 +1,5 @@
 import { gsap } from "gsap";
+import { mountApartmentSelection } from "./apartment-selection";
 import { validateCompanyForm } from "../data/company-form";
 
 let dispose: (() => void) | undefined;
@@ -87,26 +88,20 @@ function mountProject() {
     }, { signal });
   }
 
-  const filters = [...document.querySelectorAll<HTMLButtonElement>("[data-apartment-filter]")];
   const cards = [...document.querySelectorAll<HTMLElement>("[data-apartment-card]")];
-  filters.forEach((filter) => filter.addEventListener("click", () => {
-    const selected = filter.dataset.apartmentFilter ?? "all";
-    filters.forEach((button) => button.setAttribute("aria-pressed", String(button === filter)));
-    cards.forEach((card) => {
-      const show = selected === "all" || card.dataset.rooms === selected;
-      card.hidden = !show;
-      if (show && !reduced.matches) gsap.fromTo(card, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.32, ease: "power2.out", overwrite: true });
-    });
-  }, { signal }));
+  const selection = document.querySelector<HTMLElement>("[data-apartment-selection]");
+  const unmountSelection = selection ? mountApartmentSelection(selection) : () => {};
 
   let unbindTilt = () => {};
   function configureTilt() {
     unbindTilt();
+    unbindTilt = () => {};
     if (!pointer.matches || reduced.matches) return;
     const cleanups: (() => void)[] = [];
     cards.forEach((card) => {
-      const enter = () => card.classList.add("is-tilting");
+      const enter = () => { if (!card.closest(".is-carousel")) card.classList.add("is-tilting"); };
       const move = (event: PointerEvent) => {
+        if (card.closest(".is-carousel")) return;
         const rect = card.getBoundingClientRect();
         const x = (event.clientX - rect.left) / rect.width - 0.5;
         const y = (event.clientY - rect.top) / rect.height - 0.5;
@@ -119,7 +114,14 @@ function mountProject() {
       card.addEventListener("pointerenter", enter, { signal });
       card.addEventListener("pointermove", move, { signal });
       card.addEventListener("pointerleave", leave, { signal });
-      cleanups.push(leave);
+      cleanups.push(() => {
+        card.removeEventListener("pointerenter", enter);
+        card.removeEventListener("pointermove", move);
+        card.removeEventListener("pointerleave", leave);
+        card.classList.remove("is-tilting");
+        gsap.killTweensOf(card);
+        gsap.set(card, { rotateX: 0, rotateY: 0 });
+      });
     });
     unbindTilt = () => cleanups.forEach((cleanup) => cleanup());
   }
@@ -149,6 +151,7 @@ function mountProject() {
   dispose = () => {
     abort.abort();
     unbindTilt();
+    unmountSelection();
     reveal.disconnect();
   };
 }
