@@ -12,6 +12,8 @@
 * {
   box-sizing: border-box;
 }
+html.site-scroll-locked { overflow: hidden; }
+html.lenis.lenis-smooth { scroll-behavior: auto !important; }
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 100px;

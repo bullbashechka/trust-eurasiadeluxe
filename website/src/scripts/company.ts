@@ -48,6 +48,8 @@ function mountCompany() {
   let closing = false;
   let lenis: Lenis | undefined;
   const motions: { revert(): unknown }[] = [];
+  let dialogMotion: ReturnType<typeof animate> | undefined;
+  let successMotion: ReturnType<typeof animate> | undefined;
   function fitTitle() {
     document
       .querySelectorAll<HTMLElement>("[data-hero-title]")
@@ -138,19 +140,20 @@ function mountCompany() {
     dialog.showModal();
     setLocked();
     name.focus({ preventScroll: true });
+    dialogMotion?.revert();
+    successMotion?.revert();
     if (!reduced.matches)
-      motions.push(
-        animate(dialog, {
+      dialogMotion = animate(dialog, {
           opacity: [0, 1],
           translateY: [22, 0],
           duration: 300,
           ease: "outCubic",
-        }),
-      );
+        });
   }
   async function closeForm() {
     if (!dialog.open || closing) return;
     closing = true;
+    dialogMotion?.revert();
     if (!reduced.matches) {
       const motion = animate(dialog, {
         opacity: 0,
@@ -158,7 +161,7 @@ function mountCompany() {
         duration: 180,
         ease: "inQuad",
       });
-      motions.push(motion);
+      dialogMotion = motion;
       await motion;
     }
     if (dead) return;
@@ -218,14 +221,13 @@ function mountCompany() {
       formContent.hidden = true;
       success.hidden = false;
       success.focus({ preventScroll: true });
+      successMotion?.revert();
       if (!reduced.matches)
-        motions.push(
-          animate(success, {
+        successMotion = animate(success, {
             opacity: [0, 1],
             translateY: [12, 0],
             duration: 350,
-          }),
-        );
+          });
     },
     { signal },
   );
@@ -305,10 +307,21 @@ function mountCompany() {
         )
       : 0;
     const motion = createSectionMotion(element);
-    motions.push(motion);
     motion.seek(progress);
     return { element, progress, motion };
   });
+  let wideLayout = innerWidth / (Number(document.documentElement.style.zoom) || 1) >= 768;
+  window.addEventListener("resize", () => {
+    const wide = innerWidth / (Number(document.documentElement.style.zoom) || 1) >= 768;
+    if (wide === wideLayout) return;
+    wideLayout = wide;
+    // Rebuild desktop staggering after rotation without replaying visible cards.
+    for (const item of reveals) {
+      item.motion.revert();
+      item.motion = createSectionMotion(item.element);
+      item.motion.seek(item.progress);
+    }
+  }, { signal });
   const blueprint = document.querySelector<SVGSVGElement>(
     ".company-blueprint svg",
   )!;
@@ -375,21 +388,22 @@ function mountCompany() {
     lenis?.raf(time);
     const delta = Math.min(64, time - previousTime || 16);
     previousTime = time;
-    for (const item of reveals) {
-      const target = reduced.matches || item.element.contains(document.activeElement)
+    const remaining = Math.max(0, document.documentElement.scrollHeight - innerHeight - scrollY);
+    // Read every trigger before writing animation styles to avoid layout thrashing.
+    const targets = reveals.map(item => reduced.matches || item.element.contains(document.activeElement)
         ? 1
         : revealProgress(
             item.element.getBoundingClientRect().top,
             innerHeight,
-            Math.max(
-              0,
-              document.documentElement.scrollHeight - innerHeight - scrollY,
-            ),
-          );
+            remaining,
+          ));
+    reveals.forEach((item, index) => {
+      const target = targets[index];
+      if (item.progress === target) return;
       item.progress += (target - item.progress) * (1 - Math.exp(-delta / 140));
       if (Math.abs(target - item.progress) < 0.001) item.progress = target;
       item.motion.seek(item.progress);
-    }
+    });
     frame = requestAnimationFrame(tick);
   }
   frame = requestAnimationFrame(tick);
@@ -398,6 +412,8 @@ function mountCompany() {
     () => {
       configureScroll();
       if (reduced.matches) {
+        dialogMotion?.complete();
+        successMotion?.complete();
         heroMotion.pause();
         heroMotion.seek(heroMotion.duration);
         reveals.forEach((item) => {
@@ -417,6 +433,9 @@ function mountCompany() {
     abort.abort();
     cancelAnimationFrame(frame);
     lenis?.destroy();
+    dialogMotion?.revert();
+    successMotion?.revert();
+    reveals.forEach(item => item.motion.revert());
     motions.forEach((motion) => motion.revert());
     document.documentElement.classList.remove(
       "company-smooth",

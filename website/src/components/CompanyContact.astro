@@ -1,6 +1,9 @@
+---
+import Icon from './Icon';
+---
 <dialog class="company-dialog" aria-labelledby="contact-dialog-title" data-lenis-prevent>
   <div class="company-dialog-inner">
-    <button class="dialog-close" type="button" aria-label="Закрыть форму">×</button>
+    <button class="dialog-close" type="button" aria-label="Закрыть форму"><Icon name="x"/></button>
     <div data-form-content>
       <p class="company-eyebrow">Траст Строй</p><h2 id="contact-dialog-title" class="company-heading">Ваш будущий дом</h2>
       <p class="dialog-intro">Оставьте телефон для связи.</p>
@@ -9,7 +12,7 @@
         <span class="field-error" id="name-error" aria-live="polite"></span>
         <label for="contact-phone">Телефон</label><input id="contact-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="24" required aria-describedby="phone-error" placeholder="+7 (___) ___-__-__"/>
         <span class="field-error" id="phone-error" aria-live="polite"></span>
-        <button class="company-button filled" type="submit">Отправить <span aria-hidden="true">⟶</span></button>
+        <button class="company-button filled" type="submit">Отправить <span aria-hidden="true"><Icon name="arrow-right"/></span></button>
       </form>
     </div>
     <div data-form-success hidden role="status" tabindex="-1"><span class="success-mark" aria-hidden="true">✓</span><h2 class="company-heading">Спасибо! Ваша заявка отправлена</h2><button class="company-button filled" type="button" data-success-close>Закрыть</button></div>

@@ -1,4 +1,5 @@
 ---
+import Icon from '../../components/Icon';
 import Layout from '../../layouts/Layout.astro';
 import ApartmentCards from '../../components/ApartmentCards.astro';
 import ApartmentSelector from '../../components/ApartmentSelector.astro';
@@ -42,7 +43,7 @@ import ApartmentSelector from '../../components/ApartmentSelector.astro';
 
   <section class="project-tour-band" aria-label="Начать экскурсию">
     <h2>Сначала —<br/>прогулка по квартире.</h2>
-    <button type="button" class="project-button project-button-light" data-tour-selector-open>Начать тур <span aria-hidden="true">↗</span></button>
+    <button type="button" class="project-button project-button-light" data-tour-selector-open>Начать тур <span aria-hidden="true"><Icon name="arrow-up-right"/></span></button>
   </section>
 
   <section class="project-contact-v2" id="contact" aria-labelledby="contact-title">
@@ -52,7 +53,7 @@ import ApartmentSelector from '../../components/ApartmentSelector.astro';
     </div>
     <div class="project-contact-copy" data-project-reveal>
       <p>Оставьте заявку, чтобы получить подробности о планировках и вариантах интерьера.</p>
-      <button type="button" class="project-button project-button-filled" data-project-contact-open>Связаться <span aria-hidden="true">→</span></button>
+      <button type="button" class="project-button project-button-filled" data-project-contact-open>Связаться <span aria-hidden="true"><Icon name="arrow-right"/></span></button>
     </div>
   </section>
   <ApartmentSelector />

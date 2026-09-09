@@ -1,14 +1,15 @@
 ---
+import Icon from '../components/Icon';
 import Layout from '../layouts/Layout.astro';
 import blueprint from '../assets/company-blueprint.svg?raw';
 import { Image } from 'astro:assets';
 import projectImage from '../../../assets/brand/eurasia-project-dusk.png';
 import materialsImage from '../../../assets/brand/company-materials.png';
 const advantages = [
-  { title: ['Продуманная', 'архитектура'], text: 'Современные решения, которые гармонично вписываются в городскую среду.', icon: 'M6 48H54V57H6ZM11 23H26V48H11ZM26 10H41V57H26ZM41 35H54V57H41Z' },
-  { title: ['Качественные', 'материалы'], text: 'Используем надёжные и современные материалы с заботой о долговечности и комфорте.', icon: 'M10 48C3 18 28 12 53 10C52 37 37 54 12 45M8 58C14 39 24 30 40 23' },
-  { title: ['Комфортная', 'среда'], text: 'Продумываем пространство для жизни, отдыха и вдохновения.', icon: 'M30 60V39M26 51C9 51 8 37 16 30C11 23 16 16 21 15C20 2 38 3 39 15C46 18 47 25 43 30C54 43 44 51 34 51' },
-  { title: ['Внимание', 'к деталям'], text: 'Заботимся о мелочах, которые создают большую разницу в повседневной жизни.', icon: 'M7 10H27V30H7ZM7 36H27V56H7ZM34 10H59V56H34Z' },
+  { title: ['Продуманная', 'архитектура'], text: 'Современные решения, которые гармонично вписываются в городскую среду.', icon: 'building' as const },
+  { title: ['Качественные', 'материалы'], text: 'Используем надёжные и современные материалы с заботой о долговечности и комфорте.', icon: 'leaf' as const },
+  { title: ['Комфортная', 'среда'], text: 'Продумываем пространство для жизни, отдыха и вдохновения.', icon: 'tree' as const },
+  { title: ['Внимание', 'к деталям'], text: 'Заботимся о мелочах, которые создают большую разницу в повседневной жизни.', icon: 'panels-top-left' as const },
 ];
 ---
 <Layout company title="Траст Строй — создаём современную среду для жизни" description="Траст Строй. Современная архитектура, качественные материалы и внимание к деталям. Познакомьтесь с жилым комплексом Eurasia De Luxe.">
@@ -41,7 +42,7 @@ const advantages = [
   <section class="company-advantages" id="advantages" aria-labelledby="advantages-title"><div class="company-container">
     <div class="company-section-heading" data-reveal><div><h2 class="company-heading" id="advantages-title">Наши преимущества</h2><span class="terracotta-rule" aria-hidden="true"></span></div><p class="company-side-note">Принципы, которые<br/> лежат в основе<br/> наших проектов</p></div>
     <div class="advantages-grid">{advantages.map((item) => <article class="advantage-card" data-reveal>
-      <svg viewBox="0 0 66 66" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d={item.icon}/></svg>
+      <Icon name={item.icon}/>
       <h3>{item.title[0]}<br/>{item.title[1]}</h3><p>{item.text}</p>
     </article>)}</div>
   </div></section>
@@ -49,8 +50,8 @@ const advantages = [
     <div class="company-section-heading" data-reveal><div><h2 class="company-heading" id="projects-title">Наши проекты</h2><span class="terracotta-rule" aria-hidden="true"></span></div><p class="company-side-note">Больше чем просто<br/> дом</p></div>
     <div class="company-project-grid" data-reveal>
       <a href="/eurasia-deluxe/" class="company-project-image" data-project-transition aria-label="Смотреть проект Eurasia De Luxe"><Image src={projectImage} alt="Визуализация Eurasia De Luxe в вечернем свете" widths={[640,1100,1774]} sizes="(max-width: 767px) 100vw, 65vw" width={1100} format="webp" loading="lazy"/></a>
-      <div class="company-project-copy"><h3 class="company-heading"><span>EURASIA</span><span>DE LUXE</span></h3><span class="terracotta-rule" aria-hidden="true"></span><p class="company-eyebrow">Жилой комплекс</p><a href="/eurasia-deluxe/" class="company-button filled" data-project-transition>Смотреть проект <span aria-hidden="true">⟶</span></a></div>
+      <div class="company-project-copy"><h3 class="company-heading"><span>EURASIA</span><span>DE LUXE</span></h3><span class="terracotta-rule" aria-hidden="true"></span><p class="company-eyebrow">Жилой комплекс</p><a href="/eurasia-deluxe/" class="company-button filled" data-project-transition>Смотреть проект <span aria-hidden="true"><Icon name="arrow-right"/></span></a></div>
     </div>
   </div></section>
-  <section class="company-contact-band" id="contact"><div class="company-container" data-reveal><h2 class="company-heading">Найдём ваш будущий дом</h2><button type="button" class="company-button" data-contact-open>Связаться с нами <span aria-hidden="true">⟶</span></button></div></section>
+  <section class="company-contact-band" id="contact"><div class="company-container" data-reveal><h2 class="company-heading">Найдём ваш будущий дом</h2><button type="button" class="company-button" data-contact-open>Связаться с нами <span aria-hidden="true"><Icon name="arrow-right"/></span></button></div></section>
 </Layout>

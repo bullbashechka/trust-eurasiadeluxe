@@ -29,12 +29,9 @@ export function createSectionMotion(element: HTMLElement) {
         { clipPath: "inset(0% 0% 0% 0% round 10px)", duration: 0.85 }, delay);
       timeline.fromTo(element.querySelectorAll("h3, p"), { y: 30, opacity: 0 },
         { y: 0, opacity: 1, stagger: 0.12 }, delay + 0.18);
-      const path = element.querySelector<SVGPathElement>("svg path");
-      if (path) {
-        const length = path.getTotalLength();
-        timeline.fromTo(path, { strokeDasharray: length, strokeDashoffset: length },
-          { strokeDashoffset: 0, duration: 1.1, ease: "none" }, delay + 0.1);
-      }
+      const icon = element.querySelector("svg");
+      if (icon) timeline.fromTo(icon, { opacity: 0, scale: 0.88, transformOrigin: "center" },
+        { opacity: 1, scale: 1, duration: 0.7 }, delay + 0.1);
       // Equal duration means the desktop cards genuinely arrive in sequence.
       timeline.to({}, { duration: 0.01 }, 1.65);
     }

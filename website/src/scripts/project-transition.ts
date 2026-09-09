@@ -6,6 +6,7 @@ import { abortable, fetchProjectHTML } from "../data/company-navigation";
 type Phase = "idle" | "covering" | "preparing" | "revealing";
 let phase: Phase = "idle";
 let activeController: AbortController | undefined;
+let curtainMotion: ReturnType<typeof animate> | undefined;
 const reduced = matchMedia("(prefers-reduced-motion: reduce)");
 const curtain = () => document.querySelector<HTMLElement>("#project-curtain");
 const errorBox = () => document.querySelector<HTMLElement>(".project-error");
@@ -17,15 +18,18 @@ function nextFrame() {
   return new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
 }
 
-async function reveal() {
+async function reveal(controller: AbortController) {
+  if (activeController !== controller) return;
   const panel = curtain();
   if (panel && phase !== "idle") {
     phase = "revealing";
-    await animate(panel, {
+    curtainMotion = animate(panel, {
       translateX: "100%",
       duration: reduced.matches ? 0 : 650,
       ease: "inOutQuart",
     });
+    await curtainMotion;
+    if (activeController !== controller) return;
     panel.style.visibility = "hidden";
   }
   phase = "idle";
@@ -53,11 +57,13 @@ async function openProject(source?: Element) {
     const photo = panel.querySelector("img")!;
     await abortable(photo.decode(), controller.signal);
     panel.style.visibility = "visible";
-    await animate(panel, {
+    curtainMotion = animate(panel, {
       translateX: ["100%", "0%"],
       duration: reduced.matches ? 0 : 650,
       ease: "inOutQuart",
     });
+    await abortable(Promise.resolve(curtainMotion), controller.signal);
+    controller.signal.throwIfAborted();
     phase = "preparing";
     const ready = new Promise<void>((resolve) =>
       document.addEventListener("astro:page-load", () => resolve(), {
@@ -73,9 +79,12 @@ async function openProject(source?: Element) {
     await abortable(document.fonts.ready, controller.signal);
     await nextFrame();
     await nextFrame();
-    await reveal();
+    await reveal(controller);
   } catch {
-    await reveal();
+    if (activeController !== controller) return;
+    curtainMotion?.cancel();
+    await reveal(controller);
+    if (activeController !== controller) return;
     const box = errorBox();
     if (box) {
       box.hidden = false;
@@ -86,7 +95,7 @@ async function openProject(source?: Element) {
   } finally {
     clearTimeout(deadline);
     controller.abort();
-    activeController = undefined;
+    if (activeController === controller) activeController = undefined;
   }
 }
 
@@ -99,7 +108,10 @@ document.addEventListener("astro:before-preparation", (event) => {
     companyVisit.visited
   )
     companyVisit.returning = true;
-  if (!e.info?.companyCurtain) return;
+  if (!e.info?.companyCurtain) {
+    if (phase !== "idle") resetTransition();
+    return;
+  }
   e.loader = async () => {
     const signal = AbortSignal.any([e.signal, activeController!.signal]);
     const next = new DOMParser().parseFromString(
@@ -139,7 +151,7 @@ document.addEventListener("astro:before-preparation", (event) => {
         signal,
       );
     });
-    const hero = next.querySelector<HTMLImageElement>(".project-banner img");
+    const hero = next.querySelector<HTMLImageElement>(".project-hero-v2 img");
     const heroReady = hero
       ? (() => {
           const image = new Image();
@@ -190,9 +202,12 @@ document.addEventListener(
   },
   { capture: true },
 );
-window.addEventListener("pageshow", (event) => {
-  if (!event.persisted) return;
-  activeController?.abort();
+function resetTransition() {
+  const controller = activeController;
+  activeController = undefined;
+  controller?.abort();
+  curtainMotion?.cancel();
+  curtainMotion = undefined;
   phase = "idle";
   const panel = curtain();
   if (panel) {
@@ -200,4 +215,11 @@ window.addEventListener("pageshow", (event) => {
     panel.style.transform = "translateX(100%)";
   }
   busy(false);
+}
+reduced.addEventListener("change", () => {
+  if (reduced.matches) curtainMotion?.complete();
+});
+window.addEventListener("pagehide", resetTransition);
+window.addEventListener("pageshow", (event) => {
+  if (event.persisted) resetTransition();
 });

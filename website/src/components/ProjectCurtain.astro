@@ -1,8 +1,9 @@
 ---
+import Icon from './Icon';
 import { getImage } from 'astro:assets';
 import image from '../../../assets/brand/eurasia-project-dusk.png';
 const photo = await getImage({ src: image, width: 1774, format: 'webp' });
 ---
 <div id="project-curtain" class="project-curtain" aria-hidden="true" transition:persist="project-curtain"><img src={photo.src} width="1774" height="887" alt="" decoding="async"/></div>
-<div class="project-error" role="alert" hidden transition:persist="project-error"><p>Не удалось открыть проект</p><button type="button" data-project-retry>Повторить</button><button type="button" data-project-dismiss aria-label="Закрыть сообщение">×</button></div>
+<div class="project-error" role="alert" hidden transition:persist="project-error"><p>Не удалось открыть проект</p><button type="button" data-project-retry>Повторить</button><button type="button" data-project-dismiss aria-label="Закрыть сообщение"><Icon name="x"/></button></div>
 <script>import '../scripts/project-transition';</script>

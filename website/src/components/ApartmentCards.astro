@@ -1,4 +1,5 @@
 ---
+import Icon from './Icon';
 import { apartments, apartmentPath } from '../data/apartments';
 interface Props { exclude?: string; openInNewTab?: boolean; variant?: 'default' | 'selection' }
 const { exclude, openInNewTab = false, variant = 'default' } = Astro.props;
@@ -11,14 +12,14 @@ const list = apartments.filter(a => a.id !== exclude);
         <span class="selection-room">{a.rooms}-комнатная</span>
         <h3 class="selection-area">{a.area}<span> м²</span></h3>
         <div class="selection-plan"><img src={a.plan} alt={`Планировка квартиры ${a.area} м²`} loading="lazy" width="800" height="750" draggable="false" /></div>
-        <span class="selection-action">Смотреть квартиру <span aria-hidden="true">→</span></span>
+        <span class="selection-action">Смотреть квартиру <span aria-hidden="true"><Icon name="arrow-right"/></span></span>
       </a>)}
     </div>
   </div>
   <div class="selection-controls" data-selection-controls hidden>
-    <button type="button" data-selection-prev aria-label="Предыдущая квартира" aria-controls="selection-cards">←</button>
+    <button type="button" data-selection-prev aria-label="Предыдущая квартира" aria-controls="selection-cards"><Icon name="arrow-left"/></button>
     <span data-selection-counter aria-hidden="true">1 / {list.length}</span>
-    <button type="button" data-selection-next aria-label="Следующая квартира" aria-controls="selection-cards">→</button>
+    <button type="button" data-selection-next aria-label="Следующая квартира" aria-controls="selection-cards"><Icon name="arrow-right"/></button>
     <span class="selection-status" data-selection-status role="status" aria-live="polite" aria-atomic="true"></span>
   </div>
 </div> : <>
@@ -26,8 +27,8 @@ const list = apartments.filter(a => a.id !== exclude);
   {list.map((a,i) => <a class="apartment-card" href={apartmentPath(a.id)} data-apartment-card data-rooms={a.rooms} target={openInNewTab ? '_blank' : undefined} rel={openInNewTab ? 'noopener noreferrer' : undefined}>
     <div class="card-top"><span>{a.rooms}-комнатная квартира</span><span class="index">0{i+1}</span></div>
     <div class="plan-image"><img src={a.plan} alt={`Вид сверху квартиры ${a.area} м²`} loading="lazy" width="800" height="750" /></div>
-    <div class="card-bottom"><h3>{a.area}<span> м²</span></h3><span class="circle-arrow" aria-hidden="true">↗</span></div>
-    <p>{a.features.join(' · ')}</p><span class="card-action">Посмотреть планировку <b aria-hidden="true">→</b></span>
+    <div class="card-bottom"><h3>{a.area}<span> м²</span></h3><span class="circle-arrow" aria-hidden="true"><Icon name="arrow-up-right"/></span></div>
+    <p>{a.features.join(' · ')}</p><span class="card-action">Посмотреть планировку <b aria-hidden="true"><Icon name="arrow-right"/></b></span>
   </a>)}
 </div>
 </>}

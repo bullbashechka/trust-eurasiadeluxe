@@ -87,6 +87,38 @@ async function startTour() {
   await click("Начать прогулку");
 }
 
+test("a neighboring video cannot unlock an unready current scene", async () => {
+  await mount();
+  await enter();
+  await act(async () => container.querySelectorAll("video")[1].dispatchEvent(new currentWindow.Event("loadeddata") as unknown as Event));
+  expect(container.querySelector(".tour-start")).toBeNull();
+  await act(async () => container.querySelector("video")!.dispatchEvent(new currentWindow.Event("loadeddata") as unknown as Event));
+  expect(container.querySelector(".tour-start")).not.toBeNull();
+});
+
+test("short screens use playback without an extended scroll section", async () => {
+  currentWindow.innerHeight = 390;
+  await mount();
+  expect(container.querySelector("section")?.dataset.mode).toBe("play");
+  expect(container.querySelector("section")?.dataset.compact).toBe("true");
+  expect(container.querySelector("section")?.style.height).toBe("auto");
+  expect(container.querySelector<HTMLButtonElement>(".tour-control")?.hidden).toBe(true);
+});
+
+test("opening a plan pauses playback and closing restores the opener", async () => {
+  await act(async () => root.render(<ApartmentTour scenes={apartments[0].scenes} area="36,67" plan={apartments[0].plan}/>));
+  await enter();
+  await click("Обычное воспроизведение");
+  await click("Смотреть");
+  expect(container.textContent).toContain("Пауза");
+  await click("Планировка");
+  expect(container.querySelector("dialog")?.open).toBe(true);
+  expect(container.textContent).not.toContain("Пауза");
+  await act(async () => container.querySelector<HTMLButtonElement>('[aria-label="Закрыть планировку"]')!.click());
+  expect(container.querySelector("dialog")?.open).toBe(false);
+  expect(document.activeElement?.textContent).toBe("Планировка");
+});
+
 test("videos load near the tour, bounded to current and neighboring scenes", async () => {
   await mount();
   expect(container.querySelectorAll("video").length).toBe(0);

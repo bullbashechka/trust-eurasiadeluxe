@@ -1,16 +1,17 @@
 ---
+import Icon from './Icon';
 import { apartments, apartmentPath } from '../data/apartments';
 ---
 <dialog class="apartment-selector" id="apartment-selector" aria-labelledby="apartment-selector-title">
   <div class="apartment-selector-inner">
-    <button type="button" class="project-dialog-close" data-apartment-selector-close aria-label="Закрыть выбор квартиры">×</button>
+    <button type="button" class="project-dialog-close" data-apartment-selector-close aria-label="Закрыть выбор квартиры"><Icon name="x"/></button>
     <p class="project-kicker">EURASIA DE LUXE</p>
     <h2 id="apartment-selector-title">По какой квартире прогуляемся?</h2>
     <div class="selector-grid">
       {apartments.map((apartment) => <a href={apartmentPath(apartment.id)} target="_blank" rel="noopener noreferrer">
         <span>{apartment.rooms}-комнатная квартира</span>
         <strong>{apartment.area} м²</strong>
-        <em>Открыть экскурсию →</em>
+        <em>Открыть экскурсию <Icon name="arrow-right"/></em>
       </a>)}
     </div>
   </div>

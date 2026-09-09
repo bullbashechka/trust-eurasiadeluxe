@@ -2,6 +2,8 @@ import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import type { Scene } from "../data/apartments";
+import Icon from "./Icon";
+import { scrollPageTo } from "../scripts/smooth-scroll";
 import { tourFrame } from "../data/timeline";
 
 type Mode = "scroll" | "play" | "photos";
@@ -176,6 +178,7 @@ export default function ApartmentTour({
   const [frame, setFrame] = useState(() => tourFrame(0, scenes.length));
   const [near, setNear] = useState(false);
   const [mobile, setMobile] = useState(false);
+  const [shortViewport, setShortViewport] = useState(false);
   const [playing, setPlaying] = useState(false);
   const [failures, setFailures] = useState<Record<string, boolean>>({});
   const [attempt, setAttempt] = useState(0);
@@ -183,10 +186,12 @@ export default function ApartmentTour({
   const [tourReady, setTourReady] = useState(false);
   const [tourActive, setTourActive] = useState(false);
   const planDialog = useRef<HTMLDialogElement>(null);
+  const planOpener = useRef<HTMLButtonElement | null>(null);
   const slowCount = useRef(0);
   const reduced = useRef(false);
   const frameRef = useRef(frame);
   const readyBeforeEntry = useRef(false);
+  const skippingTour = useRef(false);
   frameRef.current = frame;
   const current = scenes[frame.index];
   const hasFailed = Boolean(failures[current.id]);
@@ -208,7 +213,16 @@ export default function ApartmentTour({
         setPlaying(false);
       }
     };
-    const syncSize = () => setMobile(window.innerWidth / (Number(document.documentElement.style.zoom) || 1) <= 640);
+    const syncSize = () => {
+      const scale = Number(document.documentElement.style.zoom) || 1;
+      setMobile(window.innerWidth / scale <= 640);
+      const short = window.innerHeight / scale < 520;
+      setShortViewport(short);
+      if (short) {
+        setMode(current => current === "scroll" ? "play" : current);
+        setPlaying(false);
+      }
+    };
     syncMotion();
     syncSize();
     motion.addEventListener("change", syncMotion);
@@ -243,7 +257,7 @@ export default function ApartmentTour({
   }, [tourReady]);
 
   useEffect(() => {
-    if (mode !== "scroll" || !tourReady || !tourActive || !section.current) return;
+    if (mode !== "scroll" || shortViewport || !tourReady || !tourActive || !section.current) return;
     const controller = ScrollTrigger.create({
       trigger: section.current,
       start: "top top",
@@ -260,7 +274,32 @@ export default function ApartmentTour({
       trigger.current = null;
       window.removeEventListener("pageshow", refresh);
     };
-  }, [mode, scenes.length, tourReady, tourActive]);
+  }, [mode, scenes.length, tourReady, tourActive, shortViewport]);
+
+  function openPlan(opener: HTMLButtonElement) {
+    setPlaying(false);
+    planOpener.current = opener;
+    planDialog.current?.showModal();
+  }
+
+  useEffect(() => {
+    const open = (event: Event) => {
+      if (!(event.target instanceof window.Element)) return;
+      if (event.target.closest('a[href="#details"]')) {
+        skippingTour.current = true;
+        readyBeforeEntry.current = false;
+        setPlaying(false);
+      }
+      if (event.target.closest('a[href="#tour"]')) {
+        skippingTour.current = false;
+        readyBeforeEntry.current = true;
+      }
+      const button = event.target.closest<HTMLButtonElement>('[data-apartment-plan-open]');
+      if (button && plan) openPlan(button);
+    };
+    document.addEventListener('click', open);
+    return () => document.removeEventListener('click', open);
+  }, [plan]);
 
   function changeMode(next: Mode) {
     const top = section.current
@@ -278,7 +317,7 @@ export default function ApartmentTour({
           ? controller.start +
             (controller.end - controller.start) * (selected / scenes.length)
           : top;
-      window.scrollTo({ top: destination, behavior: "instant" });
+      scrollPageTo(destination, true);
     });
   }
 
@@ -286,12 +325,11 @@ export default function ApartmentTour({
     setNotice("");
     if (mode === "scroll" && trigger.current) {
       const controller = trigger.current;
-      window.scrollTo({
-        top:
+      scrollPageTo(
           controller.start +
           (controller.end - controller.start) * (index / scenes.length),
-        behavior: reduced.current ? "instant" : "smooth",
-      });
+        reduced.current,
+      );
     } else {
       setFrame({ index, time: 0, blend: 0 });
       setPlaying(false);
@@ -317,10 +355,11 @@ export default function ApartmentTour({
       aria-label={`Экскурсия по квартире ${area} м²`}
       data-mode={mode}
       data-ready={tourReady && tourActive}
+      data-compact={shortViewport}
       style={
         {
           height:
-            mode === "scroll" && tourReady && tourActive ? `calc(${(scenes.length + 1) * 100}svh / var(--display-scale, 1))` : "auto",
+            mode === "scroll" && !shortViewport && tourReady && tourActive ? `calc(${(scenes.length + 1) * 100}svh / var(--display-scale, 1))` : "auto",
         } as CSSProperties
       }
     >
@@ -369,10 +408,10 @@ export default function ApartmentTour({
                     setNotice("Нажмите «Смотреть», чтобы запустить видео.");
                   }}
                   onReady={() => {
-                    if (!tourReady) {
+                    if (!tourReady && index === frameRef.current.index) {
                       const element = section.current;
                       const rect = element?.getBoundingClientRect();
-                      readyBeforeEntry.current = !rect || rect.top > window.innerHeight || rect.bottom <= 0;
+                      readyBeforeEntry.current = !skippingTour.current && (!rect || rect.top > 1);
                       setTourReady(true);
                     }
                   }}
@@ -387,10 +426,10 @@ export default function ApartmentTour({
           )}
           <div className="tour-topline">
             <span className="tour-badge">EURASIA DE LUXE · {area} М²</span>
-            <div className="tour-top-actions"><button type="button" onClick={() => planDialog.current?.showModal()}>Планировка</button><a href="#details">Пропустить тур</a><span className="tour-counter">{String(frame.index + 1).padStart(2, "0")} / {scenes.length}</span></div>
+            <div className="tour-top-actions">{plan && <button type="button" onClick={event => openPlan(event.currentTarget)}>Планировка</button>}<a href="#details" onClick={() => setPlaying(false)}>Пропустить тур</a><span className="tour-counter">{String(frame.index + 1).padStart(2, "0")} / {scenes.length}</span></div>
           </div>
-          {!tourReady && near && mode === "scroll" && <div className="tour-wait" role="status">Подготавливаем прогулку…</div>}
-          {tourReady && !tourActive && mode === "scroll" && <button type="button" className="tour-start" onClick={() => setTourActive(true)}>Начать прогулку <span aria-hidden="true">→</span></button>}
+          {!tourReady && !hasFailed && near && mode === "scroll" && <div className="tour-wait" role="status">Подготавливаем прогулку…</div>}
+          {tourReady && !tourActive && mode === "scroll" && <button type="button" className="tour-start" onClick={() => setTourActive(true)}>Начать прогулку <span aria-hidden="true"><Icon name="arrow-right"/></span></button>}
           {(hasFailed || notice) && (
             <div className="tour-message" role="status">
               <span>
@@ -443,14 +482,15 @@ export default function ApartmentTour({
             <p className="caption">{current.caption}</p>
             <button
               className="tour-control"
+              hidden={shortViewport}
               onClick={() => {
                 setNotice("");
                 changeMode(mode === "scroll" ? "play" : "scroll");
               }}
             >
               {mode === "scroll"
-                ? "▷ Обычное воспроизведение"
-                : "↕ Управлять прокруткой"}
+                ? "Обычное воспроизведение"
+                : "Управлять прокруткой"}
             </button>
             {mode !== "scroll" && (
               <div className="play-controls">
@@ -459,7 +499,7 @@ export default function ApartmentTour({
                   disabled={frame.index === 0}
                   onClick={() => choose(frame.index - 1)}
                 >
-                  ←
+                  <Icon name="arrow-left"/>
                 </button>
                 <button
                   onClick={() => {
@@ -476,7 +516,7 @@ export default function ApartmentTour({
                   disabled={frame.index === scenes.length - 1}
                   onClick={() => choose(frame.index + 1)}
                 >
-                  →
+                  <Icon name="arrow-right"/>
                 </button>
               </div>
             )}
@@ -502,13 +542,13 @@ export default function ApartmentTour({
                   : "Видео по главам. Вы управляете просмотром."}
             </p>
             <a className="tour-finish-link" href="#details">
-              К характеристикам ↗
+              К характеристикам <Icon name="arrow-up-right"/>
             </a>
           </div>
         </aside>
       </div>
-      {plan && <dialog ref={planDialog} className="tour-plan-dialog" aria-label={`Планировка квартиры ${area} м²`} onClose={() => planDialog.current?.blur()}>
-        <button type="button" aria-label="Закрыть планировку" onClick={() => planDialog.current?.close()}>×</button>
+      {plan && <dialog ref={planDialog} className="tour-plan-dialog" aria-label={`Планировка квартиры ${area} м²`} onClose={() => planOpener.current?.focus({ preventScroll: true })} onClick={event => { if (event.target === event.currentTarget) event.currentTarget.close(); }}>
+        <button type="button" aria-label="Закрыть планировку" onClick={() => planDialog.current?.close()}><Icon name="x"/></button>
         <img src={plan} alt={`Планировка квартиры ${area} м²`} width="800" height="750" />
       </dialog>}
     </section>

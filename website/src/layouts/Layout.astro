@@ -1,9 +1,11 @@
 ---
+import Icon from '../components/Icon';
 import '../styles/global.css';
 import '../styles/company.css';
 import '../styles/eurasia.css';
 import '../styles/apartment-selection.css';
 import '../styles/site-header.css';
+import '../styles/icons.css';
 import displayScale from '../scripts/display-scale.js?raw';
 import '@fontsource-variable/oswald';
 import oswaldLatin from '@fontsource-variable/oswald/files/oswald-latin-wght-normal.woff2?url';
@@ -62,15 +64,23 @@ const project = Astro.url.pathname.startsWith('/eurasia-deluxe/');
         <a href="/eurasia-deluxe/">Eurasia De Luxe</a>
         <a href="/eurasia-deluxe/#apartments">Планировки</a>
       </nav>
-      <a class="header-contact" href="#contact">Связаться <span aria-hidden="true">↗</span></a>
+      <a class="header-contact" href="#contact">Связаться <span aria-hidden="true"><Icon name="arrow-up-right"/></span></a>
     </header>}
     <main id="main"><slot /></main>
-    {company ? <CompanyFooter/> : project ? <ProjectFooter/> : <footer class="footer"><a class="wordmark" href="/">ТРАСТ СТРОЙ</a><p>Демонстрационные визуализации интерьеров.<br/>Наличие и стоимость квартир уточняйте у застройщика.</p><a href="/eurasia-deluxe/#apartments">Выбрать планировку ↗</a></footer>}
+    {company ? <CompanyFooter/> : project ? <ProjectFooter/> : <footer class="footer"><a class="wordmark" href="/">ТРАСТ СТРОЙ</a><p>Демонстрационные визуализации интерьеров.<br/>Наличие и стоимость квартир уточняйте у застройщика.</p><a href="/eurasia-deluxe/#apartments">Выбрать планировку <Icon name="arrow-up-right"/></a></footer>}
     {company && <CompanyContact/>}
     {project && <ProjectContact/>}
     {cinematic && <ProjectCurtain/>}
     {!cinematic && <div class="cloud-transition" aria-hidden="true"><div class="mist mist-one"></div><div class="mist mist-two"></div><div class="mist mist-three"></div><span>EURASIA <i>DE LUXE</i></span></div>}
     <script>import '../scripts/navigation';</script>
+    <script>
+      import { mountSmoothScroll, unmountSmoothScroll } from '../scripts/smooth-scroll';
+      document.addEventListener('astro:before-swap', unmountSmoothScroll);
+      document.addEventListener('astro:page-load', mountSmoothScroll);
+      window.addEventListener('pagehide', unmountSmoothScroll);
+      window.addEventListener('pageshow', mountSmoothScroll);
+      mountSmoothScroll();
+    </script>
     {project && <script>import '../scripts/project-page';</script>}
   </body>
 </html>
