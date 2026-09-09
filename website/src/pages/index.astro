@@ -1,20 +1,46 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Contact from '../components/Contact.astro';
+import blueprint from '../assets/company-blueprint.svg?raw';
+import { Image } from 'astro:assets';
+import projectImage from '../../../assets/brand/eurasia-project-dusk.png';
+import materialsImage from '../../../assets/brand/company-materials.png';
+const advantages = [
+  { title: ['Продуманная', 'архитектура'], text: 'Современные решения, которые гармонично вписываются в городскую среду.', icon: 'M6 48H54V57H6ZM11 23H26V48H11ZM26 10H41V57H26ZM41 35H54V57H41Z' },
+  { title: ['Качественные', 'материалы'], text: 'Используем надёжные и современные материалы с заботой о долговечности и комфорте.', icon: 'M10 48C3 18 28 12 53 10C52 37 37 54 12 45M8 58C14 39 24 30 40 23' },
+  { title: ['Комфортная', 'среда'], text: 'Продумываем пространство для жизни, отдыха и вдохновения.', icon: 'M30 60V39M26 51C9 51 8 37 16 30C11 23 16 16 21 15C20 2 38 3 39 15C46 18 47 25 43 30C54 43 44 51 34 51' },
+  { title: ['Внимание', 'к деталям'], text: 'Заботимся о мелочах, которые создают большую разницу в повседневной жизни.', icon: 'M7 10H27V30H7ZM7 36H27V56H7ZM34 10H59V56H34Z' },
+];
 ---
-<Layout title="Траст Строй — пространство для вашей жизни">
-  <section class="home-intro section">
-    <div><p class="eyebrow"><span class="tiny-line"></span> ДОМА, НАПОЛНЕННЫЕ ЖИЗНЬЮ</p><h1>Место, где<br/>начинается <em>ваше.</em></h1></div>
-    <div class="intro-aside"><p>У каждого дома — своя история.<br/>Найдите пространство,<br/>в котором начнётся ваша.</p><a class="text-link" href="#projects">Знакомьтесь с нашим проектом <span>↓</span></a></div>
+<Layout company title="Траст Строй — создаём современную среду для жизни" description="Траст Строй. Современная архитектура, качественные материалы и внимание к деталям. Познакомьтесь с жилым комплексом Eurasia De Luxe.">
+  <section class="company-hero company-container" aria-labelledby="company-title">
+    <div class="hero-copy">
+      <h1 id="company-title" class="company-title" aria-label="TRUST STROY" lang="en"><span class="title-mask"><span data-hero-title>TRUST</span></span><span class="title-mask"><span data-hero-title>STROY</span></span></h1>
+      <span class="terracotta-rule" aria-hidden="true"></span>
+      <p class="hero-tagline">Создаём современную<br/>среду для жизни</p>
+      <div class="hero-footnote"><p>Архитектура<br/>Люди<br/>Гармония</p><span aria-hidden="true"></span></div>
+    </div>
+    <div class="company-blueprint" set:html={blueprint} />
   </section>
-  <section class="project-showcase" id="projects">
-    <a href="/eurasia-deluxe/" class="project-image-link" aria-label="Открыть Eurasia De Luxe">
-      <img src="/media/building.webp" width="1196" height="700" alt="Архитектурная визуализация фасада Eurasia De Luxe" fetchpriority="high" />
-      <div class="project-overlay"><div><span class="eyebrow">ЖИЛОЙ КОМПЛЕКС</span><h2>Eurasia <em>De Luxe</em></h2></div><span class="large-arrow" aria-hidden="true">↗</span></div>
-      <span class="image-note">Визуализация комплекса</span>
-    </a>
-    <div class="project-caption"><span>Архитектура. Пространство. Ваш дом.</span><a href="/eurasia-deluxe/">Познакомиться с проектом ↗</a></div>
-  </section>
-  <section class="home-story section"><p class="eyebrow">ОТ ПЛАНИРОВКИ К ОЩУЩЕНИЮ ДОМА</p><h2>Представьте свою жизнь<br/>в <em>каждой детали.</em></h2><div class="story-lower"><p>Выберите одну из трёх планировок и загляните внутрь. Пройдите по комнатам, рассмотрите интерьер и почувствуйте масштаб пространства.</p><a class="button outline" href="/eurasia-deluxe/#apartments">Выбрать квартиру <span>↗</span></a></div></section>
-  <Contact />
+  <section class="company-about" id="about" aria-labelledby="about-title"><div class="company-container about-grid">
+    <div data-reveal><p class="company-eyebrow">О компании <span></span></p>
+      <h2 class="company-heading about-heading" id="about-title"><span>Строим с уважением</span><span>к городу и человеку</span></h2>
+      <p class="about-copy">Мы создаем современные жилые пространства,<br class="desktop-break"/> в которых важны эстетика, качество и комфорт.<br class="desktop-break"/> Вдохновляемся городом, заботимся о людях<br class="desktop-break"/> и уделяем внимание каждой детали — от идеи<br class="desktop-break"/> до реализации.</p>
+    </div>
+    <div class="about-image" data-reveal><Image src={materialsImage} width={1000} widths={[480,800,1200]} sizes="(max-width: 767px) 100vw, 45vw" format="webp" alt="Свет и тень на натуральном камне и терракотовой архитектурной плоскости" loading="lazy" decoding="async"/></div>
+  </div></section>
+  <section class="company-advantages" id="advantages" aria-labelledby="advantages-title"><div class="company-container">
+    <div class="company-section-heading" data-reveal><div><h2 class="company-heading" id="advantages-title">Наши преимущества</h2><span class="terracotta-rule" aria-hidden="true"></span></div><p class="company-side-note">Принципы, которые<br/> лежат в основе<br/> наших проектов</p></div>
+    <div class="advantages-grid">{advantages.map((item) => <article class="advantage-card" data-reveal>
+      <svg viewBox="0 0 66 66" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d={item.icon}/></svg>
+      <h3>{item.title[0]}<br/>{item.title[1]}</h3><p>{item.text}</p>
+    </article>)}</div>
+  </div></section>
+  <section class="company-projects" id="projects" aria-labelledby="projects-title"><div class="company-container">
+    <div class="company-section-heading" data-reveal><div><h2 class="company-heading" id="projects-title">Наши проекты</h2><span class="terracotta-rule" aria-hidden="true"></span></div><p class="company-side-note">Больше чем просто<br/> дом</p></div>
+    <div class="company-project-grid" data-reveal>
+      <a href="/eurasia-deluxe/" class="company-project-image" data-project-transition aria-label="Смотреть проект Eurasia De Luxe"><Image src={projectImage} alt="Визуализация Eurasia De Luxe в вечернем свете" widths={[640,1100,1774]} sizes="(max-width: 767px) 100vw, 65vw" width={1100} format="webp" loading="lazy"/></a>
+      <div class="company-project-copy"><h3 class="company-heading"><span>EURASIA</span><span>DE LUXE</span></h3><span class="terracotta-rule" aria-hidden="true"></span><p class="company-eyebrow">Жилой комплекс</p><a href="/eurasia-deluxe/" class="company-button filled" data-project-transition>Смотреть проект <span aria-hidden="true">⟶</span></a></div>
+    </div>
+  </div></section>
+  <section class="company-contact-band" id="contact"><div class="company-container" data-reveal><h2 class="company-heading">Найдём ваш будущий дом</h2><button type="button" class="company-button" data-contact-open>Связаться с нами <span aria-hidden="true">⟶</span></button></div></section>
 </Layout>
