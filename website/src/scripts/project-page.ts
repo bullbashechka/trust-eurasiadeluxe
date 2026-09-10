@@ -11,7 +11,6 @@ function mountProject() {
   const { signal } = abort;
   const reduced = matchMedia("(prefers-reduced-motion: reduce)");
   const pointer = matchMedia("(hover: hover) and (pointer: fine)");
-  const header = document.querySelector<HTMLElement>("[data-project-header]");
   const menu = document.querySelector<HTMLDialogElement>("#project-menu");
   const contact = document.querySelector<HTMLDialogElement>("#project-contact-dialog");
   const selector = document.querySelector<HTMLDialogElement>("#apartment-selector");
@@ -139,14 +138,6 @@ function mountProject() {
   }, { threshold: 0.12 });
   if (reduced.matches) document.querySelectorAll<HTMLElement>("[data-project-reveal]").forEach((item) => item.classList.add("is-revealed"));
   else document.querySelectorAll<HTMLElement>("[data-project-reveal]").forEach((item) => reveal.observe(item));
-
-  const onScroll = () => {
-    if (!header || menu?.open || contact?.open || selector?.open) return;
-    const current = scrollY;
-    header.classList.toggle("is-scrolled", current > 24);
-  };
-  onScroll();
-  window.addEventListener("scroll", onScroll, { signal, passive: true });
 
   dispose = () => {
     abort.abort();

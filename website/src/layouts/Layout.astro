@@ -58,7 +58,8 @@ const project = Astro.url.pathname.startsWith('/eurasia-deluxe/');
   </head>
   <body class:list={{'company-page': company, 'eurasia-page': project}} transition:animate="none">
     <a href="#main" class="skip-link">Перейти к содержимому</a>
-    {company ? <CompanyHeader/> : project ? <ProjectHeader/> : <header class="header">
+    <span class="site-header-sentinel" data-site-header-sentinel aria-hidden="true"></span>
+    {company ? <CompanyHeader/> : project ? <ProjectHeader/> : <header class="header" data-site-header>
       <a href="/" class="wordmark" aria-label="Траст Строй — главная"><span class="brand-mark" aria-hidden="true">Т</span><span>ТРАСТ СТРОЙ<small>ПРОСТРАНСТВО ДЛЯ ЖИЗНИ</small></span></a>
       <nav aria-label="Основная навигация">
         <a href="/eurasia-deluxe/">Eurasia De Luxe</a>
@@ -73,6 +74,7 @@ const project = Astro.url.pathname.startsWith('/eurasia-deluxe/');
     {cinematic && <ProjectCurtain/>}
     {!cinematic && <div class="cloud-transition" aria-hidden="true"><div class="mist mist-one"></div><div class="mist mist-two"></div><div class="mist mist-three"></div><span>EURASIA <i>DE LUXE</i></span></div>}
     <script>import '../scripts/navigation';</script>
+    <script>import '../scripts/site-header';</script>
     <script>
       import { mountSmoothScroll, unmountSmoothScroll } from '../scripts/smooth-scroll';
       document.addEventListener('astro:before-swap', unmountSmoothScroll);
