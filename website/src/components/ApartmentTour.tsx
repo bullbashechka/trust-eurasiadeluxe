@@ -212,10 +212,14 @@ export default function ApartmentTour({
     };
     const syncSize = () => {
       const scale = Number(document.documentElement.style.zoom) || 1;
-      setMobile(window.innerWidth / scale <= 640);
+      const isMobile = window.innerWidth / scale <= 760;
+      setMobile(isMobile);
       const short = window.innerHeight / scale < 520;
       setShortViewport(short);
-      if (short) {
+      if (motion.matches) {
+        setMode("photos");
+        setPlaying(false);
+      } else if (short || isMobile) {
         setMode(current => current === "scroll" ? "play" : current);
         setPlaying(false);
       }
@@ -325,6 +329,20 @@ export default function ApartmentTour({
     changeMode("photos");
   }
 
+  function togglePlayback() {
+    if (hasFailed) {
+      retryCurrent();
+      return;
+    }
+    setNotice("");
+    if (mode === "photos") {
+      setMode("play");
+      setPlaying(true);
+      return;
+    }
+    setPlaying((value) => !value);
+  }
+
   function choose(index: number) {
     setNotice("");
     if (mode === "scroll" && trigger.current) {
@@ -360,6 +378,7 @@ export default function ApartmentTour({
       data-mode={mode}
       data-ready={tourReady}
       data-compact={shortViewport}
+      data-mobile={mobile}
       style={
         {
           height:
@@ -431,7 +450,66 @@ export default function ApartmentTour({
             <span className="tour-badge">EURASIA DE LUXE · {area} М²</span>
             <div className="tour-top-actions">{plan && <button type="button" onClick={event => openPlan(event.currentTarget)}>Планировка</button>}<a href="#details" onClick={() => setPlaying(false)}>Пропустить тур</a><span className="tour-counter">{String(frame.index + 1).padStart(2, "0")} / {scenes.length}</span></div>
           </div>
+          <div className="tour-mobile-topline">
+            {plan && <button type="button" onClick={event => openPlan(event.currentTarget)}>Планировка</button>}
+            <span className="tour-counter">{String(frame.index + 1).padStart(2, "0")} / {scenes.length}</span>
+          </div>
           {!tourReady && !hasFailed && near && mode === "scroll" && <div className="tour-wait" role="status">Подготавливаем прогулку…</div>}
+          <aside className="tour-mobile-controls" aria-label="Управление экскурсией">
+            <nav className="tour-mobile-chapters" aria-label="Помещения квартиры">
+              {chapters.map((chapter) => (
+                <button
+                  key={chapter.index}
+                  aria-current={activeChapter === chapter.index}
+                  onClick={() => choose(chapter.index)}
+                >
+                  {chapter.room}
+                </button>
+              ))}
+            </nav>
+            {(hasFailed || notice) && (
+              <div className="tour-mobile-message" role="status">
+                <span>{hasFailed ? "Видео не загрузилось." : notice}</span>
+                {hasFailed && <button type="button" onClick={retryCurrent}>Повторить</button>}
+              </div>
+            )}
+            <div className="tour-mobile-playback">
+              <button
+                type="button"
+                aria-label="Предыдущая сцена"
+                disabled={frame.index === 0}
+                onClick={() => choose(frame.index - 1)}
+              >
+                <Icon name="arrow-left"/>
+              </button>
+              <button
+                className="tour-mobile-toggle"
+                type="button"
+                aria-label={hasFailed ? "Повторить загрузку" : playing ? "Пауза" : "Воспроизвести"}
+                onClick={togglePlayback}
+              >
+                <Icon name={playing ? "pause" : "play"}/>
+              </button>
+              <button
+                type="button"
+                aria-label="Следующая сцена"
+                disabled={frame.index === scenes.length - 1}
+                onClick={() => choose(frame.index + 1)}
+              >
+                <Icon name="arrow-right"/>
+              </button>
+            </div>
+            <div
+              className="tour-progress tour-mobile-progress"
+              role="progressbar"
+              aria-label="Прогресс экскурсии"
+              aria-valuemin={0}
+              aria-valuemax={scenes.length}
+              aria-valuenow={frame.index + 1}
+            >
+              <span style={{ transform: `scaleX(${(frame.index + frame.time) / scenes.length})` }}/>
+            </div>
+          </aside>
         </div>
         <aside className="tour-sidebar" aria-label="Управление экскурсией">
           <div className="sidebar-top">
@@ -488,15 +566,7 @@ export default function ApartmentTour({
                   <Icon name="arrow-left"/>
                 </button>
                 <button
-                  onClick={() => {
-                    if (hasFailed) {
-                      retryCurrent();
-                      return;
-                    }
-                    setNotice("");
-                    if (mode === "photos") setMode("play");
-                    setPlaying((value) => !value);
-                  }}
+                  onClick={togglePlayback}
                 >
                   {hasFailed
                     ? "Повторить загрузку"

@@ -122,6 +122,43 @@ test("short screens use playback without an extended scroll section", async () =
   expect(container.querySelector<HTMLButtonElement>(".tour-control")?.hidden).toBe(true);
 });
 
+test("mobile tour uses compact playback and room controls", async () => {
+  currentWindow.innerWidth = 390;
+  currentWindow.innerHeight = 800;
+  await mount();
+  await enter();
+  const section = container.querySelector("section")!;
+  expect(section.dataset.mode).toBe("play");
+  expect(section.dataset.mobile).toBe("true");
+  expect(section.style.height).toBe("auto");
+
+  const previous = container.querySelector<HTMLButtonElement>('[aria-label="Предыдущая сцена"]')!;
+  const next = container.querySelector<HTMLButtonElement>('[aria-label="Следующая сцена"]')!;
+  const toggle = container.querySelector<HTMLButtonElement>('[aria-label="Воспроизвести"]')!;
+  expect(previous.disabled).toBe(true);
+  expect(next.disabled).toBe(false);
+
+  await act(async () => next.click());
+  expect(container.querySelector(".tour-mobile-topline .tour-counter")?.textContent).toBe("02 / 8");
+  const livingRoom = Array.from(container.querySelectorAll<HTMLButtonElement>(".tour-mobile-chapters button")).find(button => button.textContent === "Гостиная")!;
+  await act(async () => livingRoom.click());
+  expect(container.querySelector(".tour-mobile-topline .tour-counter")?.textContent).toBe("03 / 8");
+
+  await act(async () => toggle.click());
+  expect(container.querySelector('[aria-label="Пауза"]')).not.toBeNull();
+});
+
+test("mobile plan control pauses playback and opens the existing dialog", async () => {
+  currentWindow.innerWidth = 390;
+  await act(async () => root.render(<ApartmentTour scenes={apartments[0].scenes} area="36,67" plan={apartments[0].plan}/>));
+  await enter();
+  await act(async () => container.querySelector<HTMLButtonElement>('[aria-label="Воспроизвести"]')!.click());
+  expect(container.querySelector('[aria-label="Пауза"]')).not.toBeNull();
+  await act(async () => container.querySelector<HTMLButtonElement>(".tour-mobile-topline button")!.click());
+  expect(container.querySelector("dialog")?.open).toBe(true);
+  expect(container.querySelector('[aria-label="Воспроизвести"]')).not.toBeNull();
+});
+
 test("opening a plan pauses playback and closing restores the opener", async () => {
   await act(async () => root.render(<ApartmentTour scenes={apartments[0].scenes} area="36,67" plan={apartments[0].plan}/>));
   await enter();
