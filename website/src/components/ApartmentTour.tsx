@@ -430,7 +430,7 @@ export default function ApartmentTour({
                   onSlow={onSlow}
                   onBlocked={() => {
                     setPlaying(false);
-                    setNotice("Нажмите «Смотреть», чтобы запустить видео.");
+                    setNotice("Не удалось запустить видео. Повторите попытку.");
                   }}
                   onReady={() => {
                     if (!tourReady && index === frameRef.current.index) {
@@ -447,16 +447,12 @@ export default function ApartmentTour({
               ),
           )}
           <div className="tour-topline">
-            <span className="tour-badge">EURASIA DE LUXE · {area} М²</span>
-            <div className="tour-top-actions">{plan && <button type="button" onClick={event => openPlan(event.currentTarget)}>Планировка</button>}<a href="#details" onClick={() => setPlaying(false)}>Пропустить тур</a><span className="tour-counter">{String(frame.index + 1).padStart(2, "0")} / {scenes.length}</span></div>
-          </div>
-          <div className="tour-mobile-topline">
             {plan && <button type="button" onClick={event => openPlan(event.currentTarget)}>Планировка</button>}
             <span className="tour-counter">{String(frame.index + 1).padStart(2, "0")} / {scenes.length}</span>
           </div>
           {!tourReady && !hasFailed && near && mode === "scroll" && <div className="tour-wait" role="status">Подготавливаем прогулку…</div>}
-          <aside className="tour-mobile-controls" aria-label="Управление экскурсией">
-            <nav className="tour-mobile-chapters" aria-label="Помещения квартиры">
+          <aside className="tour-controls" aria-label="Управление экскурсией">
+            <nav className="tour-chapters" aria-label="Помещения квартиры">
               {chapters.map((chapter) => (
                 <button
                   key={chapter.index}
@@ -468,124 +464,29 @@ export default function ApartmentTour({
               ))}
             </nav>
             {(hasFailed || notice) && (
-              <div className="tour-mobile-message" role="status">
-                <span>{hasFailed ? "Видео не загрузилось." : notice}</span>
-                {hasFailed && <button type="button" onClick={retryCurrent}>Повторить</button>}
+              <div className="tour-controls-message" role="status">
+                <span>{hasFailed ? "Видео не загрузилось. Фотографии и переходы по комнатам доступны." : notice}</span>
+                {hasFailed && <div><button type="button" onClick={retryCurrent}>Повторить</button><button type="button" onClick={togglePhotos}>Фотографии</button></div>}
               </div>
             )}
-            <div className="tour-mobile-playback">
-              <button
-                type="button"
-                aria-label="Предыдущая сцена"
-                disabled={frame.index === 0}
-                onClick={() => choose(frame.index - 1)}
-              >
-                <Icon name="arrow-left"/>
-              </button>
-              <button
-                className="tour-mobile-toggle"
-                type="button"
-                aria-label={hasFailed ? "Повторить загрузку" : playing ? "Пауза" : "Воспроизвести"}
-                onClick={togglePlayback}
-              >
-                <Icon name={playing ? "pause" : "play"}/>
-              </button>
-              <button
-                type="button"
-                aria-label="Следующая сцена"
-                disabled={frame.index === scenes.length - 1}
-                onClick={() => choose(frame.index + 1)}
-              >
-                <Icon name="arrow-right"/>
-              </button>
-            </div>
-            <div
-              className="tour-progress tour-mobile-progress"
-              role="progressbar"
-              aria-label="Прогресс экскурсии"
-              aria-valuemin={0}
-              aria-valuemax={scenes.length}
-              aria-valuenow={frame.index + 1}
-            >
-              <span style={{ transform: `scaleX(${(frame.index + frame.time) / scenes.length})` }}/>
-            </div>
-          </aside>
-        </div>
-        <aside className="tour-sidebar" aria-label="Управление экскурсией">
-          <div className="sidebar-top">
-            <p className="eyebrow">ВАША ПРОГУЛКА ПО ДОМУ</p>
-            <nav className="chapter-nav" aria-label="Помещения квартиры">
-              {chapters.map((chapter, index) => (
-                <button
-                  key={chapter.index}
-                  aria-current={activeChapter === chapter.index}
-                  onClick={() => choose(chapter.index)}
-                >
-                  <span>{String(index + 1).padStart(2, "0")}</span>
-                  {chapter.room}
-                </button>
-              ))}
-            </nav>
-          </div>
-          <div>
-            <h3 aria-live="polite">{current.room}</h3>
-            <p className="caption">{current.caption}</p>
-            {(hasFailed || notice) && (
-              <div className="tour-message" role="status">
-                <span>
-                  {hasFailed
-                    ? "Видео не загрузилось. Фотография и переходы по комнатам доступны."
-                    : notice}
-                </span>
-                {hasFailed && mode === "scroll" && (
-                  <button type="button" onClick={retryCurrent}>
-                    Повторить загрузку
-                  </button>
+            <div className="tour-controls-row">
+              <div className="tour-scene-controls">
+                <button type="button" aria-label="Предыдущая сцена" disabled={frame.index === 0} onClick={() => choose(frame.index - 1)}><Icon name="arrow-left"/></button>
+                {mode === "scroll" ? (
+                  <div className="tour-scroll-guide" aria-label="Листайте для прогулки">
+                    <span><Icon name="mouse"/></span>
+                    <small>Листайте для прогулки</small>
+                  </div>
+                ) : (
+                  <button className="tour-play-toggle" type="button" aria-label={hasFailed ? "Повторить загрузку" : playing ? "Пауза" : "Воспроизвести"} onClick={togglePlayback}><Icon name={playing ? "pause" : "play"}/></button>
                 )}
+                <button type="button" aria-label="Следующая сцена" disabled={frame.index === scenes.length - 1} onClick={() => choose(frame.index + 1)}><Icon name="arrow-right"/></button>
               </div>
-            )}
-            <button
-              className="tour-control"
-              hidden={shortViewport}
-              onClick={() => {
-                setNotice("");
-                changeMode(mode === "scroll" ? "play" : "scroll");
-              }}
-            >
-              {mode === "scroll"
-                ? "Обычное воспроизведение"
-                : "Управлять прокруткой"}
-            </button>
-            {mode !== "scroll" && (
-              <div className="play-controls">
-                <button
-                  aria-label="Предыдущая сцена"
-                  disabled={frame.index === 0}
-                  onClick={() => choose(frame.index - 1)}
-                >
-                  <Icon name="arrow-left"/>
-                </button>
-                <button
-                  onClick={togglePlayback}
-                >
-                  {hasFailed
-                    ? "Повторить загрузку"
-                    : playing
-                      ? "Пауза"
-                      : "Смотреть"}
-                </button>
-                <button
-                  aria-label="Следующая сцена"
-                  disabled={frame.index === scenes.length - 1}
-                  onClick={() => choose(frame.index + 1)}
-                >
-                  <Icon name="arrow-right"/>
-                </button>
+              <div className="tour-mode-switch" aria-label="Режим экскурсии">
+                <button type="button" aria-pressed={mode === "scroll"} disabled={mode === "scroll"} onClick={() => changeMode("scroll")}>Прокрутка</button>
+                <button type="button" aria-pressed={mode === "play"} disabled={mode === "play"} onClick={() => { if (hasFailed) retryCurrent(); changeMode("play"); }}>Видео</button>
               </div>
-            )}
-            <button className="tour-photo-control" type="button" onClick={togglePhotos}>
-              {mode === "photos" ? "Вернуться к видео" : "Смотреть фотографии"}
-            </button>
+            </div>
             <div
               className="tour-progress"
               role="progressbar"
@@ -600,18 +501,8 @@ export default function ApartmentTour({
                 }}
               />
             </div>
-            <p className="tour-hint">
-              {mode === "scroll"
-                ? "Листайте, чтобы двигаться по квартире.\nОстановитесь, чтобы рассмотреть детали."
-                : mode === "photos"
-                  ? "Фотографии интерьера. Выберите комнату или сцену."
-                  : "Видео по главам. Вы управляете просмотром."}
-            </p>
-            <a className="tour-finish-link" href="#details">
-              К характеристикам <Icon name="arrow-up-right"/>
-            </a>
-          </div>
-        </aside>
+          </aside>
+        </div>
       </div>
       {plan && <dialog ref={planDialog} className="tour-plan-dialog" aria-label={`Планировка квартиры ${area} м²`} onClose={() => planOpener.current?.focus({ preventScroll: true })} onClick={event => { if (event.target === event.currentTarget) event.currentTarget.close(); }}>
         <button type="button" aria-label="Закрыть планировку" onClick={() => planDialog.current?.close()}><Icon name="x"/></button>

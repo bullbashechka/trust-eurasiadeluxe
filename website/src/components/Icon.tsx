@@ -1,4 +1,4 @@
-import { ArrowLeft, ArrowRight, ArrowUpRight, Building2, Leaf, TreePine, PanelsTopLeft, Menu, X, Maximize, Minimize, Play, Pause } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ArrowUpRight, Building2, Leaf, TreePine, PanelsTopLeft, Menu, X, Maximize, Minimize, Mouse, Play, Pause } from 'lucide-react';
 
 const icons = {
   'arrow-left': ArrowLeft,
@@ -12,6 +12,7 @@ const icons = {
   x: X,
   maximize: Maximize,
   minimize: Minimize,
+  mouse: Mouse,
   play: Play,
   pause: Pause,
 };

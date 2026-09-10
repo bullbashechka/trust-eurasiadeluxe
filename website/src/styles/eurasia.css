@@ -160,25 +160,30 @@
 .eurasia-page .tour-sticky { position: sticky; top: 0; display: block; box-sizing: border-box; height: calc(100svh / var(--display-scale, 1)); min-height: 0; padding: 16px 24px; background: var(--project-paper); }
 .eurasia-page .tour-view { height: 100%; border-radius: 8px; background: #181716; }
 .eurasia-page .tour-layer > img, .eurasia-page .tour-layer > video { object-fit: cover; object-position: 50% 50%; }
-.eurasia-page .tour-topline { top: 96px; left: var(--project-gutter); right: var(--project-gutter); }
-.eurasia-page .tour-badge, .eurasia-page .tour-counter, .eurasia-page .tour-top-actions > button, .eurasia-page .tour-top-actions > a { background: #f4f0e9e8; color: var(--project-ink); border: 0; border-radius: 999px; padding: 8px 12px; font: 500 10px var(--project-sans); backdrop-filter: blur(8px); }
-.tour-top-actions { display: flex; align-items: center; justify-content: end; flex-wrap: wrap; gap: 8px; }
-.eurasia-page .tour-counter { border-radius: 999px; }
-.tour-mobile-topline, .tour-mobile-controls { display: none; }
-.eurasia-page .tour-sidebar { position: absolute; left: var(--project-gutter); bottom: 20px; z-index: 5; display: block; width: min(510px, calc(100% - var(--project-gutter) * 2)); max-height: calc(100% - 190px); padding: 13px 18px; border: 0; border-radius: 8px; color: var(--project-ink); background: #f4f0e9e8; backdrop-filter: blur(10px); overflow: auto; }
-.eurasia-page .tour-sidebar .eyebrow, .eurasia-page .tour-sidebar .caption { display: none; }
-.eurasia-page .chapter-nav { flex-direction: row; gap: 16px; overflow-x: auto; scrollbar-width: none; }
-.eurasia-page .chapter-nav button { flex: 0 0 auto; min-height: 44px; padding: 8px 0; color: #6d6767; font-size: 12px; }
-.eurasia-page .chapter-nav button span { display: none; }
-.eurasia-page .tour-sidebar h3 { margin: 7px 0 0; font: 400 33px/1 var(--project-display); }
-.eurasia-page .tour-progress { margin-top: 12px; }
-.eurasia-page .tour-hint { position: static; margin: 8px 0; font-size: 11px; }
-.eurasia-page .tour-progress { margin-bottom: 8px; }
-.eurasia-page .tour-message { position: static; max-width: 46ch; margin: 7px 0; padding: 9px 11px; border-radius: 6px; background: #fff8; color: var(--project-ink); font-size: 12px; line-height: 1.45; }
-.eurasia-page .tour-message button { min-height: 44px; margin-top: 4px; color: var(--project-rust); }
-.eurasia-page .media-loading, .tour-wait { position: absolute; z-index: 4; left: var(--project-gutter); top: 170px; bottom: auto; padding: 10px 14px; border-radius: 5px; color: var(--project-ink); background: #f4f0e9e8; font-size: 11px; }
-.tour-start { position: absolute; z-index: 5; left: 50%; top: 50%; transform: translate(-50%, -50%); min-height: 50px; padding: 12px 22px; border: 0; border-radius: 7px; color: #fff; background: var(--project-rust); font: 500 13px var(--project-sans); box-shadow: 0 10px 40px #0005; }
-.tour-start span { margin-left: 16px; font-size: 18px; }
+.eurasia-page .tour-topline { position: absolute; inset: 96px 32px auto; z-index: 5; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.eurasia-page .tour-topline > button, .eurasia-page .tour-counter { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 8px 14px; border: 0; border-radius: 999px; color: var(--project-ink); background: #f4f0e9e8; font: 500 11px var(--project-sans); backdrop-filter: blur(8px); }
+.eurasia-page .tour-controls { position: absolute; z-index: 5; bottom: 32px; left: 50%; display: grid; width: min(620px, calc(100% - 48px)); gap: 13px; padding: 16px 20px 14px; border-radius: 22px; color: var(--project-ink); background: #f4f0e9e8; box-shadow: 0 12px 28px #2a20121c; backdrop-filter: blur(14px); transform: translateX(-50%); }
+.eurasia-page .tour-chapters { display: flex; justify-content: center; gap: 26px; overflow-x: auto; scrollbar-width: none; }
+.eurasia-page .tour-chapters::-webkit-scrollbar { display: none; }
+.eurasia-page .tour-chapters button { flex: 0 0 auto; min-height: 32px; padding: 0; border: 0; border-bottom: 2px solid transparent; color: #777176; background: transparent; font: 500 13px var(--project-sans); white-space: nowrap; }
+.eurasia-page .tour-chapters button[aria-current="true"] { border-color: var(--project-rust); color: var(--project-rust); font-weight: 700; }
+.eurasia-page .tour-controls-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 18px; }
+.eurasia-page .tour-scene-controls { display: grid; grid-template-columns: 44px minmax(150px, 1fr) 44px; align-items: center; gap: 16px; }
+.eurasia-page .tour-scene-controls > button { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; padding: 0; border: 1px solid #d8d1c7; border-radius: 50%; color: var(--project-ink); background: #f9f7f2d9; }
+.eurasia-page .tour-scene-controls > button:disabled { opacity: .35; }
+.eurasia-page .tour-play-toggle { justify-self: center; width: 54px !important; height: 54px !important; border: 0 !important; color: #fff !important; background: var(--project-rust) !important; box-shadow: 0 7px 16px #a84b3540; }
+.eurasia-page .tour-scroll-guide { display: grid; justify-items: center; gap: 5px; color: #6a6568; font: 500 11px/1.2 var(--project-sans); text-align: center; }
+.eurasia-page .tour-scroll-guide > span { display: inline-flex; align-items: center; justify-content: center; width: 54px; height: 54px; border-radius: 50%; color: #fff; background: var(--project-rust); box-shadow: 0 7px 16px #a84b3540; }
+.eurasia-page .tour-scene-controls .site-icon { width: 21px; height: 21px; }
+.eurasia-page .tour-mode-switch { display: inline-flex; padding: 2px; border: 1px solid #d8d1c7; border-radius: 999px; background: #f9f7f2b8; }
+.eurasia-page .tour-mode-switch button { min-height: 34px; padding: 6px 13px; border: 0; border-radius: 999px; color: #655f61; background: transparent; font: 500 11px var(--project-sans); }
+.eurasia-page .tour-mode-switch button[aria-pressed="true"] { color: #fff; background: var(--project-rust); }
+.eurasia-page .tour-progress { height: 2px; margin: 0; background: #d8d1c7; }
+.eurasia-page .tour-progress > span { background: var(--project-rust); }
+.eurasia-page .tour-controls-message { display: flex; align-items: center; justify-content: space-between; gap: 14px; color: #655f61; font-size: 11px; line-height: 1.45; }
+.eurasia-page .tour-controls-message > div { display: flex; flex: none; gap: 12px; }
+.eurasia-page .tour-controls-message button { min-height: 36px; padding: 6px 0; border: 0; border-bottom: 1px solid var(--project-rust); color: var(--project-rust); background: transparent; font: 500 11px var(--project-sans); }
+.eurasia-page .media-loading, .tour-wait { position: absolute; z-index: 4; left: 32px; top: 152px; bottom: auto; padding: 10px 14px; border-radius: 5px; color: var(--project-ink); background: #f4f0e9e8; font-size: 11px; }
 .eurasia-page .tour-section[data-mode="play"] .tour-sticky, .eurasia-page .tour-section[data-mode="photos"] .tour-sticky { position: relative; }
 .tour-plan-dialog { width: min(880px, calc(100% - 32px)); max-height: calc(calc(100dvh / var(--display-scale, 1)) - 32px); border: 0; padding: 18px; background: var(--project-paper); box-shadow: 0 18px 70px #0007; }
 .tour-plan-dialog::backdrop { background: #151315d9; backdrop-filter: blur(5px); }
@@ -225,25 +230,17 @@
   .eurasia-page .tour-section { height: auto !important; min-height: 0; }
   .eurasia-page .tour-sticky { position: relative; height: calc(100svh / var(--display-scale, 1)); min-height: 520px; padding: 8px; }
   .eurasia-page .tour-view { border-radius: 6px; }
-  .eurasia-page .tour-topline, .eurasia-page .tour-sidebar { display: none; }
-  .eurasia-page .tour-mobile-topline { position: absolute; inset: 14px 14px auto; z-index: 5; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-  .eurasia-page .tour-mobile-topline > button, .eurasia-page .tour-mobile-topline .tour-counter { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 8px 13px; border: 0; border-radius: 999px; color: var(--project-ink); background: #f4f0e9e8; font: 500 11px var(--project-sans); backdrop-filter: blur(8px); }
-  .eurasia-page .tour-mobile-controls { position: absolute; z-index: 5; right: 14px; bottom: 14px; left: 14px; display: grid; gap: 11px; padding: 13px 12px 11px; border-radius: 22px; color: var(--project-ink); background: #f4f0e9e8; box-shadow: 0 12px 28px #2a20121c; backdrop-filter: blur(14px); }
-  .eurasia-page .tour-mobile-chapters { display: flex; gap: 18px; overflow-x: auto; scrollbar-width: none; }
-  .eurasia-page .tour-mobile-chapters::-webkit-scrollbar { display: none; }
-  .eurasia-page .tour-mobile-chapters button { flex: 0 0 auto; min-height: 32px; padding: 0; border: 0; border-bottom: 2px solid transparent; color: #777176; background: transparent; font: 500 12px var(--project-sans); white-space: nowrap; }
-  .eurasia-page .tour-mobile-chapters button[aria-current="true"] { border-color: var(--project-rust); color: var(--project-rust); font-weight: 700; }
-  .eurasia-page .tour-mobile-playback { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 18px; }
-  .eurasia-page .tour-mobile-playback > button { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; padding: 0; border: 1px solid #d8d1c7; border-radius: 50%; color: var(--project-ink); background: #f9f7f2d9; }
-  .eurasia-page .tour-mobile-playback > button:first-child { justify-self: end; }
-  .eurasia-page .tour-mobile-playback > button:last-child { justify-self: start; }
-  .eurasia-page .tour-mobile-playback > button:disabled { opacity: .35; }
-  .eurasia-page .tour-mobile-playback .tour-mobile-toggle { width: 54px; height: 54px; border: 0; color: #fff; background: var(--project-rust); box-shadow: 0 7px 16px #a84b3540; }
-  .eurasia-page .tour-mobile-playback .site-icon { width: 21px; height: 21px; }
-  .eurasia-page .tour-mobile-progress { height: 2px; margin: 0; background: #d8d1c7; }
-  .eurasia-page .tour-mobile-progress > span { background: var(--project-rust); }
-  .eurasia-page .tour-mobile-message { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 2px 0; color: #655f61; font-size: 11px; }
-  .eurasia-page .tour-mobile-message button { flex: none; min-height: 36px; padding: 6px 0; border: 0; border-bottom: 1px solid var(--project-rust); color: var(--project-rust); background: transparent; font: 500 11px var(--project-sans); }
+  .eurasia-page .tour-topline { inset: 14px 14px auto; }
+  .eurasia-page .tour-topline > button, .eurasia-page .tour-counter { min-height: 44px; padding: 8px 13px; font-size: 11px; }
+  .eurasia-page .tour-controls { right: 14px; bottom: 14px; left: 14px; width: auto; gap: 11px; padding: 13px 12px 11px; transform: none; }
+  .eurasia-page .tour-chapters { justify-content: start; gap: 18px; }
+  .eurasia-page .tour-chapters button { font-size: 12px; }
+  .eurasia-page .tour-controls-row { display: block; }
+  .eurasia-page .tour-scene-controls { grid-template-columns: 1fr auto 1fr; gap: 18px; }
+  .eurasia-page .tour-scene-controls > button:first-child { justify-self: end; }
+  .eurasia-page .tour-scene-controls > button:last-child { justify-self: start; }
+  .eurasia-page .tour-mode-switch { display: none; }
+  .eurasia-page .tour-controls-message { gap: 12px; padding: 8px 2px 0; }
   .eurasia-page .media-loading, .tour-wait { left: 14px; top: 70px; bottom: auto; }
   .apartment-details-v2 { grid-template-columns: 1fr; gap: 40px; padding: 48px 20px; }
   .details-plan h2 { font-size: clamp(32px, calc(8vw / var(--display-scale, 1)), 44px); }

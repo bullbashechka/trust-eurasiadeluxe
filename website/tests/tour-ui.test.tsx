@@ -113,13 +113,53 @@ test("late loading starts the tour automatically after reaching its viewport", a
   expect(container.querySelector(".tour-start")).toBeNull();
 });
 
+test("desktop tour uses the compact scroll panel and preserves a scene when switching modes", async () => {
+  await mount();
+  await enter();
+  const section = container.querySelector("section")!;
+  expect(section.dataset.mode).toBe("scroll");
+  expect(container.querySelector(".tour-sidebar")).toBeNull();
+  expect(container.querySelector(".tour-controls")).not.toBeNull();
+  expect(container.querySelector(".tour-scroll-guide")?.textContent).toContain("Листайте для прогулки");
+
+  const videoMode = Array.from(container.querySelectorAll<HTMLButtonElement>(".tour-mode-switch button")).find(button => button.textContent === "Видео")!;
+  const scrollMode = Array.from(container.querySelectorAll<HTMLButtonElement>(".tour-mode-switch button")).find(button => button.textContent === "Прокрутка")!;
+  expect(scrollMode.getAttribute("aria-pressed")).toBe("true");
+  expect(videoMode.getAttribute("aria-pressed")).toBe("false");
+
+  await act(async () => scrollUpdate?.({ progress: 0.3 }));
+  expect(container.querySelector(".tour-topline .tour-counter")?.textContent).toBe("03 / 8");
+  await act(async () => videoMode.click());
+  expect(section.dataset.mode).toBe("play");
+  expect(container.querySelector(".tour-topline .tour-counter")?.textContent).toBe("03 / 8");
+  expect(container.querySelector('[aria-label="Воспроизвести"]')).not.toBeNull();
+
+  await act(async () => scrollMode.click());
+  expect(section.dataset.mode).toBe("scroll");
+  expect(container.querySelector(".tour-scroll-guide")).not.toBeNull();
+});
+
+test("desktop scroll controls move the page to the neighboring scene", async () => {
+  let scrollRequest: ScrollToOptions | undefined;
+  currentWindow.scrollTo = (...args: Parameters<typeof currentWindow.scrollTo>) => {
+    const [options] = args;
+    if (typeof options !== "number") scrollRequest = options as ScrollToOptions;
+  };
+  await mount();
+  await enter();
+  const next = container.querySelector<HTMLButtonElement>('[aria-label="Следующая сцена"]')!;
+  await act(async () => next.click());
+  expect(scrollRequest).toEqual({ top: 200, behavior: "smooth" });
+  expect(container.querySelector("section")?.dataset.mode).toBe("scroll");
+});
+
 test("short screens use playback without an extended scroll section", async () => {
   currentWindow.innerHeight = 390;
   await mount();
   expect(container.querySelector("section")?.dataset.mode).toBe("play");
   expect(container.querySelector("section")?.dataset.compact).toBe("true");
   expect(container.querySelector("section")?.style.height).toBe("auto");
-  expect(container.querySelector<HTMLButtonElement>(".tour-control")?.hidden).toBe(true);
+  expect(container.querySelector(".tour-controls")).not.toBeNull();
 });
 
 test("mobile tour uses compact playback and room controls", async () => {
@@ -139,10 +179,10 @@ test("mobile tour uses compact playback and room controls", async () => {
   expect(next.disabled).toBe(false);
 
   await act(async () => next.click());
-  expect(container.querySelector(".tour-mobile-topline .tour-counter")?.textContent).toBe("02 / 8");
-  const livingRoom = Array.from(container.querySelectorAll<HTMLButtonElement>(".tour-mobile-chapters button")).find(button => button.textContent === "Гостиная")!;
+  expect(container.querySelector(".tour-topline .tour-counter")?.textContent).toBe("02 / 8");
+  const livingRoom = Array.from(container.querySelectorAll<HTMLButtonElement>(".tour-chapters button")).find(button => button.textContent === "Гостиная")!;
   await act(async () => livingRoom.click());
-  expect(container.querySelector(".tour-mobile-topline .tour-counter")?.textContent).toBe("03 / 8");
+  expect(container.querySelector(".tour-topline .tour-counter")?.textContent).toBe("03 / 8");
 
   await act(async () => toggle.click());
   expect(container.querySelector('[aria-label="Пауза"]')).not.toBeNull();
@@ -154,7 +194,7 @@ test("mobile plan control pauses playback and opens the existing dialog", async 
   await enter();
   await act(async () => container.querySelector<HTMLButtonElement>('[aria-label="Воспроизвести"]')!.click());
   expect(container.querySelector('[aria-label="Пауза"]')).not.toBeNull();
-  await act(async () => container.querySelector<HTMLButtonElement>(".tour-mobile-topline button")!.click());
+  await act(async () => container.querySelector<HTMLButtonElement>(".tour-topline button")!.click());
   expect(container.querySelector("dialog")?.open).toBe(true);
   expect(container.querySelector('[aria-label="Воспроизвести"]')).not.toBeNull();
 });
@@ -162,12 +202,12 @@ test("mobile plan control pauses playback and opens the existing dialog", async 
 test("opening a plan pauses playback and closing restores the opener", async () => {
   await act(async () => root.render(<ApartmentTour scenes={apartments[0].scenes} area="36,67" plan={apartments[0].plan}/>));
   await enter();
-  await click("Обычное воспроизведение");
-  await click("Смотреть");
-  expect(container.textContent).toContain("Пауза");
+  await click("Видео");
+  await act(async () => container.querySelector<HTMLButtonElement>('[aria-label="Воспроизвести"]')!.click());
+  expect(container.querySelector('[aria-label="Пауза"]')).not.toBeNull();
   await click("Планировка");
   expect(container.querySelector("dialog")?.open).toBe(true);
-  expect(container.textContent).not.toContain("Пауза");
+  expect(container.querySelector('[aria-label="Воспроизвести"]')).not.toBeNull();
   await act(async () => container.querySelector<HTMLButtonElement>('[aria-label="Закрыть планировку"]')!.click());
   expect(container.querySelector("dialog")?.open).toBe(false);
   expect(document.activeElement?.textContent).toBe("Планировка");
@@ -204,9 +244,7 @@ test("failed media retains poster, provides retry, then photograph fallback", as
   );
   expect(container.textContent).toContain("Видео не загрузилось");
   expect(container.querySelectorAll("img").length).toBeGreaterThan(0);
-  const retry = Array.from(container.querySelectorAll("button")).find((button) =>
-    button.textContent?.includes("Повторить загрузку"),
-  );
+  const retry = Array.from(container.querySelectorAll<HTMLButtonElement>(".tour-controls-message button")).find((button) => button.textContent?.includes("Повторить"));
   expect(retry?.disabled).toBe(false);
   await click("Повторить");
   expect(container.textContent).not.toContain("Видео не загрузилось");
@@ -216,19 +254,9 @@ test("failed media retains poster, provides retry, then photograph fallback", as
       .querySelector("video")!
       .dispatchEvent(new currentWindow.Event("error") as unknown as Event),
   );
-  await click("Смотреть фотографии");
+  await click("Фотографии");
   expect(container.querySelector("section")?.dataset.mode).toBe("photos");
   expect(container.querySelectorAll("video").length).toBe(0);
-});
-
-test("photograph mode remains available before a media failure", async () => {
-  await mount();
-  await enter();
-  await click("Смотреть фотографии");
-  expect(container.querySelector("section")?.dataset.mode).toBe("photos");
-  expect(container.querySelectorAll("video").length).toBe(0);
-  await click("Вернуться к видео");
-  expect(container.querySelector("section")?.dataset.mode).toBe("play");
 });
 
 test("normal playback mode preserves selected scene and can return to scroll", async () => {
@@ -237,10 +265,10 @@ test("normal playback mode preserves selected scene and can return to scroll", a
   await act(async () => container.querySelector("video")?.dispatchEvent(new currentWindow.Event("loadeddata") as unknown as Event));
   await startTour();
   await act(async () => scrollUpdate?.({ progress: 0.3 }));
-  expect(container.querySelector("h3")?.textContent).toBe("Гостиная");
-  await click("Обычное воспроизведение");
+  expect(container.querySelector(".tour-topline .tour-counter")?.textContent).toBe("03 / 8");
+  await click("Видео");
   expect(container.querySelector("section")?.dataset.mode).toBe("play");
-  expect(container.querySelector("h3")?.textContent).toBe("Гостиная");
-  await click("Управлять прокруткой");
+  expect(container.querySelector(".tour-topline .tour-counter")?.textContent).toBe("03 / 8");
+  await click("Прокрутка");
   expect(container.querySelector("section")?.dataset.mode).toBe("scroll");
 });
