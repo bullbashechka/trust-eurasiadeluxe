@@ -128,11 +128,34 @@
   .project-header.is-compact .project-wordmark { font-size: 21px; }
 }
 
-@media (max-width: 360px) {
+@media (max-width: 440px) {
+  .company-header .header-inner {
+    justify-content: space-between;
+  }
+  .company-header .header-cta,
+  .project-header-cta {
+    display: none;
+  }
+  .company-header .company-wordmark {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .project-header {
+    grid-template-columns: 44px minmax(0, 1fr) 44px;
+    column-gap: 6px;
+  }
+  .project-header::after {
+    width: 44px;
+    content: "";
+  }
   .project-header .project-menu-button span:last-child { display: none; }
-  .project-header .project-menu-button { min-width: 24px; min-height: 44px; }
+  .project-header .project-menu-button { min-width: 44px; min-height: 44px; }
   .project-header .project-wordmark { font-size: 22px; }
   .project-header.is-compact .project-wordmark { font-size: 18px; }
+}
+
+@media (max-width: 360px) {
   .company-header .company-wordmark { font-size: 23px; }
   .company-header.is-compact .company-wordmark { font-size: 20px; }
 }

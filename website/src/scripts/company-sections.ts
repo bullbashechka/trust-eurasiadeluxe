@@ -40,8 +40,17 @@ export function createSectionMotion(element: HTMLElement) {
       { clipPath: "inset(0% 100% 0% 0% round 10px)" },
       { clipPath: "inset(0% 0% 0% 0% round 10px)", duration: 1.3 }, 0);
     const buttons = element.querySelectorAll(".company-button");
-    if (buttons.length) timeline.fromTo(buttons, { x: 28, opacity: 0 },
-      { x: 0, opacity: 1, duration: 0.8 }, 0.35);
+    if (buttons.length) {
+      const mobile = innerWidth / (Number(document.documentElement.style.zoom) || 1) < 768;
+      timeline.fromTo(
+        buttons,
+        mobile ? { y: 18, opacity: 0 } : { x: 28, opacity: 0 },
+        mobile
+          ? { y: 0, opacity: 1, duration: 0.8 }
+          : { x: 0, opacity: 1, duration: 0.8 },
+        0.35,
+      );
+    }
     const eyebrow = element.querySelector(":scope > .company-eyebrow");
     if (eyebrow) timeline.fromTo(eyebrow, { opacity: 0 }, { opacity: 1, duration: 0.6 }, 0);
   }, element);

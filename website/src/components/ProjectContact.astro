@@ -7,19 +7,20 @@ import Icon from './Icon';
     <div data-project-contact-content>
       <p class="project-kicker">EURASIA DE LUXE</p>
       <h2 id="project-contact-title">Узнать больше</h2>
-      <p>Оставьте телефон, и мы свяжемся с вами.</p>
+      <p>Демонстрационная форма. Данные не отправляются.</p>
       <form data-project-contact-form novalidate>
         <label for="project-contact-name">Имя</label>
         <input id="project-contact-name" name="name" autocomplete="given-name" maxlength="80" placeholder="Как к вам обращаться" />
         <label for="project-contact-phone">Телефон</label>
         <input id="project-contact-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="24" placeholder="+7 (___) ___-__-__" aria-describedby="project-phone-error" required />
         <span id="project-phone-error" class="project-field-error" aria-live="polite"></span>
-        <button class="project-button project-button-filled" type="submit">Отправить <span aria-hidden="true"><Icon name="arrow-right"/></span></button>
+        <button class="project-button project-button-filled" type="submit">Проверить данные <span aria-hidden="true"><Icon name="arrow-right"/></span></button>
       </form>
     </div>
     <div data-project-contact-success hidden role="status" tabindex="-1">
       <span class="project-success-mark" aria-hidden="true">✓</span>
-      <h2>Спасибо! Ваша заявка отправлена</h2>
+      <h2>Данные заполнены корректно</h2>
+      <p>Это демонстрация — заявка не отправлена.</p>
       <button class="project-button project-button-filled" type="button" data-project-contact-close>Закрыть</button>
     </div>
   </div>

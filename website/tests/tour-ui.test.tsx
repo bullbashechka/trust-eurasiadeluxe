@@ -167,6 +167,10 @@ test("failed media retains poster, provides retry, then photograph fallback", as
   );
   expect(container.textContent).toContain("Видео не загрузилось");
   expect(container.querySelectorAll("img").length).toBeGreaterThan(0);
+  const retry = Array.from(container.querySelectorAll("button")).find((button) =>
+    button.textContent?.includes("Повторить загрузку"),
+  );
+  expect(retry?.disabled).toBe(false);
   await click("Повторить");
   expect(container.textContent).not.toContain("Видео не загрузилось");
   expect(container.querySelectorAll("video").length).toBe(2);
@@ -178,6 +182,16 @@ test("failed media retains poster, provides retry, then photograph fallback", as
   await click("Смотреть фотографии");
   expect(container.querySelector("section")?.dataset.mode).toBe("photos");
   expect(container.querySelectorAll("video").length).toBe(0);
+});
+
+test("photograph mode remains available before a media failure", async () => {
+  await mount();
+  await enter();
+  await click("Смотреть фотографии");
+  expect(container.querySelector("section")?.dataset.mode).toBe("photos");
+  expect(container.querySelectorAll("video").length).toBe(0);
+  await click("Вернуться к видео");
+  expect(container.querySelector("section")?.dataset.mode).toBe("play");
 });
 
 test("normal playback mode preserves selected scene and can return to scroll", async () => {

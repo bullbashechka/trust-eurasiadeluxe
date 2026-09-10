@@ -51,7 +51,11 @@ function mountProject() {
       open(selector, tourOpen);
     } else if (contactOpen) {
       event.preventDefault();
-      open(contact, contactOpen);
+      const contactOpener = menu?.contains(contactOpen)
+        ? document.querySelector<HTMLElement>("[data-project-menu-open]") ?? contactOpen
+        : contactOpen;
+      if (menu?.open) menu.close();
+      open(contact, contactOpener);
     } else if (event.target.closest("[data-project-menu-close]")) close(menu);
     else if (event.target.closest("[data-apartment-selector-close]")) close(selector);
     else if (event.target.closest("[data-project-contact-close]")) close(contact);

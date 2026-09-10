@@ -309,6 +309,22 @@ export default function ApartmentTour({
     });
   }
 
+  function retryCurrent() {
+    setFailures((old) => ({ ...old, [current.id]: false }));
+    setAttempt((value) => value + 1);
+    setNotice("");
+    setPlaying(false);
+  }
+
+  function togglePhotos() {
+    if (mode === "photos") {
+      if (hasFailed) retryCurrent();
+      changeMode("play");
+      return;
+    }
+    changeMode("photos");
+  }
+
   function choose(index: number) {
     setNotice("");
     if (mode === "scroll" && trigger.current) {
@@ -416,36 +432,6 @@ export default function ApartmentTour({
             <div className="tour-top-actions">{plan && <button type="button" onClick={event => openPlan(event.currentTarget)}>Планировка</button>}<a href="#details" onClick={() => setPlaying(false)}>Пропустить тур</a><span className="tour-counter">{String(frame.index + 1).padStart(2, "0")} / {scenes.length}</span></div>
           </div>
           {!tourReady && !hasFailed && near && mode === "scroll" && <div className="tour-wait" role="status">Подготавливаем прогулку…</div>}
-          {(hasFailed || notice) && (
-            <div className="tour-message" role="status">
-              <span>
-                {hasFailed
-                  ? "Видео не загрузилось. Пока можно рассмотреть фотографию."
-                  : notice}
-              </span>
-              {hasFailed && (
-                <button
-                  onClick={() => {
-                    setFailures((old) => ({ ...old, [current.id]: false }));
-                    setAttempt((value) => value + 1);
-                    setNotice("");
-                  }}
-                >
-                  Повторить
-                </button>
-              )}
-              {mode !== "photos" && (
-                <button
-                  onClick={() => {
-                    changeMode("photos");
-                    setNotice("");
-                  }}
-                >
-                  Смотреть фотографии
-                </button>
-              )}
-            </div>
-          )}
         </div>
         <aside className="tour-sidebar" aria-label="Управление экскурсией">
           <div className="sidebar-top">
@@ -466,6 +452,20 @@ export default function ApartmentTour({
           <div>
             <h3 aria-live="polite">{current.room}</h3>
             <p className="caption">{current.caption}</p>
+            {(hasFailed || notice) && (
+              <div className="tour-message" role="status">
+                <span>
+                  {hasFailed
+                    ? "Видео не загрузилось. Фотография и переходы по комнатам доступны."
+                    : notice}
+                </span>
+                {hasFailed && mode === "scroll" && (
+                  <button type="button" onClick={retryCurrent}>
+                    Повторить загрузку
+                  </button>
+                )}
+              </div>
+            )}
             <button
               className="tour-control"
               hidden={shortViewport}
@@ -489,13 +489,20 @@ export default function ApartmentTour({
                 </button>
                 <button
                   onClick={() => {
+                    if (hasFailed) {
+                      retryCurrent();
+                      return;
+                    }
                     setNotice("");
                     if (mode === "photos") setMode("play");
                     setPlaying((value) => !value);
                   }}
-                  disabled={hasFailed}
                 >
-                  {playing ? "Пауза" : "Смотреть"}
+                  {hasFailed
+                    ? "Повторить загрузку"
+                    : playing
+                      ? "Пауза"
+                      : "Смотреть"}
                 </button>
                 <button
                   aria-label="Следующая сцена"
@@ -506,6 +513,9 @@ export default function ApartmentTour({
                 </button>
               </div>
             )}
+            <button className="tour-photo-control" type="button" onClick={togglePhotos}>
+              {mode === "photos" ? "Вернуться к видео" : "Смотреть фотографии"}
+            </button>
             <div
               className="tour-progress"
               role="progressbar"

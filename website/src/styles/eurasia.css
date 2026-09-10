@@ -78,7 +78,8 @@
 .project-dialog-close { position: absolute; top: 10px; right: 10px; width: 42px; height: 42px; border: 0; color: inherit; background: transparent; font-size: 30px; line-height: 1; }
 .project-menu h2, .project-contact-dialog h2, .apartment-selector h2 { margin: 0 0 26px; font-size: clamp(50px, calc(6vw / var(--display-scale, 1)), 78px); line-height: .9; text-transform: uppercase; }
 .project-menu nav { display: flex; flex-direction: column; }
-.project-menu nav a { padding: 16px 0; border-top: 1px solid var(--project-line); font: 400 29px/1 var(--project-display); }
+.project-menu nav a, .project-menu nav button { padding: 16px 0; border: 0; border-top: 1px solid var(--project-line); color: inherit; background: transparent; font: 400 29px/1 var(--project-display); text-align: left; }
+.project-menu-mobile-action { display: none; }
 .project-contact-dialog p:not(.project-kicker) { margin: 0 0 22px; color: #5d5960; }
 .project-contact-dialog form { display: grid; gap: 8px; }
 .project-contact-dialog label { margin-top: 10px; font-size: 12px; }
@@ -124,7 +125,10 @@
   .project-footer { grid-template-columns: 1fr; padding: 32px var(--project-gutter); gap: 24px; }
   .project-footer nav { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
   .project-footer small { justify-self: start; }
-  .project-menu-inner, .project-contact-inner, .apartment-selector-inner { padding: 44px 24px 28px; }
+  .project-menu, .project-contact-dialog, .apartment-selector { box-sizing: border-box; max-width: calc(100% - 24px); overflow-x: hidden; overflow-y: auto; }
+  .project-menu-inner, .project-contact-inner, .apartment-selector-inner { min-width: 0; padding: 44px 24px 28px; }
+  .project-menu h2, .project-contact-dialog h2, .apartment-selector h2 { max-width: 100%; font-size: clamp(32px, calc(10vw / var(--display-scale, 1)), 48px); line-height: .96; overflow-wrap: break-word; }
+  .project-menu-mobile-action { display: block; }
   .selector-grid { grid-template-columns: 1fr; }
   .selector-grid a { min-height: 108px; }
   .selector-grid strong { font-size: 31px; }
@@ -169,7 +173,8 @@
 .eurasia-page .tour-progress { margin-top: 12px; }
 .eurasia-page .tour-hint { position: static; margin: 8px 0; font-size: 11px; }
 .eurasia-page .tour-progress { margin-bottom: 8px; }
-.eurasia-page .tour-message { left: var(--project-gutter); right: auto; bottom: 300px; max-width: 470px; border-radius: 6px; background: #f4f0e9ed; color: var(--project-ink); }
+.eurasia-page .tour-message { position: static; max-width: 46ch; margin: 7px 0; padding: 9px 11px; border-radius: 6px; background: #fff8; color: var(--project-ink); font-size: 12px; line-height: 1.45; }
+.eurasia-page .tour-message button { min-height: 44px; margin-top: 4px; color: var(--project-rust); }
 .eurasia-page .media-loading, .tour-wait { position: absolute; z-index: 4; left: var(--project-gutter); top: 170px; bottom: auto; padding: 10px 14px; border-radius: 5px; color: var(--project-ink); background: #f4f0e9e8; font-size: 11px; }
 .tour-start { position: absolute; z-index: 5; left: 50%; top: 50%; transform: translate(-50%, -50%); min-height: 50px; padding: 12px 22px; border: 0; border-radius: 7px; color: #fff; background: var(--project-rust); font: 500 13px var(--project-sans); box-shadow: 0 10px 40px #0005; }
 .tour-start span { margin-left: 16px; font-size: 18px; }
@@ -229,7 +234,7 @@
   .eurasia-page .tour-sidebar h3 { margin-top: 6px; font-size: 28px; }
   .eurasia-page .tour-hint { display: none; }
   .eurasia-page .tour-progress { margin: 13px 0 0; }
-  .eurasia-page .tour-message { left: 14px; right: 14px; bottom: 270px; max-width: none; }
+  .eurasia-page .tour-message { max-width: none; }
   .eurasia-page .media-loading, .tour-wait { left: 14px; top: 148px; bottom: auto; }
   .tour-start { width: calc(100% - 80px); }
   .apartment-details-v2 { grid-template-columns: 1fr; gap: 40px; padding: 48px 20px; }
@@ -248,6 +253,7 @@
 .eurasia-page .tour-control[hidden] { display: none; }
 .eurasia-page .play-controls { display: flex; gap: 12px; margin: 4px 0; }
 .eurasia-page .play-controls button { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; color: var(--project-ink); }
+.eurasia-page .tour-photo-control { min-height: 44px; margin: 2px 0; color: var(--project-rust); font-size: 12px; }
 .eurasia-page .tour-finish-link { position: static; display: inline-flex; align-items: center; gap: 8px; min-height: 44px; margin: 0; color: var(--project-rust); font-size: 12px; }
 .eurasia-page .tour-section[data-mode="play"] .tour-sticky, .eurasia-page .tour-section[data-mode="photos"] .tour-sticky { height: calc(100svh / var(--display-scale, 1)); }
 .eurasia-page .tour-section[data-mode="play"] .tour-view, .eurasia-page .tour-section[data-mode="photos"] .tour-view { height: 100%; aspect-ratio: auto; }
@@ -260,7 +266,6 @@
 .eurasia-page .tour-section[data-compact="true"] .tour-sticky { position: relative; height: auto; padding: 8px; }
 .eurasia-page .tour-section[data-compact="true"] .tour-view { height: 360px; }
 .eurasia-page .tour-section[data-compact="true"] .tour-sidebar { position: relative; left: auto; bottom: auto; width: 100%; max-height: none; border-radius: 0; }
-.eurasia-page .tour-section[data-compact="true"] .tour-message { bottom: 20px; }
 @media (max-height: 519px) {
   .eurasia-page .tour-section[data-mode="scroll"] { height: auto !important; min-height: 0; }
   .eurasia-page .tour-section[data-mode="scroll"] .tour-sticky { position: relative; height: auto; padding: 8px; }
