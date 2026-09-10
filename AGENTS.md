@@ -2,15 +2,14 @@
 
 ## Project Structure & Module Organization
 
-This repository holds Eurasia De Luxe apartment visualizations and plans for a future website.
-- `PLAN.md` records scope, source information, assumptions, and production steps.
+This repository holds the Eurasia De Luxe website and apartment visualizations.
 - `DESIGN_SYSTEM.md` defines the selected warm modern interior direction.
 - `assets/apartments/{36-67,39-87,79-79}/` groups assets by apartment area.
-- `assets/apartments/{36-67,39-87}/` separates `plans/`, `photos/`, `renders/`, `blender/`, `docs/`, and `archives/`; each apartment README links to its contents.
+- `assets/apartments/{36-67,39-87}/` separates source plans, photos, renders, Blender scenes, and scene documentation.
 - `blender/` contains Python scene scripts, the editable `.blend`, and `scene_manifest.json`. The 39-87 apartment also has `gallery/` and `walkthrough/`.
-- `assets/brand/`, `assets/media/`, and `refs/` hold branding, media, and reference material.
+- `assets/brand/` holds branding and project imagery; `vids/` holds source apartment videos.
 
-The website lives in `website/` (Astro, TypeScript, React and GSAP). Use root `bun run dev`, `bun run check`, `bun run test`, and `bun run build`. See `website/README.md` for reproducible media preparation and environment variables. Website source data lives in `website/src/data/`; generated `website/public/media/` and `website/dist/` are not tracked.
+The website lives in `website/` (Astro, TypeScript, React and GSAP). Use root `bun run dev`, `bun run check`, `bun run test`, and `bun run build`. See `website/README.md` for reproducible media preparation and environment variables. Website source data lives in `website/src/data/`, including `shots.json` for media preparation; generated `website/public/media/` and `website/dist/` are not tracked.
 
 ## Build, Test, and Development Commands
 

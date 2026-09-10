@@ -14,7 +14,7 @@ from PIL import Image, ImageOps
 
 ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / 'website/public/media'
-SHOT_FILE = ROOT / 'docs/video/shots.json'
+SHOT_FILE = ROOT / 'website/src/data/shots.json'
 
 
 def ffmpeg_binary():

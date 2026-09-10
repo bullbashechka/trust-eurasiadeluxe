@@ -18,6 +18,7 @@ Thumbs.db
 /output/
 /renders/
 /videos/
+/assets/apartments/*/archives/
 
 # Dependency directories
 node_modules/

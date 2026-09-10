@@ -1,7 +1,6 @@
 {
   "model": "Kling 3",
   "resolution": "1080p",
-  "tokens_per_clip_user_reported": 15,
   "clips": [
     {
       "apartment": "36-67",
