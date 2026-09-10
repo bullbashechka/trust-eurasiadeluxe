@@ -104,10 +104,12 @@ test("late loading starts the tour automatically after reaching its viewport", a
   await mount();
   await enter();
   const section = container.querySelector("section")!;
+  expect(section.style.height).toContain("420svh");
+  const reservedHeight = section.style.height;
   section.getBoundingClientRect = () => ({ top: -20, bottom: 580, height: 600, left: 0, right: 1000, width: 1000, x: 0, y: -20, toJSON() {} });
   await act(async () => container.querySelector("video")!.dispatchEvent(new currentWindow.Event("loadeddata") as unknown as Event));
   expect(section.dataset.ready).toBe("true");
-  expect(section.style.height).toContain("420svh");
+  expect(section.style.height).toBe(reservedHeight);
   expect(container.querySelector(".tour-start")).toBeNull();
 });
 

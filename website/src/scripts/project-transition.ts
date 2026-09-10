@@ -18,6 +18,15 @@ function nextFrame() {
   return new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
 }
 
+async function decodeIfAvailable(image: HTMLImageElement) {
+  try {
+    await image.decode();
+  } catch {
+    // A browser may render an image even when decode() rejects. Navigation must
+    // not depend on this optional visual preparation.
+  }
+}
+
 async function reveal(controller: AbortController) {
   if (activeController !== controller) return;
   const panel = curtain();
@@ -55,7 +64,7 @@ async function openProject(source?: Element) {
   );
   try {
     const photo = panel.querySelector("img")!;
-    await abortable(photo.decode(), controller.signal);
+    await abortable(decodeIfAvailable(photo), controller.signal);
     panel.style.visibility = "visible";
     curtainMotion = animate(panel, {
       translateX: ["100%", "0%"],
@@ -156,7 +165,7 @@ document.addEventListener("astro:before-preparation", (event) => {
       ? (() => {
           const image = new Image();
           image.src = new URL(hero.getAttribute("src")!, e.to).href;
-          return abortable(image.decode(), signal);
+          return abortable(decodeIfAvailable(image), signal);
         })()
       : Promise.resolve();
     await Promise.all([...styles, heroReady]);

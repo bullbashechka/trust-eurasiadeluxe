@@ -184,13 +184,11 @@ export default function ApartmentTour({
   const [attempt, setAttempt] = useState(0);
   const [notice, setNotice] = useState("");
   const [tourReady, setTourReady] = useState(false);
-  const [tourActive, setTourActive] = useState(false);
   const planDialog = useRef<HTMLDialogElement>(null);
   const planOpener = useRef<HTMLButtonElement | null>(null);
   const slowCount = useRef(0);
   const reduced = useRef(false);
   const frameRef = useRef(frame);
-  const skippingTour = useRef(false);
   frameRef.current = frame;
   const current = scenes[frame.index];
   const hasFailed = Boolean(failures[current.id]);
@@ -234,14 +232,6 @@ export default function ApartmentTour({
       { rootMargin: "400px 0px" },
     );
     if (section.current) observer.observe(section.current);
-    const activateWhenEntered = () => {
-      const element = section.current;
-      if (!element || !tourReady || skippingTour.current) return;
-      const rect = element.getBoundingClientRect();
-      if (rect.top <= 1 && rect.bottom > 0) setTourActive(true);
-    };
-    window.addEventListener("scroll", activateWhenEntered, { passive: true });
-    activateWhenEntered();
     const pause = () => {
       if (document.hidden) setPlaying(false);
     };
@@ -251,29 +241,34 @@ export default function ApartmentTour({
       motion.removeEventListener("change", syncMotion);
       window.removeEventListener("resize", syncSize);
       document.removeEventListener("visibilitychange", pause);
-      window.removeEventListener("scroll", activateWhenEntered);
     };
-  }, [tourReady]);
+  }, []);
 
   useEffect(() => {
-    if (mode !== "scroll" || shortViewport || !tourReady || !tourActive || !section.current) return;
+    if (mode !== "scroll" || shortViewport || !section.current) return;
     const controller = ScrollTrigger.create({
       trigger: section.current,
       start: "top top",
       end: "bottom bottom",
+      invalidateOnRefresh: true,
       onUpdate: (self) => setFrame(tourFrame(self.progress, scenes.length)),
       onRefresh: (self) => setFrame(tourFrame(self.progress, scenes.length)),
     });
     trigger.current = controller;
     controller.refresh();
-    const refresh = () => controller.refresh();
+    let active = true;
+    const refresh = () => {
+      if (active) ScrollTrigger.refresh(true);
+    };
+    void document.fonts?.ready.then(refresh);
     window.addEventListener("pageshow", refresh);
     return () => {
+      active = false;
       controller.kill();
       trigger.current = null;
       window.removeEventListener("pageshow", refresh);
     };
-  }, [mode, scenes.length, tourReady, tourActive, shortViewport]);
+  }, [mode, scenes.length, shortViewport]);
 
   function openPlan(opener: HTMLButtonElement) {
     setPlaying(false);
@@ -285,11 +280,7 @@ export default function ApartmentTour({
     const open = (event: Event) => {
       if (!(event.target instanceof window.Element)) return;
       if (event.target.closest('a[href="#details"]')) {
-        skippingTour.current = true;
         setPlaying(false);
-      }
-      if (event.target.closest('a[href="#tour"]')) {
-        skippingTour.current = false;
       }
       const button = event.target.closest<HTMLButtonElement>('[data-apartment-plan-open]');
       if (button && plan) openPlan(button);
@@ -351,12 +342,14 @@ export default function ApartmentTour({
       id="tour"
       aria-label={`Экскурсия по квартире ${area} м²`}
       data-mode={mode}
-      data-ready={tourReady && tourActive}
+      data-ready={tourReady}
       data-compact={shortViewport}
       style={
         {
           height:
-            mode === "scroll" && !shortViewport && tourReady && tourActive ? `calc(${Math.min(5, 1 + scenes.length * 0.4) * 100}svh / var(--display-scale, 1))` : "auto",
+            mode === "scroll" && !shortViewport
+              ? `calc(${Math.min(5, 1 + scenes.length * 0.4) * 100}svh / var(--display-scale, 1))`
+              : "auto",
         } as CSSProperties
       }
     >
